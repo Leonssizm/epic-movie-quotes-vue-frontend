@@ -8,8 +8,12 @@
       </h1>
       <div class="flex flex-row-reverse lg:flex-row">
         <LanguageDropDown />
-        <SignUpForm />
-        <LoginButton />
+        <div class="relative z-10">
+          <SignUpForm />
+        </div>
+        <div class="relative z-10">
+          <FormLogin />
+        </div>
       </div>
     </div>
     <div class="flex items-center lg:justify-center flex-col mt-48 lg:mt-96 lg:mb-72">
@@ -24,8 +28,8 @@
   <LandingFooter />
 </template>
 <script setup>
-import LoginButton from '@/components/landing/buttons/ButtonLogin.vue'
-import SignUpForm from '@/components/landing/forms/FormsSignUp.vue'
+import FormLogin from '@/components/landing/forms/FormLogin.vue'
+import SignUpForm from '@/components/landing/forms/FormSignUp.vue'
 import GetStartedButton from '@/components/landing/buttons/ButtonGetStarted.vue'
 import LanguageDropDown from '@/components/landing/LandingLanguageDropdown.vue'
 import LandingImages from '@/components/landing/LandingImages.vue'

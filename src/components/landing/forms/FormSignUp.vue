@@ -3,11 +3,11 @@
   <transition name="fade">
     <div
       v-if="isPopupOpen"
-      class="fixed form inset-0 flex items-center lg:justify-center lg:bg-opacity-75 lg:bg-black"
+      class="form fixed inset-0 flex items-center justify-center bg-opacity-75 lg:bg-black"
     >
-      <div class="lg:rounded-md lg:shadow-lg lg:max-w-md">
-        <form @submit.prevent="submitForm" class="bg-[#222030]">
-          <div class="text-center py-12">
+      <div class="rounded-md shadow-lg max-w-md">
+        <Form @submit="submitForm" class="bg-[#222030]">
+          <div class="text-center py-10">
             <h1 class="font-medium text-3xl font-helvetica-neue text-[#FFFFFF]">
               Create an account
             </h1>
@@ -17,32 +17,52 @@
           </div>
           <div class="flex flex-col ml-16 mr-36 pb-12 font-helvetica-neue text-[#FFFFFF]">
             <label class="pb-2">Name<span class="text-[#DC3545]">*</span></label>
-            <input
+            <Field
+              name="name"
+              rules="required"
               type="text"
-              class="mb-4 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
+              class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               placeholder="At least 3 & max.15 lower case characters"
             />
             <label class="pb-2">Email<span class="text-[#DC3545]">*</span></label>
-            <input
+            <Field
+              name="email"
+              rules="required"
               type="email"
-              class="mb-4 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
+              class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               placeholder="Enter your email"
             />
             <label class="pb-2">Password<span class="text-[#DC3545]">*</span></label>
-            <input
+            <Field
+              name="password"
+              rules="required"
               type="password"
-              class="mb-4 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
+              class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               placeholder="At least 8 & max.15 lower case characters"
             />
             <label class="pb-2">Confirm password<span class="text-[#DC3545]">*</span></label>
-            <input
+            <Field
+              name="repeat_password"
+              rules="required"
               type="password"
               placeholder="Confirm password "
-              class="h-10 w-80 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded-md"
+              class="h-10 w-80 pl-1 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded-md"
             />
             <button class="mb-4 w-80 h-10 bg-[#E31221] text-white rounded mt-6">Get started</button>
+            <button
+              class="mb-4 w-80 h-10 bg-[#222030] text-white border border-[#CED4DA] rounded flex justify-center items-center"
+            >
+              <IconGoogle />
+              <span class="pl-2"> Sign Up with Google</span>
+            </button>
+            <div
+              class="flex justify-center align-center font-helvetica-neue text-lg ml-16 pt-4 font-normal"
+            >
+              <span class="font-normal text-xs text-[#6C757D] mr-1">Already have an account?</span>
+              <a href="#" class="font-normal text-xs text-[#0D6EFD] underline">Log in</a>
+            </div>
           </div>
-        </form>
+        </Form>
       </div>
     </div>
   </transition>
@@ -50,7 +70,8 @@
 <script setup>
 import { ref } from 'vue'
 import SignUpButton from '@/components/landing/buttons/ButtonSignUp.vue'
-// import IconEye from '@/components/icons/IconEye.vue'
+import IconGoogle from '@/components/icons/IconGoogle.vue'
+import { Form, Field } from 'vee-validate'
 
 const isPopupOpen = ref(false)
 
@@ -63,7 +84,7 @@ function openForm() {
 }
 
 function submitForm() {
-  // Handle form submission logic here
+  // Sending data logic
 }
 
 function handleClickOutside(event) {
