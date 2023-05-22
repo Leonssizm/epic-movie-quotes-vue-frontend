@@ -1,9 +1,8 @@
 <template>
-  <ButtonLogin @click="openForm" />
   <transition name="fade">
     <div
       v-if="isPopupOpen"
-      class="form fixed inset-0 flex items-center justify-center bg-opacity-75 lg:bg-black"
+      class="form fixed inset-0 flex items-center justify-center bg-opacity-85 lg:bg-black"
     >
       <div class="rounded-md shadow-lg max-w-md">
         <form @submit.prevent="submitForm" class="bg-[#222030]">
@@ -48,7 +47,9 @@
               class="flex justify-center align-center font-helvetica-neue text-lg ml-16 pt-4 font-normal"
             >
               <span class="font-normal text-xs text-[#6C757D] mr-1">Already have an account?</span>
-              <a href="#" class="font-normal text-xs text-[#0D6EFD] underline">Log in</a>
+              <RouterLink to="/sign-up" class="font-normal text-xs text-[#0D6EFD] underline"
+                >Log in</RouterLink
+              >
             </div>
           </div>
         </form>
@@ -57,53 +58,49 @@
   </transition>
 </template>
 <script setup>
-import ButtonLogin from '@/components/landing/buttons/ButtonLogin.vue'
 import IconGoogle from '@/components/icons/IconGoogle.vue'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import { ref } from 'vue'
 const isPopupOpen = ref(false)
+const router = useRouter()
 
-function openForm() {
+function submitForm() {
+  // Sending data logic
+}
+onMounted(() => {
   isPopupOpen.value = true
   document.body.classList.add('overflow-hidden')
   setTimeout(() => {
     document.body.addEventListener('click', handleClickOutside)
   }, 100)
-}
-
-function submitForm() {
-  // Sending data logic
-}
-
+})
 function handleClickOutside(event) {
   if (event.target.classList.contains('form')) {
     isPopupOpen.value = false
     document.body.classList.remove('overflow-hidden')
     document.body.removeEventListener('click', handleClickOutside)
+    router.push({ name: 'landing' })
   }
 }
 </script>
 
 <style scoped>
-.bg-opacity-75 {
-  background-color: rgba(0, 0, 0, 0.75);
+.bg-opacity-85 {
+  background-color: rgba(0, 0, 0, 0.85);
 }
-
 .text-gray-600 {
   --text-opacity: 1;
   color: rgba(113, 128, 150, var(--text-opacity));
 }
-
 .text-gray-800 {
   --text-opacity: 1;
   color: rgba(55, 65, 81, var(--text-opacity));
 }
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s;
 }
-
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;

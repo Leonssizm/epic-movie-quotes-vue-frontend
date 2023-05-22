@@ -1,9 +1,8 @@
 <template>
-  <SignUpButton @click="openForm" />
   <transition name="fade">
     <div
       v-if="isPopupOpen"
-      class="form fixed inset-0 flex items-center justify-center bg-opacity-75 lg:bg-black"
+      class="form fixed inset-0 flex items-center justify-center bg-opacity-85 lg:bg-black"
     >
       <div class="rounded-md shadow-lg max-w-md">
         <Form @submit="submitForm" class="bg-[#222030]">
@@ -59,7 +58,9 @@
               class="flex justify-center align-center font-helvetica-neue text-lg ml-16 pt-4 font-normal"
             >
               <span class="font-normal text-xs text-[#6C757D] mr-1">Already have an account?</span>
-              <a href="#" class="font-normal text-xs text-[#0D6EFD] underline">Log in</a>
+              <RouterLink to="/login" class="font-normal text-xs text-[#0D6EFD] underline"
+                >Log in</RouterLink
+              >
             </div>
           </div>
         </Form>
@@ -68,20 +69,21 @@
   </transition>
 </template>
 <script setup>
-import { ref } from 'vue'
-import SignUpButton from '@/components/landing/buttons/ButtonSignUp.vue'
+import { onMounted, ref } from 'vue'
 import IconGoogle from '@/components/icons/IconGoogle.vue'
 import { Form, Field } from 'vee-validate'
+import { useRouter } from 'vue-router'
 
 const isPopupOpen = ref(false)
+const router = useRouter()
 
-function openForm() {
+onMounted(() => {
   isPopupOpen.value = true
   document.body.classList.add('overflow-hidden')
   setTimeout(() => {
     document.body.addEventListener('click', handleClickOutside)
   }, 100)
-}
+})
 
 function submitForm() {
   // Sending data logic
@@ -92,13 +94,14 @@ function handleClickOutside(event) {
     isPopupOpen.value = false
     document.body.classList.remove('overflow-hidden')
     document.body.removeEventListener('click', handleClickOutside)
+    router.push({ name: 'landing' })
   }
 }
 </script>
 
 <style scoped>
-.bg-opacity-75 {
-  background-color: rgba(0, 0, 0, 0.75);
+.bg-opacity-85 {
+  background-color: rgba(0, 0, 0, 0.85);
 }
 
 .text-gray-600 {

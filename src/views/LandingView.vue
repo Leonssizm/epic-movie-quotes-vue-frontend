@@ -8,11 +8,10 @@
       </h1>
       <div class="flex flex-row-reverse lg:flex-row">
         <LanguageDropDown />
+        <SignUpButton @click="openLoginOrSignUpForm('signUp')" />
+        <ButtonLogin @click="openLoginOrSignUpForm('login')" />
         <div class="relative z-10">
-          <SignUpForm />
-        </div>
-        <div class="relative z-10">
-          <FormLogin />
+          <RouterView />
         </div>
       </div>
     </div>
@@ -28,10 +27,18 @@
   <LandingFooter />
 </template>
 <script setup>
-import FormLogin from '@/components/landing/forms/FormLogin.vue'
-import SignUpForm from '@/components/landing/forms/FormSignUp.vue'
+import ButtonLogin from '@/components/landing/buttons/ButtonLogin.vue'
+import SignUpButton from '@/components/landing/buttons/ButtonSignUp.vue'
 import GetStartedButton from '@/components/landing/buttons/ButtonGetStarted.vue'
 import LanguageDropDown from '@/components/landing/LandingLanguageDropdown.vue'
 import LandingImages from '@/components/landing/LandingImages.vue'
 import LandingFooter from '@/components/landing/LandingFooter.vue'
+import { useRouter } from 'vue-router'
+import { RouterView } from 'vue-router'
+
+const router = useRouter()
+
+function openLoginOrSignUpForm(form) {
+  form === 'login' ? router.push({ name: 'login' }) : router.push({ name: 'sign-up' })
+}
 </script>
