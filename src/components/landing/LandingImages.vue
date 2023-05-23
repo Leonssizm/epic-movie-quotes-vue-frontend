@@ -2,7 +2,7 @@
   <div class="relative">
     <div class="fade-overlay"></div>
     <div class="relative">
-      <img src="/images/interstellar-banner.png" alt="Interstellar Banner" class="w-400" />
+      <img src="/images/interstellar-banner.png" alt="Interstellar Banner" />
       <p
         class="absolute flex font-montserrat mt-6 ml-8 top-10 lg:top-80 lg:left-60 text-[#FFFFFF] lg:text-5xl font-bold lg:leading-10"
       >
