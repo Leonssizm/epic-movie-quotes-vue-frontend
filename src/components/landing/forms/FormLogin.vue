@@ -5,7 +5,7 @@
       class="form fixed inset-0 flex items-center justify-center bg-opacity-85 lg:bg-black"
     >
       <div class="rounded-md shadow-lg max-w-md">
-        <form @submit.prevent="submitForm" class="bg-[#222030]">
+        <Form @submit="submitLoginForm" class="bg-[#222030]">
           <div class="text-center py-10">
             <h1 class="font-medium text-3xl font-helvetica-neue text-[#FFFFFF]">
               Log in to your account
@@ -16,16 +16,20 @@
           </div>
           <div class="flex flex-col ml-16 mr-36 pb-12 font-helvetica-neue text-[#FFFFFF]">
             <label class="pb-2">Email<span class="text-[#DC3545]">*</span></label>
-            <input
+            <Field
+              name="email"
               type="email"
               class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               placeholder="Enter your email"
+              v-model="email"
             />
             <label class="pb-2">Password<span class="text-[#DC3545]">*</span></label>
-            <input
+            <Field
+              name="password"
               type="password"
               class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               placeholder="At least 8 & max.15 lower case characters"
+              v-model="password"
             />
             <div class="flex items-center flex-row-reverse justify-evenly w-80">
               <a href="#" class="font-normal text-xs text-[#0D6EFD] ml-24 underline"
@@ -34,7 +38,7 @@
               <label for="checkbox" class="font-helvetica-neue font-bold text-sm"
                 >Remember me</label
               >
-              <input type="checkbox" class="font-helvetica-neue p-5" name="remember" />
+              <Field type="checkbox" class="font-helvetica-neue p-5" name="remember" />
             </div>
             <button class="mb-4 w-80 h-10 bg-[#E31221] text-white rounded mt-6">Log In</button>
             <button
@@ -52,20 +56,24 @@
               >
             </div>
           </div>
-        </form>
+        </Form>
       </div>
     </div>
   </transition>
 </template>
 <script setup>
 import IconGoogle from '@/components/icons/IconGoogle.vue'
+import { Field, Form } from 'vee-validate'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const isPopupOpen = ref(false)
 const router = useRouter()
 
-function submitForm() {
+let email = ref('')
+let password = ref('')
+
+function submitLoginForm() {
   // Sending data logic
 }
 onMounted(() => {

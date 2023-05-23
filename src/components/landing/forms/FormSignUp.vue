@@ -5,7 +5,7 @@
       class="form fixed inset-0 flex items-center justify-center bg-opacity-85 lg:bg-black"
     >
       <div class="rounded-md shadow-lg max-w-md">
-        <Form @submit="submitForm" class="bg-[#222030]">
+        <Form @submit="submitRegistrationForm" class="bg-[#222030]">
           <div class="text-center py-10">
             <h1 class="font-medium text-3xl font-helvetica-neue text-[#FFFFFF]">
               Create an account
@@ -22,6 +22,7 @@
               type="text"
               class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               placeholder="At least 3 & max.15 lower case characters"
+              v-model="name"
             />
             <label class="pb-2">Email<span class="text-[#DC3545]">*</span></label>
             <Field
@@ -30,6 +31,7 @@
               type="email"
               class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               placeholder="Enter your email"
+              v-model="email"
             />
             <label class="pb-2">Password<span class="text-[#DC3545]">*</span></label>
             <Field
@@ -38,14 +40,16 @@
               type="password"
               class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               placeholder="At least 8 & max.15 lower case characters"
+              v-model="password"
             />
             <label class="pb-2">Confirm password<span class="text-[#DC3545]">*</span></label>
             <Field
-              name="repeat_password"
+              name="password_confirmation"
               rules="required"
               type="password"
               placeholder="Confirm password "
               class="h-10 w-80 pl-1 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded-md"
+              v-model="passwordConfirmation"
             />
             <button class="mb-4 w-80 h-10 bg-[#E31221] text-white rounded mt-6">Get started</button>
             <button
@@ -77,6 +81,11 @@ import { useRouter } from 'vue-router'
 const isPopupOpen = ref(false)
 const router = useRouter()
 
+let name = ref('')
+let email = ref('')
+let password = ref('')
+let passwordConfirmation = ref('')
+
 onMounted(() => {
   isPopupOpen.value = true
   document.body.classList.add('overflow-hidden')
@@ -85,9 +94,7 @@ onMounted(() => {
   }, 100)
 })
 
-function submitForm() {
-  // Sending data logic
-}
+function submitRegistrationForm() {}
 
 function handleClickOutside(event) {
   if (event.target.classList.contains('form')) {
