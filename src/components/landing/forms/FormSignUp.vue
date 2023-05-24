@@ -20,28 +20,31 @@
               name="name"
               rules="required"
               type="text"
-              class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
+              class="mb-2 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               placeholder="At least 3 & max.15 lower case characters"
               v-model="name"
             />
+            <ErrorMessage name="name" class="text-red-500 mb-2"></ErrorMessage>
             <label class="pb-2">Email<span class="text-[#DC3545]">*</span></label>
             <Field
               name="email"
               rules="required"
               type="email"
-              class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
+              class="mb-2 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               placeholder="Enter your email"
               v-model="email"
             />
+            <ErrorMessage name="email" class="text-red-500 mb-2"></ErrorMessage>
             <label class="pb-2">Password<span class="text-[#DC3545]">*</span></label>
             <Field
               name="password"
               rules="required"
               type="password"
-              class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
+              class="mb-2 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               placeholder="At least 8 & max.15 lower case characters"
               v-model="password"
             />
+            <ErrorMessage name="password" class="text-red-500 mb-2"></ErrorMessage>
             <label class="pb-2">Confirm password<span class="text-[#DC3545]">*</span></label>
             <Field
               name="password_confirmation"
@@ -51,7 +54,8 @@
               class="h-10 w-80 pl-1 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded-md"
               v-model="passwordConfirmation"
             />
-            <button class="mb-4 w-80 h-10 bg-[#E31221] text-white rounded mt-6">Get started</button>
+            <ErrorMessage name="password_confirmation" class="text-red-500 mb-2"></ErrorMessage>
+            <button class="mb-2 w-80 h-10 bg-[#E31221] text-white rounded mt-6">Get started</button>
             <button
               class="mb-4 w-80 h-10 bg-[#222030] text-white border border-[#CED4DA] rounded flex justify-center items-center"
             >
@@ -73,10 +77,11 @@
   </transition>
 </template>
 <script setup>
-import { onMounted, ref } from 'vue'
 import IconGoogle from '@/components/icons/IconGoogle.vue'
-import { Form, Field } from 'vee-validate'
+import { onMounted, ref } from 'vue'
+import { Form, Field, ErrorMessage } from 'vee-validate'
 import { useRouter } from 'vue-router'
+import axios from '@/plugins/axios/index.js'
 
 const isPopupOpen = ref(false)
 const router = useRouter()
@@ -94,7 +99,25 @@ onMounted(() => {
   }, 100)
 })
 
-function submitRegistrationForm() {}
+function submitRegistrationForm() {
+  axios
+    .post(
+      'users/create',
+      {
+        username: name.value,
+        email: email.value,
+        password: password.value,
+        password_confirmation: passwordConfirmation.value
+      },
+      { timeout: 5000 }
+    )
+    .then((response) => {
+      if (response.status === 201) {
+        localStorage.setItem('verification-token', response.data[0].email_verification_token)
+        router.push({ name: 'registration-email' })
+      }
+    })
+}
 
 function handleClickOutside(event) {
   if (event.target.classList.contains('form')) {
