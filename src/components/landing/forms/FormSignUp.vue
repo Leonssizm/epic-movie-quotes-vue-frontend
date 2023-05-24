@@ -109,7 +109,7 @@ function submitRegistrationForm() {
         password: password.value,
         password_confirmation: passwordConfirmation.value
       },
-      { timeout: 5000 }
+      { timeout: 8000 }
     )
     .then(() => {
       router.push({ name: 'registration-email' })
