@@ -111,11 +111,8 @@ function submitRegistrationForm() {
       },
       { timeout: 5000 }
     )
-    .then((response) => {
-      if (response.status === 201) {
-        localStorage.setItem('verification-token', response.data[0].email_verification_token)
-        router.push({ name: 'registration-email' })
-      }
+    .then(() => {
+      router.push({ name: 'registration-email' })
     })
 }
 

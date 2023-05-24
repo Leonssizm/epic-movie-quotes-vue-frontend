@@ -29,20 +29,25 @@ import axios from '@/plugins/axios/index.js'
 import { onBeforeMount, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 const router = useRouter()
-let messageHeader = ref('')
-let success = true
 
+let messageHeader = ref('')
+let success = false
 onBeforeMount(() => {
-  if (localStorage.getItem('verification-token') === router.currentRoute.value.query.token) {
-    messageHeader.value = 'Thank You'
-    success = true
-    axios.post('users/email-verification-date', {
-      token: router.currentRoute.value.query.token,
-      email_verified_at: Date()
+  axios
+    .post('users/verification-token', {
+      token: router.currentRoute.value.query.token
     })
-  } else {
-    messageHeader.value = 'Something Went wrong'
-    success = false
-  }
+    .then(() => {
+      messageHeader.value = 'Thank You!'
+      success = true
+      axios.post('users/email-verification-date', {
+        token: router.currentRoute.value.query.token,
+        email_verified_at: Date()
+      })
+    })
+    .catch(() => {
+      messageHeader.value = 'Something Went wrong'
+      success = false
+    })
 })
 </script>
