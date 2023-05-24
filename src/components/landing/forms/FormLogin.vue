@@ -63,7 +63,6 @@
 </template>
 <script setup>
 import IconGoogle from '@/components/icons/IconGoogle.vue'
-import axios from '@/plugins/axios/index.js'
 import { Field, Form } from 'vee-validate'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -83,9 +82,6 @@ onMounted(() => {
   setTimeout(() => {
     document.body.addEventListener('click', handleClickOutside)
   }, 100)
-  // axios
-  //   .get('https://jsonplaceholder.typicode.com/todos/1')
-  //   .then((response) => console.log(response.data))
 })
 function handleClickOutside(event) {
   if (event.target.classList.contains('form')) {

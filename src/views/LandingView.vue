@@ -20,7 +20,7 @@
         Find any qoute in <br />
         Millions of movie lines
       </h1>
-      <GetStartedButton />
+      <GetStartedButton @click="openLoginOrSignUpForm('signUp')" />
     </div>
     <LandingImages />
   </div>
