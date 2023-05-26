@@ -8,13 +8,14 @@
           <IconSendEmail />
           <h1 class="text-4xl text-[#FFFFFF] text-medium font-helvetica-neue mt-6">Thank you!</h1>
           <p class="mt-8 font-normal text-[#FFFFFF] text-base mb-10">
-            Please check your email and follow the instructions to activite your account
+            {{ $t('landing.registration_email.description') }}
           </p>
           <a
             href="https://www.gmail.com"
             target="_blank"
             class="mb-4 w-80 h-10 bg-[#E31221] text-white border border-[#E31221] rounded flex justify-center items-center"
-            >Go to my email</a
+          >
+            {{ $t('landing.registration_email.button') }}</a
           >
         </div>
       </div>

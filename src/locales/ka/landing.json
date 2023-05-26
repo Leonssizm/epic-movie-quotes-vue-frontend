@@ -1,0 +1,40 @@
+{
+    "sign_up": {
+        "button":"რეგისტრაცია",
+        "header":"პროფილის შექმნა",
+        "header_description":"დაიწყე შენი მოგზაურობა!",
+        "name_placeholder":"სახელი",
+        "confirm_password_placeholder":"პაროლი",
+        "sign_up_google":"გაწევრიანდი Google - თი",
+        "already_have_an_account":"უკვე გაქვს ანგარიში?"
+    },
+    "log_in":{
+        "button":"შესვლა",
+        "header":"პროფილში შესვლა",
+        "header_description":"გთხოვთ შეიყვანოთ თქვენი დეტალები",
+        "remember_me":"დამიმახსოვრე",
+        "forget_password":"დაგავიწყდა პაროლი",
+        "sign_in_google":"შესვლა Google - თი",
+        "do_not_have_account":"არ გაქვს ანგარიში?"
+    },
+    "registration_email":{
+        "description":"გთხოვთ, შეამოწმოთ თქვენი ელფოსტა და მიჰყევით ინსტრუქციას ანგარიშის გასააქტიურებლად",
+        "button":"ელ-ფოსტაზე გადასვლა"
+    },
+    "registration_result":{
+        "success_header": "მადლობა",
+        "failure_header":"ლინკი ვადაგასულია",
+        "success_message":"თქვენი ანგარიში გააქტიურებულია",
+        "failure_message":"ანგარიშის აქტივაციის ლინკს ვადა გაუვიდა",
+        "success_button":"შესვლა",
+        "failure_button":"აქტივაციის ლინკის გამოგზავნა"
+    },
+    "get_started":"დაწყება",
+    "name": "სახელი",
+    "email":"ელ-ფოსტა",
+    "password":"პაროლი",
+    "confirm_password":"გაიმეორე პაროლი",
+    "email_placeholder":"ელ-ფოსტის მისამართი",
+    "password_placeholder":"პაროლი"
+
+}

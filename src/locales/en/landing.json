@@ -1,0 +1,39 @@
+{
+    "sign_up": {
+        "button":"Sign Up",
+        "header":"Create An Account",
+        "header_description":"Start your Journey",
+        "name_placeholder":"At least 3 & max. 15 lower case letters",
+        "confirm_password_placeholder":"Confirm password",
+        "sign_up_google":"Sign Up with Google",
+        "already_have_an_account":"Already have an account?"
+    },
+    "log_in":{
+        "button":"Log in",
+        "header":"Log in to your account",
+        "header_description":"Welcome back! Please enter your details",
+        "remember_me":"remember me",
+        "forget_password":"forgot password?",
+        "sign_in_google":"Sign in with Google",
+        "do_not_have_account":"Don't have an account?"
+    },
+    "registration_email":{
+        "description":"Please check your email and follow the instructions to activite your account",
+        "button":"Go to my email"
+    },
+    "registration_result":{
+        "success_header": "Thank you!",
+        "failure_header":"Link expired!",
+        "success_message":"Your account has been activated.",
+        "failure_message":"Login link has expired, because you haven't used it",
+        "success_button":"Go to my news feed",
+        "failure_button":"resend verification link"
+    },
+    "get_started":"get started",
+    "name": "name",
+    "email":"email",
+    "password":"password",
+    "confirm_password":"Confirm password",
+    "email_placeholder":"Enter your email",
+    "password_placeholder":"At least 8 & max.15 lower case characters"
+}

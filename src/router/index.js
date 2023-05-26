@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingView from '@/views/LandingView.vue'
-import LoginForm from '@/components/landing/forms/FormLogin.vue'
-import SignUpForm from '@/components/landing/forms/FormSignUp.vue'
+import LoginForm from '@/components/landing/forms/login/FormLogin.vue'
+import SignUpForm from '@/components/landing/forms/registration/FormSignUp.vue'
 import VerificationEmailIsSend from '@/components/verification/VerificationEmailIsSend.vue'
 import VerificationAccountIsActivated from '@/components/verification/VerificationAccountIsActivated.vue'
 const router = createRouter({
