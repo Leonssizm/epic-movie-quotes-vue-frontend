@@ -44,7 +44,12 @@
               <label for="checkbox" class="font-helvetica-neue font-bold text-sm">{{
                 $t('landing.log_in.remember_me')
               }}</label>
-              <Field type="checkbox" class="font-helvetica-neue p-5" name="remember" />
+              <Field
+                type="checkbox"
+                class="font-helvetica-neue p-5"
+                name="remember"
+                v-model="rememberMe"
+              />
             </div>
             <button class="mb-4 w-80 h-10 bg-[#E31221] text-white rounded mt-6">
               {{ $t('landing.log_in.button') }}
@@ -79,15 +84,28 @@ import FormLoginHeader from '@/components/landing/forms/login/FormLoginHeader.vu
 import { Field, Form, ErrorMessage } from 'vee-validate'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from '@/plugins/axios/index.js'
 
 const isPopupOpen = ref(false)
 const router = useRouter()
 
 let email = ref('')
 let password = ref('')
+let rememberMe = ref(false)
 
 function submitLoginForm() {
-  // Sending data logic
+  axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
+    axios
+      .post('users/login', {
+        email: email.value,
+        password: password.value,
+        rememberMe: rememberMe.value
+      })
+      .then((response) => {
+        sessionStorage.setItem('auth_token', response.data.token)
+        router.push({ name: 'home' })
+      })
+  })
 }
 onMounted(() => {
   isPopupOpen.value = true

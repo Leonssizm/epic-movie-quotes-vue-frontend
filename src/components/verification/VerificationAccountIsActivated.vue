@@ -15,7 +15,7 @@
               {{ $t('landing.registration_result.success_message') }}
             </p>
           </div>
-          <div v-if="!success">
+          <div v-else>
             <h1 class="text-4xl text-[#FFFFFF] text-medium font-helvetica-neue mt-6">
               {{ $t('landing.registration_result.failure_header') }}
             </h1>
@@ -45,21 +45,21 @@
 import IconCheckmark from '@/components/icons/IconCheckmark.vue'
 import IconExpiration from '@/components/icons/IconExpiration.vue'
 import axios from '@/plugins/axios/index.js'
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 const router = useRouter()
 
-let success = false
+let success = ref(false)
 onBeforeMount(() => {
   axios
     .post('users/email-verification', {
       token: router.currentRoute.value.query.token
     })
     .then(() => {
-      success = true
+      success.value = true
     })
     .catch(() => {
-      success = false
+      success.value = false
     })
 })
 
