@@ -94,7 +94,7 @@ let password = ref('')
 let rememberMe = ref(false)
 
 function submitLoginForm() {
-  axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then((response) => {
+  axios.get('http://localhost:8000/sanctum/csrf-cookie').then((response) => {
     console.log(response)
     axios
       .post('users/login', {
