@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingView from '@/views/LandingView.vue'
-import HomeView from '@/views/HomeView.vue'
+import NewsFeed from '@/views/NewsFeed.vue'
 import LoginForm from '@/components/landing/forms/login/FormLogin.vue'
 import SignUpForm from '@/components/landing/forms/registration/FormSignUp.vue'
 import VerificationEmailIsSend from '@/components/verification/VerificationEmailIsSend.vue'
@@ -38,7 +38,7 @@ const router = createRouter({
     {
       path:'/home',
       name:"home",
-      component:HomeView
+      component:NewsFeed
     }
   ]
 })
