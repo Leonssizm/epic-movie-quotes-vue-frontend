@@ -13,6 +13,7 @@ configure({
         email: "This input is not in email format",
         min: "{field} must have at least 0:{min} symbols",
         alpha_dash: "{field} must contain only numbers or symbols",
+        engLetters:"{field} should contain only English letters"
       },
       names: {
         // For English version, This will be auto generated according to the keys.
@@ -27,8 +28,11 @@ configure({
         email: "თქვენს მიერ შეყვანილი ტექსტი არ აკმაყოფილებს მეილის ფორმატს",
         min: "{field} უნდა შეიცავდეს მინიმუმ 0:{min} სიმბოლოს",
         alpha_dash: "{field} უნდა შეიცავდეს მხოლოდ რიცხვებს ან სიმბოლოებს",
+        engLetters:"{field} უნდა შეიცავდეს მხოლოდ ლათინურ ასოებს"
+
       },
       names: {
+        name:'სახელი',
         password: "პაროლი",
         username: "მომხმარებლის სახელი",
         email: "მეილი",

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingView from '@/views/LandingView.vue'
+import HomeView from '@/views/HomeView.vue'
 import LoginForm from '@/components/landing/forms/login/FormLogin.vue'
 import SignUpForm from '@/components/landing/forms/registration/FormSignUp.vue'
 import VerificationEmailIsSend from '@/components/verification/VerificationEmailIsSend.vue'
@@ -13,7 +14,7 @@ const router = createRouter({
       component: LandingView,
       children:[
         {
-        path:'login',
+        path:'/login',
         name:'login',
         component: LoginForm,
         },
@@ -33,8 +34,12 @@ const router = createRouter({
       path: '/verify',
       component: VerificationAccountIsActivated,
       props: route => ({ token: route.query.token })
+    },
+    {
+      path:'/home',
+      name:"home",
+      component:HomeView
     }
   ]
 })
-
 export default router

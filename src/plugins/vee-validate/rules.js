@@ -6,11 +6,8 @@ defineRule('email', email)
 defineRule('min', min)
 defineRule('max', max)
 defineRule('engLetters', (value) => {
-    if(!/^[a-zA-Z]+$/.test(value)){
-        return 'name should contain only English letters'
-    }
-    else {
-        return true
-    }
+    if(!/^[a-zA-Z]+$/.test(value)) return false
+    else return true
+    
 })
 
