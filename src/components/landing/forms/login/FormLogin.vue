@@ -115,7 +115,6 @@ function submitLoginForm() {
         if (response.data === 401) {
           alert('invalid credentials')
         } else {
-          sessionStorage.setItem('auth_token', response.data.token)
           router.push({ name: 'home' })
         }
       })

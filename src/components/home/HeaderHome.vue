@@ -25,29 +25,14 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-axios
-  .get('/newsfeed', {
-    headers: {
-      Authorization: 'Bearer ' + sessionStorage.getItem('auth_token')
-    }
-  })
-  .then((data) => console.log(data))
+axios.get('/newsfeed')
 
 function handleLogout() {
   axios
-    .post(
-      'logout',
-      {
-        action: 'log-out'
-      },
-      {
-        headers: {
-          Authorization: 'Bearer ' + sessionStorage.getItem('auth_token')
-        }
-      }
-    )
+    .post('logout', {
+      action: 'log-out'
+    })
     .then(() => {
-      sessionStorage.clear()
       router.push({ name: 'landing' })
     })
 }
