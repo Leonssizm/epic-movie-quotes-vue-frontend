@@ -7,7 +7,7 @@
       <div class="rounded-md shadow-lg max-w-md">
         <Form @submit="submitRegistrationForm" class="bg-[#222030]" v-slot="{ errors }">
           <FormSignUpHeader />
-          <div class="flex flex-col ml-16 w-[21rem] mr-36 pb-12 font-helvetica-neue text-[#FFFFFF]">
+          <div class="flex flex-col ml-16 w-[21rem] mr-36 pb-2 font-helvetica-neue text-[#FFFFFF]">
             <label class="pb-2"
               >{{ $t('landing.name') }}<span class="text-[#DC3545]">*</span></label
             >
@@ -58,7 +58,7 @@
             <div class="relative">
               <Field
                 name="password"
-                rules="required|min:8|max:15"
+                rules="required|min:8|max:15|password"
                 :type="passwordVisible ? 'text' : 'password'"
                 class="mb-2 pl-1 w-[21rem] h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
                 :placeholder="$t('landing.password_placeholder')"
@@ -91,8 +91,12 @@
             <button class="mb-2 w-[21rem] h-10 bg-[#E31221] text-white rounded mt-6">
               {{ $t('landing.sign_up.button') }}
             </button>
+          </div>
+        </Form>
+        <div class="flex flex-col bg-[#222030]">
+          <div class="ml-16 w-[21rem] mr-36 pb-12">
             <button
-              class="mb-4 w-[21rem] h-10 bg-[#222030] text-white border border-[#CED4DA] rounded flex justify-center items-center"
+              class="mb-4 h-10 bg-[#222030] w-[21rem] text-white border border-[#CED4DA] rounded flex justify-center items-center"
             >
               <IconGoogle />
               <span class="pl-2"> {{ $t('landing.sign_up.sign_up_google') }}</span>
@@ -108,7 +112,7 @@
               }}</RouterLink>
             </div>
           </div>
-        </Form>
+        </div>
       </div>
     </div>
   </transition>

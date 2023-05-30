@@ -7,25 +7,28 @@
       <div class="rounded-md shadow-lg max-w-md">
         <Form @submit="submitLoginForm" class="bg-[#222030]" v-slot="{ errors }">
           <FormLoginHeader />
-          <div class="flex flex-col ml-16 mr-36 pb-12 font-helvetica-neue text-[#FFFFFF]">
+          <div class="flex flex-col w-[21rem] ml-16 mr-36 font-helvetica-neue text-[#FFFFFF]">
             <label class="pb-2"
               >{{ $t('landing.email') }}<span class="text-[#DC3545]">*</span></label
             >
-            <Field
-              name="email"
-              type="email"
-              class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
-              :placeholder="$t('landing.email_placeholder')"
-              v-model="email"
-            />
-            <IconValidInput
-              v-if="!Object.keys(errors).includes('email') && email.length !== 0"
-              class="absolute right-1 top-5 transform -translate-y-1/2"
-            />
-            <IconInvalidInput
-              v-if="Object.keys(errors).includes('email')"
-              class="absolute right-1 top-5 transform -translate-y-1/2"
-            />
+            <div class="relative">
+              <Field
+                name="email"
+                type="email"
+                rules="required|email"
+                class="mb-4 pl-1 w-[21rem] h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
+                :placeholder="$t('landing.email_placeholder')"
+                v-model="email"
+              />
+              <IconValidInput
+                v-if="!Object.keys(errors).includes('email') && email.length !== 0"
+                class="absolute right-1 top-5 transform -translate-y-1/2"
+              />
+              <IconInvalidInput
+                v-if="Object.keys(errors).includes('email')"
+                class="absolute right-1 top-5 transform -translate-y-1/2"
+              />
+            </div>
             <ErrorMessage name="email" class="text-red-500 mb-2" />
             <label class="pb-2"
               >{{ $t('landing.password') }}<span class="text-[#DC3545]">*</span></label
@@ -33,14 +36,17 @@
             <Field
               name="password"
               type="password"
-              class="mb-4 pl-1 w-80 h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
+              rules="required"
+              class="mb-4 pl-1 w-[21rem] h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
               :placeholder="$t('landing.password_placeholder')"
               v-model="password"
             />
             <div class="flex items-center flex-row-reverse justify-evenly w-80">
-              <a href="#" class="font-normal text-xs text-[#0D6EFD] ml-24 underline">{{
-                $t('landing.log_in.forget_password')
-              }}</a>
+              <RouterLink
+                to="/password-reset"
+                class="font-normal text-xs text-[#0D6EFD] ml-24 underline"
+                >{{ $t('landing.log_in.forget_password') }}</RouterLink
+              >
               <label for="checkbox" class="font-helvetica-neue font-bold text-sm">{{
                 $t('landing.log_in.remember_me')
               }}</label>
@@ -51,11 +57,15 @@
                 v-model="rememberMe"
               />
             </div>
-            <button class="mb-4 w-80 h-10 bg-[#E31221] text-white rounded mt-6">
+            <button class="mb-4 w-[21rem] h-10 bg-[#E31221] text-white rounded mt-6">
               {{ $t('landing.log_in.button') }}
             </button>
+          </div>
+        </Form>
+        <div class="flex flex-col bg-[#222030]">
+          <div class="ml-16 mr-36 pb-12">
             <button
-              class="mb-4 w-80 h-10 bg-[#222030] text-white border border-[#CED4DA] rounded flex justify-center items-center"
+              class="mb-4 w-[21rem] h-10 bg-[#222030] text-white border border-[#CED4DA] rounded flex justify-center items-center"
             >
               <IconGoogle />
               <span class="pl-2">{{ $t('landing.log_in.sign_in_google') }}</span>
@@ -71,7 +81,7 @@
               }}</RouterLink>
             </div>
           </div>
-        </Form>
+        </div>
       </div>
     </div>
   </transition>
@@ -102,8 +112,12 @@ function submitLoginForm() {
         rememberMe: rememberMe.value
       })
       .then((response) => {
-        sessionStorage.setItem('auth_token', response.data.token)
-        router.push({ name: 'home' })
+        if (response.data === 401) {
+          alert('invalid credentials')
+        } else {
+          sessionStorage.setItem('auth_token', response.data.token)
+          router.push({ name: 'home' })
+        }
       })
   })
 }
