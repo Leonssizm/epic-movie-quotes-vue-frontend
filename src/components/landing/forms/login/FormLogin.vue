@@ -95,6 +95,7 @@ import { Field, Form, ErrorMessage } from 'vee-validate'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from '@/plugins/axios/index.js'
+import { login } from '@/services/api.js'
 
 const isPopupOpen = ref(false)
 const router = useRouter()
@@ -105,19 +106,13 @@ let rememberMe = ref(false)
 
 function submitLoginForm() {
   axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
-    axios
-      .post('users/login', {
-        email: email.value,
-        password: password.value,
-        rememberMe: rememberMe.value
-      })
-      .then((response) => {
-        if (response.data === 401) {
-          alert('invalid credentials')
-        } else {
-          router.push({ name: 'home' })
-        }
-      })
+    login(email.value, password.value, rememberMe.value).then((response) => {
+      if (response.data === 401) {
+        alert('invalid credentials')
+      } else {
+        router.push({ name: 'home' })
+      }
+    })
   })
 }
 onMounted(() => {

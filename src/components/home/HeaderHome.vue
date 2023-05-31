@@ -18,22 +18,18 @@
   </header>
 </template>
 <script setup>
-import axios from '@/plugins/axios/index.js'
 import IconNotificationBell from '@/components/icons/IconNotificationBell.vue'
 import LanguageDropdown from '@/components/LanguageDropdown.vue'
 import { useRouter } from 'vue-router'
-
+import { getNewsFeed, logout } from '@/services/api.js'
 const router = useRouter()
 
-axios.get('/newsfeed')
+// Function for sanctum testing
+getNewsFeed()
 
 function handleLogout() {
-  axios
-    .post('logout', {
-      action: 'log-out'
-    })
-    .then(() => {
-      router.push({ name: 'landing' })
-    })
+  logout('log-out').then(() => {
+    router.push({ name: 'landing' })
+  })
 }
 </script>
