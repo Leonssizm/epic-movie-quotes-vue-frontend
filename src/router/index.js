@@ -5,6 +5,10 @@ import LoginForm from '@/components/landing/forms/login/FormLogin.vue'
 import SignUpForm from '@/components/landing/forms/registration/FormSignUp.vue'
 import VerificationEmailIsSend from '@/components/verification/VerificationEmailIsSend.vue'
 import VerificationAccountIsActivated from '@/components/verification/VerificationAccountIsActivated.vue'
+import ForgotPasswordModal from '@/components/verification/forgotPassword/ForgotPasswordModal.vue'
+import ForgotPasswordEmail from '@/components/verification/forgotPassword/ForgotPasswordEmail.vue'
+import ForgotPasswordResetForm from '@/components/verification/forgotPassword/ForgotPasswordResetForm.vue'
+import ForgotPasswordSuccess from '@/components/verification/forgotPassword/ForgotPasswordSuccess.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -25,6 +29,7 @@ const router = createRouter({
         }
     ]
     },
+    // user sign-up email paths
     {
       path:'/registration-email',
       name:'registration-email',
@@ -35,6 +40,28 @@ const router = createRouter({
       component: VerificationAccountIsActivated,
       props: route => ({ token: route.query.token })
     },
+    // user forgot password paths
+    {
+      path:'/password-reset',
+      name:'password-reset',
+      component:ForgotPasswordModal
+    },
+    {
+      path:'/reset-email',
+      name:'reset-email',
+      component:ForgotPasswordEmail
+    },
+    {
+      path: '/verify-password',
+      component: ForgotPasswordResetForm,
+      props: route => ({ token: route.query.token })
+    },
+    {
+      path: '/password-changed',
+      name:'password-changed',
+      component: ForgotPasswordSuccess,
+    },
+    
     {
       path:'/home',
       name:"home",

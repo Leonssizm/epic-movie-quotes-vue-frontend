@@ -6,8 +6,9 @@ defineRule('email', email)
 defineRule('min', min)
 defineRule('max', max)
 defineRule('engLetters', (value) => {
-    if(!/^[a-zA-Z]+$/.test(value)) return false
-    else return true
-    
+    return /^[a-zA-Z]+$/.test(value)
+})
+defineRule('password', (value)=>{
+    return /^[a-z]+[0-9]+$/.test(value) && value.length >= 8
 })
 
