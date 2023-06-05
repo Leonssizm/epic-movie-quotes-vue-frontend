@@ -65,7 +65,7 @@ const router = createRouter({
     // Google auth
 
     {
-      path: '/auth/google/call-back',
+      path: '/auth/google/call-back/:id',
       name:'google-auth-callback',
       component: GoogleAuthComponent,
     },

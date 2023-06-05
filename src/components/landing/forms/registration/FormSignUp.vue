@@ -157,11 +157,13 @@ function submitRegistrationForm() {
 
 function handleGoogleRegistration() {
   axios
-    .get('google/auth', {
+    .get('/google/auth', {
       timeout: 8000
     })
     .then((response) => {
-      window.location.href = response.data.redirectUrl
+      axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
+        window.location.href = response.data.redirectUrl
+      })
     })
 }
 
