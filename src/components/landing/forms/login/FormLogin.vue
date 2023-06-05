@@ -66,6 +66,7 @@
           <div class="ml-16 mr-36 pb-12">
             <button
               class="mb-4 w-[21rem] h-10 bg-[#222030] text-white border border-[#CED4DA] rounded flex justify-center items-center"
+              @click="handleSignInWithGoogle"
             >
               <IconGoogle />
               <span class="pl-2">{{ $t('landing.log_in.sign_in_google') }}</span>
@@ -129,6 +130,18 @@ function handleClickOutside(event) {
     document.body.removeEventListener('click', handleClickOutside)
     router.push({ name: 'landing' })
   }
+}
+
+function handleSignInWithGoogle() {
+  axios
+    .get('/google/auth', {
+      timeout: 8000
+    })
+    .then((response) => {
+      axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
+        window.location.href = response.data.redirectUrl
+      })
+    })
 }
 </script>
 

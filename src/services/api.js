@@ -1,5 +1,19 @@
 import axios from '@/plugins/axios/index.js'
 
+export async function register(name, email, password, password_confirmation){
+  const response = await axios
+  .post(
+    'users/create',
+    {
+      username: name,
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation
+    },
+    { timeout: 8000 }
+  )
+  return response;
+}
 
 export async function login(email, password, rememberMe){
     const response = await  axios.post('users/login', {

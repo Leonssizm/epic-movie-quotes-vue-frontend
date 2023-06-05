@@ -2,7 +2,7 @@
   <header>
     <div class="bg-[#24222F] flex items-center justify-between h-20">
       <div>
-        <h1 class="text-[#DDCCAA] ml-16">Movie Quotes</h1>
+        <h1 class="text-[#DDCCAA] ml-16 hidden lg:block">Movie Quotes</h1>
       </div>
       <div class="mr-4 flex">
         <IconNotificationBell />

@@ -97,6 +97,7 @@
           <div class="ml-16 w-[21rem] mr-36 pb-12">
             <button
               class="mb-4 h-10 bg-[#222030] w-[21rem] text-white border border-[#CED4DA] rounded flex justify-center items-center"
+              @click="handleGoogleRegistration"
             >
               <IconGoogle />
               <span class="pl-2"> {{ $t('landing.sign_up.sign_up_google') }}</span>
@@ -125,6 +126,7 @@ import IconInvalidInput from '@/components/icons/IconInvalidInput.vue'
 import FormSignUpHeader from '@/components/landing/forms/registration/FormSignUpHeader.vue'
 import { onMounted, ref } from 'vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import { register } from '@/services/api.js'
 import { useRouter } from 'vue-router'
 import axios from '@/plugins/axios/index.js'
 
@@ -148,19 +150,20 @@ onMounted(() => {
 })
 
 function submitRegistrationForm() {
+  register(name.value, email.value, password.value, passwordConfirmation.value).then(() => {
+    router.push({ name: 'registration-email' })
+  })
+}
+
+function handleGoogleRegistration() {
   axios
-    .post(
-      'users/create',
-      {
-        username: name.value,
-        email: email.value,
-        password: password.value,
-        password_confirmation: passwordConfirmation.value
-      },
-      { timeout: 8000 }
-    )
-    .then(() => {
-      router.push({ name: 'registration-email' })
+    .get('/google/auth', {
+      timeout: 8000
+    })
+    .then((response) => {
+      axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
+        window.location.href = response.data.redirectUrl
+      })
     })
 }
 

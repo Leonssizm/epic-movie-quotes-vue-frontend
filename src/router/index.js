@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingView from '@/views/LandingView.vue'
 import NewsFeed from '@/views/NewsFeed.vue'
+import GoogleAuthComponent from '@/components/GoogleAuthComponent.vue'
 import LoginForm from '@/components/landing/forms/login/FormLogin.vue'
 import SignUpForm from '@/components/landing/forms/registration/FormSignUp.vue'
 import VerificationEmailIsSend from '@/components/verification/VerificationEmailIsSend.vue'
@@ -60,6 +61,13 @@ const router = createRouter({
       path: '/password-changed',
       name:'password-changed',
       component: ForgotPasswordSuccess,
+    },
+    // Google auth
+
+    {
+      path: '/auth/google/call-back/:id',
+      name:'google-auth-callback',
+      component: GoogleAuthComponent,
     },
     
     {
