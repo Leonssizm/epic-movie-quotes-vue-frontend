@@ -1,15 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingView from '@/views/LandingView.vue'
-import NewsFeed from '@/views/NewsFeed.vue'
+import HomePage from '@/views/HomePage.vue'
 import GoogleAuthComponent from '@/components/GoogleAuthComponent.vue'
 import LoginForm from '@/components/landing/forms/login/FormLogin.vue'
 import SignUpForm from '@/components/landing/forms/registration/FormSignUp.vue'
+import GuardUnauthorized from '@/components/navigationGuards/GuardUnauthorized.vue'
 import VerificationEmailIsSend from '@/components/verification/VerificationEmailIsSend.vue'
 import VerificationAccountIsActivated from '@/components/verification/VerificationAccountIsActivated.vue'
 import ForgotPasswordModal from '@/components/verification/forgotPassword/ForgotPasswordModal.vue'
 import ForgotPasswordEmail from '@/components/verification/forgotPassword/ForgotPasswordEmail.vue'
 import ForgotPasswordResetForm from '@/components/verification/forgotPassword/ForgotPasswordResetForm.vue'
 import ForgotPasswordSuccess from '@/components/verification/forgotPassword/ForgotPasswordSuccess.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -69,12 +71,24 @@ const router = createRouter({
       name:'google-auth-callback',
       component: GoogleAuthComponent,
     },
-    
+    // Homepage
     {
       path:'/home',
       name:"home",
-      component:NewsFeed
+      component:HomePage,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+
+    // navigation-guards
+    {
+      path:'/forbidden',
+      name:'forbidden',
+      component:GuardUnauthorized,
     }
   ]
 })
+
+
 export default router

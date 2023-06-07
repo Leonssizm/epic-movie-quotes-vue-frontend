@@ -96,7 +96,7 @@ import { Field, Form, ErrorMessage } from 'vee-validate'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from '@/plugins/axios/index.js'
-import { login } from '@/services/api.js'
+import { login, googleAuth } from '@/services/api.js'
 
 const isPopupOpen = ref(false)
 const router = useRouter()
@@ -133,15 +133,11 @@ function handleClickOutside(event) {
 }
 
 function handleSignInWithGoogle() {
-  axios
-    .get('/google/auth', {
-      timeout: 8000
+  googleAuth().then((response) => {
+    axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
+      window.location.href = response.data.redirectUrl
     })
-    .then((response) => {
-      axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
-        window.location.href = response.data.redirectUrl
-      })
-    })
+  })
 }
 </script>
 

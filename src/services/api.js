@@ -32,10 +32,24 @@ export async function logout(action){
 }
 
 
-// Request for sanctum testing purposes
+export async function googleAuth(){
+ const response =  axios
+  .get('/google/auth', {
+    timeout: 8000
+  })
 
-export async function getNewsFeed(){
-    const response = await axios.get('/newsfeed');
+  return response
+}
 
-    return response.data
+
+export async function checkIfUserIsAuthenticated(){
+    const response = await axios.get('/auth-check');
+    
+    return response
 } 
+
+export async function getAuthenticatedUser(){
+  const response = await axios.get('users/user')
+
+  return response.data
+}

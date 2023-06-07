@@ -26,6 +26,13 @@ import IconArrowDown from '@/components/icons/IconArrowDown.vue'
 import { setLocale } from '@vee-validate/i18n'
 
 function changeLocale(locale) {
+  if (locale === 'en') {
+    localStorage.setItem('locale', 'en')
+  } else {
+    localStorage.removeItem('locale')
+    localStorage.setItem('locale', 'ka')
+  }
+
   locale === 'en' ? setLocale('en') : setLocale('ka')
 }
 </script>
