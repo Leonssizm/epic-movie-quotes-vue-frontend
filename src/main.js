@@ -4,7 +4,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import '@/router/navigation-guards.js';
+import '@/router/guards.js';
 import '@/assets/tailwind.css'
 
 // Vee-validate

@@ -27,12 +27,12 @@ import { setLocale } from '@vee-validate/i18n'
 
 function changeLocale(locale) {
   if (locale === 'en') {
-    localStorage.setItem('locale', 'en')
+    localStorage.setItem('locale', locale)
   } else {
     localStorage.removeItem('locale')
-    localStorage.setItem('locale', 'ka')
+    localStorage.setItem('locale', locale)
   }
 
-  locale === 'en' ? setLocale('en') : setLocale('ka')
+  locale === 'en' ? setLocale(locale) : setLocale(locale)
 }
 </script>

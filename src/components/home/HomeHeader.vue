@@ -23,17 +23,15 @@ import IconNotificationBell from '@/components/icons/IconNotificationBell.vue'
 import LanguageDropdown from '@/components/LanguageDropdown.vue'
 import IconList from '@/components/icons/IconList.vue'
 import { useRouter } from 'vue-router'
-import { checkIfUserIsAuthenticated, logout } from '@/services/api.js'
-// import { useAuthenticatedStore } from '@/stores/useAuthenticatedStore'
+import { logout } from '@/services/api.js'
+import { useAuthStore } from '@/stores/useAuthStore'
 const router = useRouter()
 
-// const authenticatedStore = useAuthenticatedStore()
-
-// Function for sanctum testing
-checkIfUserIsAuthenticated()
+const store = useAuthStore()
 
 function handleLogout() {
   logout('log-out').then(() => {
+    store.authenticateOrLogoutUser(false)
     router.push({ name: 'landing' })
   })
 }

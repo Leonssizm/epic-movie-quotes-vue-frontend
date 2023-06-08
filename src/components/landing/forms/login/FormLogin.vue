@@ -57,7 +57,13 @@
                 v-model="rememberMe"
               />
             </div>
-            <button class="mb-4 w-[21rem] h-10 bg-[#E31221] text-white rounded mt-6">
+            <button
+              class="mb-4 w-[21rem] h-10 bg-[#E31221] text-white rounded mt-6"
+              :class="{
+                'pointer-events-none': loginButtonIsClicked,
+                'opacity-50': loginButtonIsClicked
+              }"
+            >
               {{ $t('landing.log_in.button') }}
             </button>
           </div>
@@ -66,6 +72,10 @@
           <div class="ml-16 mr-36 pb-12">
             <button
               class="mb-4 w-[21rem] h-10 bg-[#222030] text-white border border-[#CED4DA] rounded flex justify-center items-center"
+              :class="{
+                'pointer-events-none': loginWithGoogleIsClicked,
+                'opacity-50': loginWithGoogleIsClicked
+              }"
               @click="handleSignInWithGoogle"
             >
               <IconGoogle />
@@ -97,7 +107,9 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from '@/plugins/axios/index.js'
 import { login, googleAuth } from '@/services/api.js'
+import { useAuthStore } from '@/stores/useAuthStore'
 
+const store = useAuthStore()
 const isPopupOpen = ref(false)
 const router = useRouter()
 
@@ -105,12 +117,17 @@ let email = ref('')
 let password = ref('')
 let rememberMe = ref(false)
 
+let loginButtonIsClicked = ref(false)
+let loginWithGoogleIsClicked = ref(false)
+
 function submitLoginForm() {
+  loginButtonIsClicked.value = true
   axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
     login(email.value, password.value, rememberMe.value).then((response) => {
       if (response.data === 401) {
         alert('invalid credentials')
       } else {
+        store.authenticateOrLogoutUser(true)
         router.push({ name: 'home' })
       }
     })
@@ -133,8 +150,10 @@ function handleClickOutside(event) {
 }
 
 function handleSignInWithGoogle() {
+  loginWithGoogleIsClicked.value = true
   googleAuth().then((response) => {
     axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
+      store.authenticateOrLogoutUser(true)
       window.location.href = response.data.redirectUrl
     })
   })

@@ -5,7 +5,13 @@
       class="form fixed inset-0 flex items-center justify-center bg-opacity-85 lg:bg-black"
     >
       <div class="rounded-md shadow-lg max-w-md">
-        <Form @submit="submitRegistrationForm" class="bg-[#222030]" v-slot="{ errors }">
+        <VerificationEmailIsSend v-if="emailIsSent" />
+        <Form
+          @submit="submitRegistrationForm"
+          class="bg-[#222030]"
+          v-slot="{ errors }"
+          v-if="!emailIsSent"
+        >
           <FormSignUpHeader />
           <div class="flex flex-col ml-16 w-[21rem] mr-36 pb-2 font-helvetica-neue text-[#FFFFFF]">
             <label class="pb-2"
@@ -88,15 +94,25 @@
               />
             </div>
             <ErrorMessage name="password_confirmation" class="text-red-500 mb-2"></ErrorMessage>
-            <button class="mb-2 w-[21rem] h-10 bg-[#E31221] text-white rounded mt-6">
+            <button
+              class="mb-2 w-[21rem] h-10 bg-[#E31221] text-white rounded mt-6"
+              :class="{
+                'pointer-events-none': signUpButtonIsClicked,
+                'opacity-50': signUpButtonIsClicked
+              }"
+            >
               {{ $t('landing.sign_up.button') }}
             </button>
           </div>
         </Form>
-        <div class="flex flex-col bg-[#222030]">
+        <div class="flex flex-col bg-[#222030]" v-if="!emailIsSent">
           <div class="ml-16 w-[21rem] mr-36 pb-12">
             <button
               class="mb-4 h-10 bg-[#222030] w-[21rem] text-white border border-[#CED4DA] rounded flex justify-center items-center"
+              :class="{
+                'pointer-events-none': googleSignUpButtonIsClicked,
+                'opacity-50': googleSignUpButtonIsClicked
+              }"
               @click="handleGoogleRegistration"
             >
               <IconGoogle />
@@ -124,19 +140,27 @@ import IconEye from '@/components/icons/IconEye.vue'
 import IconValidInput from '@/components/icons/IconValidInput.vue'
 import IconInvalidInput from '@/components/icons/IconInvalidInput.vue'
 import FormSignUpHeader from '@/components/landing/forms/registration/FormSignUpHeader.vue'
+import VerificationEmailIsSend from '@/components/verification/VerificationEmailIsSend.vue'
+
 import { onMounted, ref } from 'vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { register } from '@/services/api.js'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/useAuthStore'
 import axios from '@/plugins/axios/index.js'
 
 const isPopupOpen = ref(false)
 const router = useRouter()
-
+const store = useAuthStore()
 let name = ref('')
 let email = ref('')
 let password = ref('')
+
 let passwordConfirmation = ref('')
+let signUpButtonIsClicked = ref(false)
+let googleSignUpButtonIsClicked = ref(false)
+
+let emailIsSent = ref(false)
 
 let passwordVisible = ref('')
 let repeatPasswordVisible = ref('')
@@ -150,18 +174,21 @@ onMounted(() => {
 })
 
 function submitRegistrationForm() {
+  signUpButtonIsClicked.value = true
   register(name.value, email.value, password.value, passwordConfirmation.value).then(() => {
-    router.push({ name: 'registration-email' })
+    emailIsSent.value = true
   })
 }
 
 function handleGoogleRegistration() {
+  googleSignUpButtonIsClicked.value = true
   axios
     .get('/google/auth', {
       timeout: 8000
     })
     .then((response) => {
       axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
+        store.authenticateOrLogoutUser(true)
         window.location.href = response.data.redirectUrl
       })
     })
