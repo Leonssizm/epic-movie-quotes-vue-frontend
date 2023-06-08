@@ -2,8 +2,10 @@
   <div class="bg-blurred-landing h-screen">
     <div class="flex justify-center h-full items-center">
       <div class="form fixed inset-0 flex items-center justify-center">
+        <ForgotPasswordSuccess v-if="passwordIsChanged" />
         <div
           class="rounded-md shadow-lg max-w-md bg-[#222030] text-center flex justify-center flex-col items-center px-20 py-16 text-[#FFFFFF]"
+          v-else
         >
           <h1 class="text-2xl text-[#FFFFFF] text-medium font-helvetica-neue">
             Create new Password
@@ -64,6 +66,7 @@
 <script setup>
 import IconEye from '@/components/icons/IconEye.vue'
 import IconArrowBack from '@/components/icons/IconArrowBack.vue'
+import ForgotPasswordSuccess from '@/components/verification/forgotPassword/ForgotPasswordSuccess.vue'
 
 import { Field, Form, ErrorMessage } from 'vee-validate'
 import { useRouter } from 'vue-router'
@@ -76,6 +79,8 @@ let passwordConfirmation = ref('')
 
 let passwordVisible = ref('')
 let repeatPasswordVisible = ref('')
+
+let passwordIsChanged = ref(false)
 
 function setNewPassword() {
   axios
@@ -90,10 +95,8 @@ function setNewPassword() {
         timeout: 8000
       }
     )
-    .then((response) => {
-      if (response.status === 200) {
-        router.push({ name: 'password-changed' })
-      }
+    .then(() => {
+      passwordIsChanged.value = true
     })
 }
 </script>

@@ -47,6 +47,7 @@ import IconExpiration from '@/components/icons/IconExpiration.vue'
 import axios from '@/plugins/axios/index.js'
 import { onBeforeMount, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
+
 const router = useRouter()
 
 let success = ref(false)

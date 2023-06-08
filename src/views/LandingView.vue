@@ -35,10 +35,17 @@ import LandingImages from '@/components/landing/LandingImages.vue'
 import LandingFooter from '@/components/landing/LandingFooter.vue'
 import { useRouter } from 'vue-router'
 import { RouterView } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { onMounted } from 'vue'
 
+const locale = useI18n().locale
 const router = useRouter()
 
 function openLoginOrSignUpForm(form) {
   form === 'login' ? router.push({ name: 'login' }) : router.push({ name: 'sign-up' })
 }
+
+onMounted(() => {
+  localStorage.getItem('locale') === 'en' ? (locale.value = 'en') : (locale.value = 'ka')
+})
 </script>

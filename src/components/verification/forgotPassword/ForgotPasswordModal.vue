@@ -2,8 +2,10 @@
   <div class="bg-blurred-landing h-screen">
     <div class="flex justify-center h-full items-center">
       <div class="form fixed inset-0 flex items-center justify-center">
+        <ForgotPasswordEmail v-if="verificationEmailIsSent" />
         <div
           class="rounded-md shadow-lg max-w-md bg-[#222030] text-center flex justify-center flex-col items-center px-20 py-16"
+          v-else
         >
           <h1 class="text-3xl text-[#FFFFFF] text-medium font-helvetica-neue">Forgot password?</h1>
           <p class="font-normal text-xs text-[#6C757D] font-helvetica-neue mt-2">
@@ -40,12 +42,14 @@
 </template>
 <script setup>
 import IconArrowBack from '@/components/icons/IconArrowBack.vue'
+import ForgotPasswordEmail from '@/components/verification/forgotPassword/ForgotPasswordEmail.vue'
+
 import axios from '@/plugins/axios/index.js'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { ref } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
-const router = useRouter()
+import { RouterLink } from 'vue-router'
 let email = ref('')
+let verificationEmailIsSent = ref(false)
 function handleForgotPasswordEmail() {
   axios
     .post(
@@ -57,10 +61,8 @@ function handleForgotPasswordEmail() {
         timeout: 8000
       }
     )
-    .then((response) => {
-      if (response.status === 200) {
-        router.push({ name: 'reset-email' })
-      }
+    .then(() => {
+      verificationEmailIsSent.value = true
     })
 }
 </script>
