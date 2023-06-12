@@ -1,7 +1,8 @@
 <template>
   <div class="bg-blurred-landing h-screen">
     <div class="flex justify-center h-full items-center">
-      <div class="form fixed inset-0 flex items-center justify-center">
+      <VerificationEmailIsSend v-if="verificationEmailIsResent" />
+      <div class="form fixed inset-0 flex items-center justify-center" v-else>
         <div
           class="rounded-md shadow-lg max-w-md bg-[#222030] text-center flex justify-center flex-col items-center px-20 py-16"
         >
@@ -29,13 +30,13 @@
             class="mb-4 w-80 h-10 bg-[#E31221] text-white border border-[#E31221] rounded flex justify-center items-center"
             >{{ $t('landing.registration_result.success_button') }}</RouterLink
           >
-          <RouterLink
-            @click="resendVerificationEmail"
+          <button
+            @click="handleResendVerificationEmail"
             v-if="!success"
-            to="/registration-email"
             class="mb-4 mt-4 w-80 h-10 bg-[#E31221] text-white border border-[#E31221] rounded flex justify-center items-center"
-            >{{ $t('landing.registration_result.failure_button') }}</RouterLink
           >
+            {{ $t('landing.registration_result.failure_button') }}
+          </button>
         </div>
       </div>
     </div>
@@ -44,18 +45,19 @@
 <script setup>
 import IconCheckmark from '@/components/icons/IconCheckmark.vue'
 import IconExpiration from '@/components/icons/IconExpiration.vue'
-import axios from '@/plugins/axios/index.js'
+import VerificationEmailIsSend from '@/components/verification/VerificationEmailIsSend.vue'
+
 import { onBeforeMount, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
+import { sendVerificationEmail, resendVerificationEmail } from '@/services/api.js'
 
 const router = useRouter()
 
+let verificationEmailIsResent = ref(false)
+
 let success = ref(false)
 onBeforeMount(() => {
-  axios
-    .post('users/email-verification', {
-      token: router.currentRoute.value.query.token
-    })
+  sendVerificationEmail(router.currentRoute.value.query.token)
     .then(() => {
       success.value = true
     })
@@ -64,13 +66,8 @@ onBeforeMount(() => {
     })
 })
 
-function resendVerificationEmail() {
-  axios.post(
-    'users/resend-verification-email',
-    {
-      token: router.currentRoute.value.query.token
-    },
-    { timeout: 5000 }
-  )
+function handleResendVerificationEmail() {
+  verificationEmailIsResent.value = true
+  resendVerificationEmail(router.currentRoute.value.query.token)
 }
 </script>

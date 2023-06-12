@@ -71,7 +71,7 @@ import ForgotPasswordSuccess from '@/components/verification/forgotPassword/Forg
 import { Field, Form, ErrorMessage } from 'vee-validate'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
-import axios from '@/plugins/axios/index.js'
+import { resetPassword } from '@/services/api.js'
 
 const router = useRouter()
 let password = ref('')
@@ -83,20 +83,12 @@ let repeatPasswordVisible = ref('')
 let passwordIsChanged = ref(false)
 
 function setNewPassword() {
-  axios
-    .post(
-      'reset-password/change',
-      {
-        token: router.currentRoute.value.query.token,
-        password: password.value,
-        password_confirmation: passwordConfirmation.value
-      },
-      {
-        timeout: 8000
-      }
-    )
-    .then(() => {
-      passwordIsChanged.value = true
-    })
+  resetPassword(
+    router.currentRoute.value.query.token,
+    password.value,
+    passwordConfirmation.value
+  ).then(() => {
+    passwordIsChanged.value = true
+  })
 }
 </script>

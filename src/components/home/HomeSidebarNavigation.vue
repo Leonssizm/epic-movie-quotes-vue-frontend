@@ -1,5 +1,5 @@
 <template>
-  <nav class="ml-4 lg:ml-16 pt-6">
+  <nav class="lg:ml-4 lg:ml-16 pt-6 absolute bg-[#000000] lg:bg-[#181624]">
     <div class="text-[#FFFFFF] font-helvetica-neue flex">
       <img
         :src="profilePicture"
@@ -36,7 +36,7 @@ let username = ref('')
 let profilePicture = ref('')
 
 getAuthenticatedUser().then((response) => {
-  username.value = response.username
-  profilePicture.value = response.profile_picture
+  username.value = response.data.username
+  profilePicture.value = response.data.profile_picture
 })
 </script>

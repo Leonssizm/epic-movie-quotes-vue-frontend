@@ -44,25 +44,15 @@
 import IconArrowBack from '@/components/icons/IconArrowBack.vue'
 import ForgotPasswordEmail from '@/components/verification/forgotPassword/ForgotPasswordEmail.vue'
 
-import axios from '@/plugins/axios/index.js'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { forgotPassword } from '@/services/api.js'
 let email = ref('')
 let verificationEmailIsSent = ref(false)
 function handleForgotPasswordEmail() {
-  axios
-    .post(
-      'reset-password/email',
-      {
-        email: email.value
-      },
-      {
-        timeout: 8000
-      }
-    )
-    .then(() => {
-      verificationEmailIsSent.value = true
-    })
+  forgotPassword(email.value).then(() => {
+    verificationEmailIsSent.value = true
+  })
 }
 </script>
