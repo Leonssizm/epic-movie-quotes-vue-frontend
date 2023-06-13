@@ -44,6 +44,11 @@
     </div>
     <div class="border border-solid border-gray-700 mx-6 my-6"></div>
   </div>
+  <!-- no more quotes to fetch -->
+
+  <div class="flex justify-center my-10" v-if="noMoreQuotes">
+    <h1 class="text-[#FFFFFF] text-3xl font-helvetica-neue">No more Quotes</h1>
+  </div>
 </template>
 <script setup>
 import axios from '@/plugins/axios/index.js'
@@ -51,18 +56,46 @@ import { useQuotesStore } from '@/stores/useQuotesStore'
 import IconChat from '@/components/icons/IconChat.vue'
 import IconHeart from '@/components/icons/IconHeart.vue'
 import { useI18n } from 'vue-i18n'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const locale = useI18n().locale
 const store = useQuotesStore()
+let page = ref(1)
+let noMoreQuotes = ref(false)
 
 onMounted(() => {
+  window.addEventListener('scroll', fetchPosts)
+  getPosts(page.value)
   localStorage.getItem('locale') === 'en' ? (locale.value = 'en') : (locale.value = 'ka')
 })
 
-axios.get('quotes').then((response) => {
-  store.initQuotes(response.data)
-})
+function getPosts(page) {
+  axios
+    .get('quotes', {
+      params: { page: page }
+    })
+    .then((response) => {
+      store.initQuotes(response.data.data)
+      if (response.data.data.length === 0) {
+        noMoreQuotes.value = true
+      }
+    })
+}
+
+function fetchPosts() {
+  const windowHeight = window.innerHeight
+  const documentHeight = document.documentElement.scrollHeight
+  const scrollableHeight = documentHeight - windowHeight
+  const scrollPosition = window.scrollY
+  if (scrollPosition >= scrollableHeight) {
+    page.value += 1
+    setTimeout(() => {
+      getPosts(page.value)
+    }, 800)
+
+    // if(store.getQuoteAmount == )
+  }
+}
 </script>
 
-<style></style>
+<style scoped></style>

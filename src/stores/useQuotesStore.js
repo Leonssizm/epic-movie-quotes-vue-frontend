@@ -6,7 +6,7 @@ export const useQuotesStore = defineStore('quotes', {
   }),
   actions: {
     initQuotes(quotes) {
-      this.quotes = quotes
+      this.quotes = [...this.quotes, ...quotes]
     }
   },
   getters: {
