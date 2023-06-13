@@ -29,6 +29,23 @@
         "success_button":"Go to my news feed",
         "failure_button":"resend verification link"
     },
+    "forgot_password":{
+        "forgot_password":"forgot password?",
+        "instructions_info":"Enter the email and we'll send an email with instructions to reset your password",
+        "instructions_button":"Send Instructions",
+        "go_back":"Back to log in"
+    },
+    "forgot_password_email_send":{
+        "check_email":"Check your email",
+        "instructions":"We have sent a password recover instructions to your email",
+        "skip_button":"Skip I'll confirm later"
+    },
+    "change_password":{
+        "create_new_password":"Create new Password",
+        "instruction":"Your new password must be different from previous used passwords",
+        "reset_password":"Reset Password"
+    },
+
     "get_started":"get started",
     "name": "name",
     "email":"email",

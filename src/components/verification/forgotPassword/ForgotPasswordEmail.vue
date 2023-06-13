@@ -7,10 +7,10 @@
         >
           <IconSendEmail />
           <h1 class="text-4xl text-[#FFFFFF] text-medium font-helvetica-neue mt-6 mb-4">
-            Check your email
+            {{ $t('landing.forgot_password_email_send.check_email') }}
           </h1>
           <p class="font-normal text-xs text-[#FFFFFF] font-helvetica-neue mt-2 mb-10">
-            We have sent a password recover instructions to your email
+            {{ $t('landing.forgot_password_email_send.instructions') }}
           </p>
           <a
             href="https://www.gmail.com"
@@ -19,9 +19,9 @@
           >
             {{ $t('landing.registration_email.button') }}</a
           >
-          <RouterLink to="/" class="font-normal text-xs text-[#6C757D] font-helvetica-neue"
-            >Skip, I'll confirm later</RouterLink
-          >
+          <RouterLink to="/" class="font-normal text-xs text-[#6C757D] font-helvetica-neue">
+            {{ $t('landing.forgot_password_email_send.skip_button') }}
+          </RouterLink>
         </div>
       </div>
     </div>

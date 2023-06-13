@@ -51,12 +51,16 @@ import { onBeforeMount, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { sendVerificationEmail, resendVerificationEmail } from '@/services/api.js'
 
+import { useI18n } from 'vue-i18n'
+
 const router = useRouter()
+const locale = useI18n().locale
 
 let verificationEmailIsResent = ref(false)
 
 let success = ref(false)
 onBeforeMount(() => {
+  locale.value = localStorage.getItem('locale')
   sendVerificationEmail(router.currentRoute.value.query.token)
     .then(() => {
       success.value = true

@@ -8,10 +8,10 @@
           v-else
         >
           <h1 class="text-2xl text-[#FFFFFF] text-medium font-helvetica-neue">
-            Create new Password
+            {{ $t('landing.change_password.create_new_password') }}
           </h1>
           <p class="font-normal text-xs text-[#6C757D] font-helvetica-neue mt-2">
-            Your new password must be different from previous used passwords
+            {{ $t('landing.change_password.instruction') }}
           </p>
           <Form class="mt-4" @submit="setNewPassword">
             <label class="pb-2 mr-64">{{ $t('landing.password') }}</label>
@@ -49,14 +49,14 @@
             <button
               class="mt-6 w-[21rem] h-10 bg-[#E31221] text-white border border-[#E31221] rounded flex justify-center items-center"
             >
-              Reset Password
+              {{ $t('landing.change_password.reset_password') }}
             </button>
           </Form>
           <RouterLink to="/login" class="flex items-center mt-6 col-reverse"
             ><IconArrowBack class="mr-2" />
-            <span class="font-normal text-xs text-[#6C757D] font-helvetica-neue"
-              >Back to log in</span
-            >
+            <span class="font-normal text-xs text-[#6C757D] font-helvetica-neue">
+              {{ $t('landing.forgot_password.go_back') }}
+            </span>
           </RouterLink>
         </div>
       </div>
@@ -70,8 +70,11 @@ import ForgotPasswordSuccess from '@/components/verification/forgotPassword/Forg
 
 import { Field, Form, ErrorMessage } from 'vee-validate'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { resetPassword } from '@/services/api.js'
+import { useI18n } from 'vue-i18n'
+
+const locale = useI18n().locale
 
 const router = useRouter()
 let password = ref('')
@@ -91,4 +94,8 @@ function setNewPassword() {
     passwordIsChanged.value = true
   })
 }
+
+onMounted(() => {
+  locale.value = localStorage.getItem('locale')
+})
 </script>
