@@ -21,10 +21,13 @@ import NewsFeedQuotesCard from '@/components/home/newsFeed/NewsFeedQuoteCard.vue
 import { onMounted, ref } from 'vue'
 
 let displaySidebar = ref(true)
-let resolution = ref(window.innerWidth)
 
 function handleSidebarVisibility() {
-  if (document.body.classList.contains('overflow-hidden')) {
+  let resolution = ref(window.innerWidth)
+  if (document.body.classList.contains('overflow-hidden') && resolution.value <= 768) {
+    displaySidebar.value = true
+    document.body.classList.remove('overflow-hidden')
+  } else if (resolution.value > 768) {
     displaySidebar.value = true
     document.body.classList.remove('overflow-hidden')
   } else {
@@ -33,9 +36,7 @@ function handleSidebarVisibility() {
   }
 }
 onMounted(() => {
-  if (resolution.value <= 768) {
-    document.body.addEventListener('click', handleSidebarVisibility)
-  }
+  document.body.addEventListener('click', handleSidebarVisibility)
 })
 </script>
 

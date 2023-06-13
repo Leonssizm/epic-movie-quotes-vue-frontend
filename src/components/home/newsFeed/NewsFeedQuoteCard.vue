@@ -1,5 +1,5 @@
 <template>
-  <div v-for="quote in store.quotes" :key="quote.id" class="mt-4 bg-[#000000] pb-4">
+  <div v-for="quote in store.quotes" :key="quote.id" class="mt-4 bg-[#000000] pb-4 lg:w-[49rem]">
     <div class="flex items-center pl-6 pt-2 mt-2">
       <!-- profile picture -->
       <img

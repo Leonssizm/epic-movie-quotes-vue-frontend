@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="lg:ml-4 lg:ml-16 pt-6 absolute bg-[#000000] lg:bg-[#181624] fixed inset-0 w-64 h-2/3 lg:static lg:h-auto lg:w-auto"
+    class="lg:ml-4 lg:pl-10 pt-6 absolute bg-[#000000] lg:bg-[#181624] fixed inset-0 w-64 h-2/3 lg:static lg:h-auto lg:w-auto"
   >
     <div class="text-[#FFFFFF] font-helvetica-neue flex">
       <img
