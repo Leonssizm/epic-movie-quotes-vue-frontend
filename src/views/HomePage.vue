@@ -1,5 +1,5 @@
 <template>
-  <HomeHeader @changeSidebarVisibility="displaySidebar = !displaySidebar" />
+  <HomeHeader @changeSidebarVisibility="handleSidebarVisibility" />
   <div class="bg-[#181624]">
     <div class="lg:float-left">
       <transition name="slide-fade">
@@ -18,9 +18,25 @@ import HomeSearchPanel from '@/components/home/HomeSearchPanel.vue'
 import HomeSidebarNavigation from '@/components/home/HomeSidebarNavigation.vue'
 import NewsFeedQuotesCard from '@/components/home/newsFeed/NewsFeedQuoteCard.vue'
 
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 let displaySidebar = ref(true)
+let resolution = ref(window.innerWidth)
+
+function handleSidebarVisibility() {
+  if (document.body.classList.contains('overflow-hidden')) {
+    displaySidebar.value = true
+    document.body.classList.remove('overflow-hidden')
+  } else {
+    displaySidebar.value = false
+    document.body.classList.remove('overflow-hidden')
+  }
+}
+onMounted(() => {
+  if (resolution.value <= 768) {
+    document.body.addEventListener('click', handleSidebarVisibility)
+  }
+})
 </script>
 
 <style scoped>

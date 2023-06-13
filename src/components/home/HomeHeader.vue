@@ -3,7 +3,7 @@
     <div class="bg-[#24222F] flex items-center justify-between h-20">
       <div>
         <h1 class="text-[#DDCCAA] ml-16 hidden lg:block">Movie Quotes</h1>
-        <IconList class="block lg:hidden ml-4" @click="$emit('changeSidebarVisibility')" />
+        <IconList class="block lg:hidden ml-4" @click="changeSidebarVisibility" />
       </div>
       <div class="mr-4 flex">
         <IconQuestionMark
@@ -54,11 +54,17 @@ import IconList from '@/components/icons/IconList.vue'
 import { useRouter } from 'vue-router'
 import { logout } from '@/services/api.js'
 import { useAuthStore } from '@/stores/useAuthStore'
-import { ref } from 'vue'
+import { ref, defineEmits } from 'vue'
+
+defineEmits(['changeSidebarVisibility'])
+
 const router = useRouter()
 
 const store = useAuthStore()
 
+function changeSidebarVisibility() {
+  document.body.classList.add('overflow-hidden')
+}
 function handleLogout() {
   logout('log-out').then(() => {
     store.authenticateOrLogoutUser(false)
