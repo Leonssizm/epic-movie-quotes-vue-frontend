@@ -7,9 +7,11 @@
           class="rounded-md shadow-lg max-w-md bg-[#222030] text-center flex justify-center flex-col items-center px-20 py-16"
           v-else
         >
-          <h1 class="text-3xl text-[#FFFFFF] text-medium font-helvetica-neue">Forgot password?</h1>
+          <h1 class="text-3xl text-[#FFFFFF] text-medium font-helvetica-neue">
+            {{ $t('landing.forgot_password.forgot_password') }}
+          </h1>
           <p class="font-normal text-xs text-[#6C757D] font-helvetica-neue mt-2">
-            Enter the email and we'll send an email with instructions to reset your password
+            {{ $t('landing.forgot_password.instructions_info') }}
           </p>
           <Form class="mt-4" @submit="handleForgotPasswordEmail">
             <label class="pb-2 text-[#FFFFFF] mr-72">{{ $t('landing.email') }}</label>
@@ -26,14 +28,14 @@
               target="_blank"
               class="mt-6 w-[21rem] h-10 bg-[#E31221] text-white border border-[#E31221] rounded flex justify-center items-center"
             >
-              Send Instructions
+              {{ $t('landing.forgot_password.instructions_button') }}
             </button>
           </Form>
           <RouterLink to="/login" class="flex items-center mt-6 col-reverse"
             ><IconArrowBack class="mr-2" />
-            <span class="font-normal text-xs text-[#6C757D] font-helvetica-neue"
-              >Back to log in</span
-            >
+            <span class="font-normal text-xs text-[#6C757D] font-helvetica-neue">
+              {{ $t('landing.forgot_password.go_back') }}
+            </span>
           </RouterLink>
         </div>
       </div>
@@ -44,25 +46,22 @@
 import IconArrowBack from '@/components/icons/IconArrowBack.vue'
 import ForgotPasswordEmail from '@/components/verification/forgotPassword/ForgotPasswordEmail.vue'
 
-import axios from '@/plugins/axios/index.js'
 import { Form, Field, ErrorMessage } from 'vee-validate'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { forgotPassword } from '@/services/api.js'
+
+import { useI18n } from 'vue-i18n'
+
+const locale = useI18n().locale
+
 let email = ref('')
 let verificationEmailIsSent = ref(false)
 function handleForgotPasswordEmail() {
-  axios
-    .post(
-      'reset-password/email',
-      {
-        email: email.value
-      },
-      {
-        timeout: 8000
-      }
-    )
-    .then(() => {
-      verificationEmailIsSent.value = true
-    })
+  forgotPassword(email.value).then(() => {
+    verificationEmailIsSent.value = true
+  })
 }
+
+onMounted(() => (locale.value = localStorage.getItem('locale')))
 </script>

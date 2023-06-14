@@ -29,6 +29,22 @@
         "success_button":"შესვლა",
         "failure_button":"აქტივაციის ლინკის გამოგზავნა"
     },
+    "forgot_password":{
+        "forgot_password":"დაგავიწყდა პაროლი?",
+        "instructions_info":"შეიყვანე რეგისტრირებული ელ-ფოსტა და გამოგიგზავნით პაროლის განახლების ინსტრუქციას",
+        "instructions_button":"გაგზავნა",
+        "go_back":"დაბრუნება"
+    },
+    "forgot_password_email_send":{
+        "check_email":"შეამოწმე ელ-ფოსტა",
+        "instructions":"პაროლის აღდგენის ინსტრუქცია გამოგზავნილია",
+        "skip_button":"გამოტოვება"
+    },
+    "change_password":{
+        "create_new_password":"განაახლე პაროლი",
+        "instruction":"ახალი პაროლი არ უნდა ემთხვეოდეს წინა პაროლს",
+        "reset_password":"პაროლის განახლება"
+    },
     "get_started":"დაწყება",
     "name": "სახელი",
     "email":"ელ-ფოსტა",

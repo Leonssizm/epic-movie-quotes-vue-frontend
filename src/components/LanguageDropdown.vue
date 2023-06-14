@@ -23,12 +23,15 @@
 </template>
 <script setup>
 import IconArrowDown from '@/components/icons/IconArrowDown.vue'
+import axios from '@/plugins/axios/index.js'
 import { setLocale } from '@vee-validate/i18n'
 
 function changeLocale(locale) {
   if (locale === 'en') {
     localStorage.setItem('locale', locale)
+    axios.get('/change-locale/en')
   } else {
+    axios.get('/change-locale/ka')
     localStorage.removeItem('locale')
     localStorage.setItem('locale', locale)
   }
