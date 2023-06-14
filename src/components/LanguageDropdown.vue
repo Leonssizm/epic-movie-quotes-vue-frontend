@@ -29,9 +29,9 @@ import { setLocale } from '@vee-validate/i18n'
 function changeLocale(locale) {
   if (locale === 'en') {
     localStorage.setItem('locale', locale)
-    axios.get('/change.locale/en')
+    axios.get('/change-locale/en')
   } else {
-    axios.get('/change.locale/ka')
+    axios.get('/change-locale/ka')
     localStorage.removeItem('locale')
     localStorage.setItem('locale', locale)
   }

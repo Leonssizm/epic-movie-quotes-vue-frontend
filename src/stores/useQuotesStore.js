@@ -13,9 +13,14 @@ export const useQuotesStore = defineStore('quotes', {
     getQuoteAmount() {
       return this.quotes.length
     },
+    getLikesAmount() {
+      this.quotes.map((quote) => {
+        quote.amountOfLikes = quote.likes.length
+      })
+    },
     getCommentsAmount() {
       this.quotes.map((quote) => {
-        quote.comments.amount = quote.comments.length
+        quote.amountOfComments = quote.comments.length
       })
     }
   }

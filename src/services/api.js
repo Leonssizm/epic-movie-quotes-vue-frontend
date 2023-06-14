@@ -78,3 +78,16 @@ export async function googleAuth() {
 export async function getAuthenticatedUser() {
   return await axios.get('users/user')
 }
+
+export async function getQuotes(page) {
+  return await axios.get('quotes', {
+    params: { page: page }
+  })
+}
+
+export async function likeQuote(quote_id, user_id) {
+  return await axios.post('/like-quote', {
+    quote_id: quote_id,
+    user_id: user_id
+  })
+}

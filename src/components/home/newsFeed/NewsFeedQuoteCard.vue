@@ -30,20 +30,21 @@
     <!-- likes and comments -->
     <div class="flex ml-6 mt-6">
       <div class="flex mr-6">
-        <p class="mr-3">{{ quote.comments.amount }}</p>
+        <p class="mr-3">{{ quote.amountOfComments }}</p>
         <button>
           <IconChat />
         </button>
       </div>
       <div class="flex">
-        <p class="mr-3">10</p>
-        <button>
-          <IconHeart />
+        <p class="mr-3">{{ quote.amountOfLikes }}</p>
+        <button @click="handleLikingQuote(quote.id)">
+          <IconHeart :fill="quote.liked ? 'red' : 'white'" />
         </button>
       </div>
     </div>
     <div class="border border-solid border-gray-700 mx-6 my-6"></div>
   </div>
+
   <!-- no more quotes to fetch -->
 
   <div class="flex justify-center my-10" v-if="noMoreQuotes">
@@ -51,11 +52,11 @@
   </div>
 </template>
 <script setup>
-import axios from '@/plugins/axios/index.js'
-import { useQuotesStore } from '@/stores/useQuotesStore'
 import IconChat from '@/components/icons/IconChat.vue'
 import IconHeart from '@/components/icons/IconHeart.vue'
+import { useQuotesStore } from '@/stores/useQuotesStore'
 import { useI18n } from 'vue-i18n'
+import { getAuthenticatedUser, getQuotes, likeQuote } from '@/services/api.js'
 import { onMounted, ref } from 'vue'
 
 const locale = useI18n().locale
@@ -64,38 +65,42 @@ let page = ref(1)
 let noMoreQuotes = ref(false)
 
 onMounted(() => {
-  window.addEventListener('scroll', fetchPosts)
-  getPosts(page.value)
+  fetchQuotes(page.value)
+  window.addEventListener('scroll', fetchMoreQuotesOnScroll)
   localStorage.getItem('locale') === 'en' ? (locale.value = 'en') : (locale.value = 'ka')
 })
 
-function getPosts(page) {
-  axios
-    .get('quotes', {
-      params: { page: page }
-    })
-    .then((response) => {
-      store.initQuotes(response.data.data)
-      if (response.data.data.length === 0) {
-        noMoreQuotes.value = true
-      }
-    })
+function fetchQuotes(page) {
+  getQuotes(page).then((response) => {
+    store.initQuotes(response.data.data)
+    if (response.data.data.length === 0) {
+      noMoreQuotes.value = true
+    }
+  })
 }
 
-function fetchPosts() {
-  const windowHeight = window.innerHeight
-  const documentHeight = document.documentElement.scrollHeight
-  const scrollableHeight = documentHeight - windowHeight
+function fetchMoreQuotesOnScroll() {
+  const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight
   const scrollPosition = window.scrollY
   if (scrollPosition >= scrollableHeight) {
     page.value += 1
     setTimeout(() => {
-      getPosts(page.value)
+      fetchQuotes(page.value)
     }, 800)
-
-    // if(store.getQuoteAmount == )
   }
 }
+function handleLikingQuote(quoteId) {
+  getAuthenticatedUser().then((response) => {
+    likeQuote(quoteId, response.data.id).then((response) => {
+      const likedQuote = store.quotes.find((quote) => quote.id === quoteId)
+      if (response.data === 'liked') {
+        likedQuote.amountOfLikes += 1
+        likedQuote.liked = true
+      } else {
+        likedQuote.amountOfLikes -= 1
+        likedQuote.liked = false
+      }
+    })
+  })
+}
 </script>
-
-<style scoped></style>

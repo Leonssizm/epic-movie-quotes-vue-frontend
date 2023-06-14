@@ -18,7 +18,7 @@ axiosInstance.interceptors.response.use(
     return response
   },
   function (error) {
-    if (error.response == 401) {
+    if (error.response === 401) {
       let authStore = useAuthStore()
       authStore.authenticateOrLogoutUser(false)
     }
