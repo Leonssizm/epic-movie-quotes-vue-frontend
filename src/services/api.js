@@ -86,8 +86,20 @@ export async function getQuotes(page) {
 }
 
 export async function likeQuote(quote_id, user_id) {
-  return await axios.post('/like-quote', {
+  return await axios.post(
+    '/like-quote',
+    {
+      quote_id: quote_id,
+      user_id: user_id
+    },
+    { timeout: 8000 }
+  )
+}
+
+export async function writeComment(quote_id, user_id, comment) {
+  return await axios.post('/write-comment', {
     quote_id: quote_id,
-    user_id: user_id
+    user_id: user_id,
+    body: comment.value
   })
 }
