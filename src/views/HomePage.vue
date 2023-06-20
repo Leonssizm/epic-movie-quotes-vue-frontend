@@ -17,11 +17,14 @@ import HomeHeader from '@/components/home/HomeHeader.vue'
 import HomeSearchPanel from '@/components/home/HomeSearchPanel.vue'
 import HomeSidebarNavigation from '@/components/home/HomeSidebarNavigation.vue'
 import NewsFeedQuotesCard from '@/components/home/newsFeed/NewsFeedQuoteCard.vue'
+import instantiatePusher from '@/helpers/instantiatePusher.js'
+import { useNotificationsStore } from '@/stores/useNotificationsStore'
 
-import { onMounted, ref } from 'vue'
+const notificationsStore = useNotificationsStore()
+
+import { onMounted, onUnmounted, ref } from 'vue'
 
 let displaySidebar = ref(true)
-
 function handleSidebarVisibility() {
   let resolution = ref(window.innerWidth)
   if (document.body.classList.contains('overflow-hidden') && resolution.value <= 768) {
@@ -35,8 +38,18 @@ function handleSidebarVisibility() {
     document.body.classList.remove('overflow-hidden')
   }
 }
+let authUserId = localStorage.getItem('authUserId')
+
 onMounted(() => {
+  instantiatePusher()
   document.body.addEventListener('click', handleSidebarVisibility)
+  window.Echo.private(`movie-quotes.${authUserId}`).listen('NotificationSent', (data) => {
+    notificationsStore.updateNotifications(data)
+  })
+})
+
+onUnmounted(() => {
+  document.body.removeEventListener('click', handleSidebarVisibility)
 })
 </script>
 

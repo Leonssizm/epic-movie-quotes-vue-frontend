@@ -33,7 +33,19 @@
             </p>
           </div>
         </div>
-        <IconNotificationBell />
+        <div class="flex flex-col">
+          <IconNotificationBell @click="showNotifications = !showNotifications" class="ml-1" />
+          <div
+            v-if="newNotifications && notificationsStore.notifications.length > 0"
+            class="absolute ml-5"
+          >
+            <IconRedCircle />
+            <p class="text-white absolute ml-2 top-0">
+              {{ notificationsStore.notifications.length }}
+            </p>
+          </div>
+          <HomeNotifications v-if="showNotifications" class="absolute mt-10" />
+        </div>
         <LanguageDropdown class="ml-2" />
         <button
           @click="handleLogout"
@@ -46,15 +58,21 @@
   </header>
 </template>
 <script setup>
-import IconNotificationBell from '@/components/icons/IconNotificationBell.vue'
 import LanguageDropdown from '@/components/LanguageDropdown.vue'
+import HomeNotifications from '@/components/home/HomeNotifications.vue'
+import IconNotificationBell from '@/components/icons/IconNotificationBell.vue'
 import IconQuestionMark from '@/components/icons/IconQuestionMark.vue'
 import IconArrowBack from '@/components/icons/IconArrowBack.vue'
 import IconList from '@/components/icons/IconList.vue'
+import axios from '@/plugins/axios/index.js'
+import IconRedCircle from '@/components/icons/IconRedCircle.vue'
 import { useRouter } from 'vue-router'
 import { logout } from '@/services/api.js'
 import { useAuthStore } from '@/stores/useAuthStore'
-import { ref, defineEmits } from 'vue'
+import { ref, defineEmits, watch } from 'vue'
+import { useNotificationsStore } from '@/stores/useNotificationsStore'
+
+const notificationsStore = useNotificationsStore()
 
 defineEmits(['changeSidebarVisibility'])
 
@@ -62,15 +80,33 @@ const router = useRouter()
 
 const store = useAuthStore()
 
+let showNotifications = ref(false)
+let newNotifications = ref(true)
+let isExpanded = ref(false)
+
+watch(
+  () => notificationsStore.notifications.length,
+  (newLength, oldLength) => {
+    if (newLength > oldLength) {
+      newNotifications.value = true
+    }
+  }
+)
+
+axios.get('notifications').then((response) => {
+  if (response.data !== '') {
+    notificationsStore.initNotifications(response.data)
+  }
+})
+
 function changeSidebarVisibility() {
   document.body.classList.add('overflow-hidden')
 }
+
 function handleLogout() {
   logout('log-out').then(() => {
     store.authenticateOrLogoutUser(false)
     router.push({ name: 'landing' })
   })
 }
-
-let isExpanded = ref(false)
 </script>

@@ -9,6 +9,7 @@ import GuardUnauthorized from '@/components/navigationGuards/GuardUnauthorized.v
 import VerificationAccountIsActivated from '@/components/verification/VerificationAccountIsActivated.vue'
 import ForgotPasswordModal from '@/components/verification/forgotPassword/ForgotPasswordModal.vue'
 import ForgotPasswordResetForm from '@/components/verification/forgotPassword/ForgotPasswordResetForm.vue'
+import UserProfileEditPage from '@/components/home/userProfile/UserProfileEditPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,6 +62,12 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       },
+      beforeEnter: [isAuthenticated]
+    },
+    {
+      path: '/edit-profile',
+      name: 'profile',
+      component: UserProfileEditPage,
       beforeEnter: [isAuthenticated]
     },
 
