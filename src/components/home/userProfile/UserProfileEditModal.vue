@@ -14,6 +14,8 @@
           :src="
             profilePicture.includes('base64')
               ? profilePicture
+              : profilePicture.includes('http')
+              ? profilePicture
               : 'http://127.0.0.1:8000/storage/' + profilePicture
           "
           alt="profile-picture"
@@ -56,7 +58,7 @@
             </div>
             <PasswordRulesBanner v-if="displayNewPasswordInput" />
           </div>
-          <NewPasswordInput class="mr-10" v-if="displayNewPasswordInput" v-model="newPassword" />
+          <NewPasswordInput class="lg:mr-10" v-if="displayNewPasswordInput" v-model="newPassword" />
           <NewPasswordConfirmationInput
             class="mr-10"
             v-if="displayNewPasswordInput"
@@ -67,7 +69,7 @@
       <div class="flex items-center justify-end mt-10">
         <RouterLink to="/home" class="mr-3">Cancel</RouterLink>
         <button
-          class="ml-2 w-24 h-8 lg:w-28 lg:h-10 bg-red-600 border border-red-500 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221]"
+          class="ml-2 w-28 h-8 lg:w-28 lg:h-10 bg-red-600 border border-red-500 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221]"
           type="submit"
         >
           Save Changes
@@ -142,11 +144,7 @@ function editUserInformation() {
     formData.append('new_password', newPassword.value)
     formData.append('password_confirmation', newPasswordConfirmation.value)
   }
-  if (
-    profilePicture.value &&
-    /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(profilePicture.value)
-  ) {
-    console.log(profilePicture.value)
+  if (profilePicture.value && profilePicture.value.includes('base64')) {
     let binary = atob(profilePicture.value.split(',')[1])
     let array = []
     for (var i = 0; i < binary.length; i++) {
@@ -158,14 +156,10 @@ function editUserInformation() {
     formData.append('profile_picture', file)
   }
 
-  console.log(formData)
-
-  axios
-    .post('edit/user/' + localStorage.getItem('authUserId'), formData, {
-      headers: {
-        'Content-type': 'multipart/form-data'
-      }
-    })
-    .then((data) => console.log(data))
+  axios.post('edit/user/' + localStorage.getItem('authUserId'), formData, {
+    headers: {
+      'Content-type': 'multipart/form-data'
+    }
+  })
 }
 </script>

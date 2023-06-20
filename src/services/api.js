@@ -97,9 +97,13 @@ export async function likeQuote(quote_id, user_id) {
 }
 
 export async function writeComment(quote_id, user_id, comment) {
-  return await axios.post('/write-comment', {
-    quote_id: quote_id,
-    user_id: user_id,
-    body: comment.value
-  })
+  return await axios.post(
+    '/write-comment',
+    {
+      quote_id: quote_id,
+      user_id: user_id,
+      body: comment.value
+    },
+    { timeout: 6000 }
+  )
 }

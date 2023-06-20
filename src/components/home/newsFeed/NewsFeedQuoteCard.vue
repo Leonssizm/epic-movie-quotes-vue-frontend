@@ -9,7 +9,7 @@
       <img
         :src="
           quote.user.profile_picture
-            ? quote.user.google_id
+            ? quote.user.profile_picture.includes('http')
               ? quote.user.profile_picture
               : 'http://127.0.0.1:8000/storage/' + quote.user.profile_picture
             : 'https://picsum.photos/300'
@@ -59,7 +59,7 @@
       <img
         :src="
           comment.user.profile_picture
-            ? comment.user.google_id
+            ? comment.user.profile_picture.includes('http')
               ? comment.user.profile_picture
               : 'http://127.0.0.1:8000/storage/' + comment.user.profile_picture
             : 'https://picsum.photos/200'
@@ -81,9 +81,15 @@
     <!-- Comments -->
     <div class="mt-6 pl-6 flex items-center">
       <img
-        :src="'http://127.0.0.1:8000/storage/' + authStore.authenticatedUser.profile_picture"
-        alt="profile-picture"
+        :src="
+          authStore.authenticatedUser.profile_picture
+            ? authStore.authenticatedUser.profile_picture.includes('http')
+              ? authStore.authenticatedUser.profile_picture
+              : 'http://127.0.0.1:8000/storage/' + authStore.authenticatedUser.profile_picture
+            : 'https://picsum.photos/200'
+        "
         class="rounded-full h-14 w-14 object-cover"
+        alt="profile-picture"
       />
       <input
         type="text"

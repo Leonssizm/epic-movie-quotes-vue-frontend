@@ -4,7 +4,13 @@
   >
     <div class="text-[#FFFFFF] font-helvetica-neue flex">
       <img
-        :src="'http://127.0.0.1:8000/storage/' + profilePicture"
+        :src="
+          profilePicture.includes('base64')
+            ? profilePicture
+            : profilePicture.includes('http')
+            ? profilePicture
+            : 'http://127.0.0.1:8000/storage/' + profilePicture
+        "
         class="rounded-full h-14 w-14 object-cover"
         alt="profile-picture"
       />
@@ -37,9 +43,13 @@ import { ref } from 'vue'
 
 let username = ref('')
 let profilePicture = ref('')
+let isGoogleUser = ref(false)
 const store = useAuthStore()
 
 getAuthenticatedUser().then((response) => {
+  if (response.data.google_id) {
+    isGoogleUser.value = true
+  }
   username.value = response.data.username
   profilePicture.value = response.data.profile_picture
   store.initAuthUser(response.data)
