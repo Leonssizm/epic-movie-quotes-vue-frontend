@@ -107,3 +107,64 @@ export async function writeComment(quote_id, user_id, comment) {
     { timeout: 6000 }
   )
 }
+
+export async function changeEmail(token, email) {
+  return await axios.post('/change-email', {
+    token: token,
+    email: email
+  })
+}
+
+export async function changeUserPersonalInfo(personalInfoFormData) {
+  return await axios.post('edit/user/' + localStorage.getItem('authUserId'), personalInfoFormData, {
+    headers: {
+      'Content-type': 'multipart/form-data'
+    }
+  })
+}
+
+// Movie & Quote CRUD
+
+export async function getMovies(pageParams) {
+  return await axios.get('movies', {
+    params: { page: pageParams }
+  })
+}
+
+export async function getSingleMovie(movieId) {
+  return await axios.get('movies/' + movieId)
+}
+
+export async function addMovie(movieInfoForm) {
+  return await axios.post('create-movie', movieInfoForm, {
+    headers: {
+      'Content-type': 'multipart/form-data'
+    }
+  })
+}
+
+export async function editMovieRequest(movieId, movieEditedInfoForm) {
+  return await axios.post('movies/edit/' + movieId, movieEditedInfoForm, {
+    headers: {
+      'Content-type': 'multipart/form-data'
+    }
+  })
+}
+
+export async function deleteMovie(movieId) {
+  return await axios.delete('movies/delete/' + movieId)
+}
+
+export async function deleteQuote(quoteId) {
+  return await axios.delete('quotes/delete/' + quoteId)
+}
+export async function getSingleQuote(quoteId) {
+  return await axios.get('/quotes/' + quoteId)
+}
+export async function editQuoteRequest(quoteId, quoteEditedInfoForm) {
+  return await axios.post('quotes/edit/' + quoteId, quoteEditedInfoForm, {
+    headers: {
+      'Content-type': 'multipart/form-data'
+    }
+  })
+}

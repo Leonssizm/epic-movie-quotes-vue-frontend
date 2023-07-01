@@ -1,15 +1,12 @@
 <template>
-  <div class="flex flex-col">
-    <label class="pb-2 font-helvetica-neue lg:ml-44">Email</label>
-    <div class="flex justify-center">
-      <input
-        type="text"
-        disabled
-        class="mb-4 pl-1 lg:mr-11 w-[23rem] lg:w-[21rem] h-10 placeholder:pl-3 bg-[#24222F] text-[#FFFFFF] border-b-2 lg:bg-[#CED4DA] lg:text-black lg:border lg:border-gray-300 lg:rounded"
-        @input="$emit('update:modelValue', $event.target.value)"
-        v-model="initialValue"
-      />
-    </div>
+  <div class="flex justify-center">
+    <input
+      type="text"
+      disabled
+      class="mb-4 pl-1 lg:mr-5 w-[18.5rem] lg:w-[21rem] h-10 placeholder:pl-3 bg-[#24222F] text-[#FFFFFF] border-b-2 lg:bg-[#CED4DA] lg:text-black lg:border lg:border-gray-300 lg:rounded"
+      @input="$emit('update:modelValue', $event.target.value)"
+      v-model="initialValue"
+    />
   </div>
 </template>
 <script setup>

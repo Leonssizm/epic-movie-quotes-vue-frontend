@@ -10,6 +10,11 @@
           class="mr-4 w-7 h-8 cursor-pointer lg:hidden"
           @click="isExpanded = !isExpanded"
           v-if="!isExpanded"
+          :class="{
+            hidden:
+              router.currentRoute.value.path === '/movies' ||
+              router.currentRoute.value.path.includes('/movies/movie/')
+          }"
         />
         <div
           v-if="isExpanded"
