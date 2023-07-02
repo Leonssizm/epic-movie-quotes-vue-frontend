@@ -18,7 +18,7 @@
         :key="index"
       >
         <RouterLink
-          :to="'/quotes/' + notification.quote.id"
+          :to="{ name: 'individual-quote', params: { id: notification.quote.id } }"
           @click="makeNotificationRead(notification)"
         >
           <div class="flex justify-between">

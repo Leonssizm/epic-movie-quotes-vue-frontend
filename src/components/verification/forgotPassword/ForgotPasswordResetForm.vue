@@ -52,7 +52,7 @@
               {{ $t('landing.change_password.reset_password') }}
             </button>
           </Form>
-          <RouterLink to="/login" class="flex items-center mt-6 col-reverse"
+          <RouterLink :to="{ name: 'login' }" class="flex items-center mt-6 col-reverse"
             ><IconArrowBack class="mr-2" />
             <span class="font-normal text-xs text-[#6C757D] font-helvetica-neue">
               {{ $t('landing.forgot_password.go_back') }}

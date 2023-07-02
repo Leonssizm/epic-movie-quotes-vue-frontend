@@ -20,11 +20,13 @@
       />
       <div class="flex flex-col justify-center">
         <h2 class="ml-6">{{ username }}</h2>
-        <RouterLink to="/edit-profile" class="text-[#CED4DA] ml-6">edit your profile</RouterLink>
+        <RouterLink :to="{ name: 'profile' }" class="text-[#CED4DA] ml-6"
+          >edit your profile</RouterLink
+        >
       </div>
     </div>
     <div class="flex mt-10 ml-2 justify-between text-[#FFFFFF]">
-      <RouterLink to="/home">
+      <RouterLink :to="{ name: 'home' }">
         <div class="flex items-center">
           <IconHome
             class="mr-12 items-center"
@@ -35,7 +37,7 @@
       >
     </div>
     <div class="flex mt-10 justify-between items-center text-[#FFFFFF]">
-      <RouterLink to="/movies/list"
+      <RouterLink :to="{ name: 'movies-list' }"
         ><div class="flex items-center">
           <IconCamera
             class="ml-2 mr-12"

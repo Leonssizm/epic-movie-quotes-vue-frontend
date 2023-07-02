@@ -8,59 +8,11 @@
       <div class="lg:w-1/2 bg-[#000000] lg:mt-24 pb-36 h-full overflow-y-scroll">
         <div class="flex items-start justify-between py-8 border-b-2 border-gray-800">
           <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">Write New Quote</h1>
-          <button class="text-2xl text-white mr-10" @click="closePopup">x</button>
+          <button class="text-2xl text-white mr-10" @click="router.back()">x</button>
         </div>
         <UserHeader />
         <div v-if="userIsRedirectedFromMoviesPage" class="flex mt-4">
-          <img
-            :src="
-              moviesStore.movie.image
-                ? storageUrl + moviesStore.movie.image
-                : 'https://picsum.photos/300'
-            "
-            alt="movie-thumbnail"
-            class="lg:w-[17rem] lg:h-[12rem] w-[10rem] h-[8rem] rounded-xl ml-10"
-          />
-          <div class="font-helvetica-neue text-2xl font-bold flex flex-col ml-4">
-            <h1 class="text-[#DDCCAA]" v-if="locale == 'en'">
-              {{ moviesStore.movie.title.en }} ({{ moviesStore.movie.release_year.slice(0, 4) }})
-            </h1>
-            <h1 class="text-[#DDCCAA]" v-else>
-              {{ moviesStore.movie.title.ka }} ({{ moviesStore.movie.release_year.slice(0, 4) }})
-            </h1>
-
-            <span v-if="locale === 'en'" class="flex flex-wrap mt-3">
-              <p
-                v-for="(genre, index) in moviesStore.movie.genres"
-                :key="genre.id"
-                class="text-white bg-gray-500 p-2 rounded mt-2"
-                :class="{
-                  'ml-2': index !== 0
-                }"
-              >
-                {{ genre.name.en }}
-              </p>
-            </span>
-            <span v-else class="flex flex-wrap mt-3">
-              <p
-                class="text-white bg-gray-500 p-2 rounded mt-2"
-                v-for="(genre, index) in moviesStore.movie.genres"
-                :key="genre.id"
-                :class="{
-                  'ml-2': index !== 0
-                }"
-              >
-                {{ genre.name.ka }}
-              </p>
-            </span>
-
-            <div class="flex mt-4">
-              <p class="text-white text-xl" v-if="locale === 'en'">
-                Director: {{ moviesStore.movie.director.en }}
-              </p>
-              <p class="text-white text-xl" v-else>Director: {{ moviesStore.movie.director.en }}</p>
-            </div>
-          </div>
+          <HeaderModifications />
         </div>
         <div class="flex flex-col items-center mt-10 text-[#FFFFFF]">
           <div class="flex flex-col">
@@ -227,19 +179,20 @@
   </transition>
 </template>
 <script setup>
-import axios from '@/plugins/axios/index.js'
 import IconPhotoCamera from '@/components/icons/IconPhotoCamera.vue'
 import IconCamera from '@/components/icons/IconCamera.vue'
 import UserHeader from '@/components/home/movieList/forms/headers/addMovieFormUserHeader.vue'
+import HeaderModifications from '@/components/home/newsFeed/modifications/MoviePageRedirectionHeaderModifications.vue'
 import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
+import { getAllUserMovies } from '@/services/api.js'
+import { addQuote } from '@/services/api.js'
 import { useI18n } from 'vue-i18n'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 
 const locale = useI18n().locale
 const router = useRouter()
-const storageUrl = import.meta.env.VITE_API_STORAGE
 
 const moviesStore = useMoviesStore()
 let resolution = ref(window.innerWidth)
@@ -253,18 +206,12 @@ let quoteEn = ref('')
 let quoteKa = ref('')
 let userIsRedirectedFromMoviesPage = ref(router.options.history.state.back.includes('movies/movie'))
 
-axios
-  .get('user/' + localStorage.getItem('authUserId') + '/movies')
-  .then((response) => {
-    moviesStore.initAllUserMovies(response.data)
-  })
-  .catch(() => {
+getAllUserMovies(localStorage.getItem('authUserId')).then((response) => {
+  moviesStore.initAllUserMovies(response.data)
+  if (response.data.length === 0) {
     userHasNoMovies.value = true
-  })
-
-function closePopup() {
-  router.back()
-}
+  }
+})
 
 function createQuote() {
   let formData = new FormData()
@@ -286,17 +233,11 @@ function createQuote() {
   })
   formData.append('thumbnail', file)
 
-  axios
-    .post('create-quote', formData, {
-      headers: {
-        'Content-type': 'multipart/form-data'
-      }
-    })
-    .then((response) => {
-      if (response.status === 200) {
-        router.back()
-      }
-    })
+  addQuote(formData).then((response) => {
+    if (response.status === 200) {
+      router.back()
+    }
+  })
 }
 function handleFileInputChange(event) {
   const file = event.target.files[0]

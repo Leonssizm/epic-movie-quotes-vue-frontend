@@ -3,7 +3,7 @@
   <div class="mt-4 pb-4 lg:w-[49rem] w-full h-full mb-36">
     <div class="flex text-[#FFFFFF] text-2xl">
       <h1 class="mt-10 hidden lg:block">My Profile</h1>
-      <RouterLink to="/home" class="block lg:hidden"
+      <RouterLink :to="{ name: 'home' }" class="block lg:hidden"
         ><IconArrowBack class="ml-4 w-5 h-5"
       /></RouterLink>
     </div>
@@ -83,7 +83,7 @@
         </div>
       </div>
       <div class="flex items-center justify-end mt-10">
-        <RouterLink to="/home" class="mr-3">Cancel</RouterLink>
+        <RouterLink :to="{ name: 'home' }" class="mr-3">Cancel</RouterLink>
         <button
           class="ml-2 w-28 h-8 lg:w-28 lg:h-10 bg-red-600 border border-red-500 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221]"
           type="submit"
@@ -141,7 +141,6 @@ provide('newEmail', newEmail)
 provide('password', password)
 
 getAuthenticatedUser().then((response) => {
-  console.log(response)
   username.value = response.data.username
   profilePicture.value = response.data.profile_picture
   email.value = response.data.email

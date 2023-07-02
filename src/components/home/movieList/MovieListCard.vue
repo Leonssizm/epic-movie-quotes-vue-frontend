@@ -2,7 +2,7 @@
   <MovieListHeader />
   <div class="flex flex-wrap">
     <div v-for="movie in store.movies" :key="movie.id" class="w-full sm:w-1/2 md:w-1/3 px-10 py-8">
-      <RouterLink :to="`/movies/movie/${movie.id}`">
+      <RouterLink :to="{ name: 'movie', params: { id: movie.id } }">
         <div class="bg-transparent rounded-lg shadow-md">
           <div class="overflow-hidden rounded-lg">
             <img

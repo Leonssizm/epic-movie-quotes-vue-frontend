@@ -20,13 +20,13 @@
           </div>
           <RouterLink
             v-if="success"
-            to="/edit-profile"
+            :to="{ name: 'profile' }"
             class="mb-4 mt-4 w-80 h-10 bg-[#E31221] text-white border border-[#E31221] rounded flex justify-center items-center"
             >continue editing</RouterLink
           >
           <RouterLink
             v-else
-            to="/edit-profile"
+            :to="{ name: 'profile' }"
             class="mb-4 mt-4 w-80 h-10 bg-[#E31221] text-white border border-[#E31221] rounded flex justify-center items-center"
             >retry</RouterLink
           >
