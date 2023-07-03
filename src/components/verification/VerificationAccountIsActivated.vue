@@ -26,7 +26,7 @@
           </div>
           <RouterLink
             v-if="success"
-            to="/login"
+            :to="{ name: 'login' }"
             class="mb-4 w-80 h-10 bg-[#E31221] text-white border border-[#E31221] rounded flex justify-center items-center"
             >{{ $t('landing.registration_result.success_button') }}</RouterLink
           >

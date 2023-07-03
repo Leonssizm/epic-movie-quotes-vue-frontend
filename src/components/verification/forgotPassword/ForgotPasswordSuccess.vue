@@ -11,7 +11,7 @@
             Your Password changed Successfully
           </p>
           <RouterLink
-            to="/login"
+            :to="{ name: 'login' }"
             class="mb-4 mt-4 w-80 h-10 bg-[#E31221] text-white border border-[#E31221] rounded flex justify-center items-center"
             >Log in</RouterLink
           >

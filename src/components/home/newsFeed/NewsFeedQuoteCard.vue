@@ -1,106 +1,122 @@
 <template>
-  <div
-    v-for="quote in quotesStore.quotes"
-    :key="quote.id"
-    class="mt-4 bg-[#000000] pb-4 lg:w-[49rem]"
-  >
-    <!-- Quote -->
-    <div class="flex items-center pl-6 pt-2 mt-2">
-      <img
-        :src="
-          quote.user.profile_picture
-            ? quote.user.profile_picture.includes('http')
-              ? quote.user.profile_picture
-              : 'http://127.0.0.1:8000/storage/' + quote.user.profile_picture
-            : 'https://picsum.photos/300'
-        "
-        class="rounded-full h-14 w-14 object-cover"
-        alt="profile-picture"
-      />
-
-      <div class="ml-6 font-helvetica-neue font-normal text-[#FFFFFF]">
-        <p>
-          {{ quote.user.username }}
-        </p>
-      </div>
-    </div>
-    <div class="text-[#FFFFFF] mt-6 pl-6 lg:pr-80">
-      <div v-if="locale === 'en'" class="flex">
-        <h1 class="w-[22rem] lg:w-64">{{ quote.body.en }}</h1>
-      </div>
-      <div v-else>
-        <h1 class="w-[22rem] lg:w-64">{{ quote.body.ka }}</h1>
-      </div>
-    </div>
-    <div class="flex items-center justify-center mt-6">
-      <img src="https://picsum.photos/300" class="lg:w-2/3" alt="quote-picture" />
-    </div>
-    <div class="flex ml-6 mt-6">
-      <div class="flex mr-6">
-        <p class="mr-3">{{ quote.amountOfComments }}</p>
-        <button @click="changeCommentsVisibility(quote.id)">
-          <IconChat />
-        </button>
-      </div>
-      <div class="flex">
-        <p class="mr-3">{{ quote.amountOfLikes }}</p>
-        <button @click="handleLikingQuote(quote.id)">
-          <IconHeart :fill="quote.liked ? 'red' : 'white'" />
-        </button>
-      </div>
-    </div>
-    <div class="border border-solid border-gray-700 mx-6 my-6"></div>
-    <!-- Write comment -->
-    <div
-      class="flex items-center pl-6"
-      v-for="comment in quote.comments.slice(0, amountOfCommentsVisible)"
-      :key="comment.id"
-    >
-      <img
-        :src="
-          comment.user.profile_picture
-            ? comment.user.profile_picture.includes('http')
-              ? comment.user.profile_picture
-              : 'http://127.0.0.1:8000/storage/' + comment.user.profile_picture
-            : 'https://picsum.photos/200'
-        "
-        class="rounded-full h-14 w-14 object-cover"
-        alt="profile-picture"
-      />
-      <div
-        class="ml-6 flex flex-col font-helvetica-neue font-normal text-[#FFFFFF] border-b border-solid border-gray-700 w-3/4 py-5"
-      >
-        <p class="flex items-center mt-8">
-          {{ comment.user.username }}
-        </p>
-        <p class="mt-4">
-          {{ comment.body }}
-        </p>
-      </div>
-    </div>
-    <!-- Comments -->
-    <div class="mt-6 pl-6 flex items-center">
-      <img
-        :src="
-          authStore.authenticatedUser.profile_picture
-            ? authStore.authenticatedUser.profile_picture.includes('http')
-              ? authStore.authenticatedUser.profile_picture
-              : 'http://127.0.0.1:8000/storage/' + authStore.authenticatedUser.profile_picture
-            : 'https://picsum.photos/200'
-        "
-        class="rounded-full h-14 w-14 object-cover"
-        alt="profile-picture"
-      />
-      <input
-        type="text"
-        class="ml-6 bg-[#24222F] w-3/4 h-10 pl-4 placeholder:font-helvetica-neue rounded-lg"
-        placeholder="Write a comment"
-        @keyup.enter="createComment(authStore.authenticatedUser.id, quote.id, $event.target)"
-      />
+  <div v-if="pageIsLoaded">
+    <div class="flex justify-center items-center h-screen">
+      <div class="w-36 h-36 rounded-full border-8 border-dotted border-red-500 animate-spin"></div>
     </div>
   </div>
-  <div class="flex justify-center my-10" v-if="noMoreQuotes">
-    <h1 class="text-[#FFFFFF] text-3xl font-helvetica-neue">No more Quotes</h1>
+  <div v-else>
+    <div
+      v-for="quote in quotesStore.quotes"
+      :key="quote.id"
+      class="mt-4 bg-[#000000] pb-4 lg:w-[49rem]"
+    >
+      <div class="flex items-center pl-6 pt-2 mt-2">
+        <img
+          :src="
+            quote.user.profile_picture
+              ? quote.user.profile_picture.includes('http')
+                ? quote.user.profile_picture
+                : storageUrl + quote.user.profile_picture
+              : 'https://picsum.photos/300'
+          "
+          class="rounded-full h-14 w-14 object-cover"
+          alt="profile-picture"
+        />
+
+        <div class="ml-6 font-helvetica-neue font-normal text-[#FFFFFF]">
+          <p>
+            {{ quote.user.username }}
+          </p>
+        </div>
+      </div>
+      <div class="text-[#FFFFFF] mt-6 pl-6 lg:pr-80">
+        <div v-if="locale === 'en'" class="flex">
+          <h1 class="w-[21rem] lg:w-64">{{ quote.body.en }}</h1>
+        </div>
+        <div v-else>
+          <h1 class="w-[21rem] lg:w-64">{{ quote.body.ka }}</h1>
+        </div>
+      </div>
+      <div class="flex items-center justify-center mt-6">
+        <img
+          :src="quote.thumbnail ? storageUrl + quote.thumbnail : 'https://picsum.photos/300'"
+          class="lg:w-2/3"
+          alt="quote-picture"
+        />
+      </div>
+      <div class="flex ml-6 mt-6">
+        <div class="flex mr-6">
+          <p class="mr-3">{{ quote.amountOfComments }}</p>
+          <button @click="changeCommentsVisibility(quote.id)">
+            <IconChat />
+          </button>
+        </div>
+        <div class="flex">
+          <p class="mr-3">{{ quote.amountOfLikes }}</p>
+          <button @click="handleLikingQuote(quote.id)">
+            <IconHeart :fill="quote.liked ? 'red' : 'white'" />
+          </button>
+        </div>
+      </div>
+      <div class="border border-solid border-gray-700 mx-6 my-6"></div>
+      <!-- Write comment -->
+      <div
+        class="flex items-center pl-6"
+        v-for="comment in quote.comments.slice(0, amountOfCommentsVisible)"
+        :key="comment.id"
+      >
+        <img
+          :src="
+            comment.user.profile_picture
+              ? comment.user.profile_picture.includes('http')
+                ? comment.user.profile_picture
+                : storageUrl + comment.user.profile_picture
+              : 'https://picsum.photos/200'
+          "
+          class="rounded-full h-14 w-14 object-cover"
+          alt="profile-picture"
+        />
+        <div
+          class="ml-6 flex flex-col font-helvetica-neue font-normal text-[#FFFFFF] border-b border-solid border-gray-700 w-3/4 py-5"
+        >
+          <p class="flex items-center mt-8">
+            {{ comment.user.username }}
+          </p>
+          <p class="mt-4">
+            {{ comment.body }}
+          </p>
+        </div>
+      </div>
+      <!-- Comments -->
+      <div class="mt-6 pl-6 flex items-center">
+        <img
+          :src="
+            authStore.authenticatedUser.profile_picture
+              ? authStore.authenticatedUser.profile_picture.includes('http')
+                ? authStore.authenticatedUser.profile_picture
+                : storageUrl + authStore.authenticatedUser.profile_picture
+              : 'https://picsum.photos/200'
+          "
+          class="rounded-full h-14 w-14 object-cover"
+          alt="profile-picture"
+        />
+        <input
+          type="text"
+          class="ml-6 bg-[#24222F] w-3/4 h-10 pl-4 placeholder:font-helvetica-neue rounded-lg"
+          placeholder="Write a comment"
+          @keyup.enter="createComment(authStore.authenticatedUser.id, quote.id, $event.target)"
+        />
+      </div>
+    </div>
+    <div
+      class="flex justify-center my-10"
+      :class="{
+        'h-screen': noMoreQuotes
+      }"
+      v-if="noMoreQuotes"
+    >
+      <h1 class="text-[#FFFFFF] text-3xl font-helvetica-neue">No more Quotes</h1>
+    </div>
   </div>
 </template>
 <script setup>
@@ -115,10 +131,13 @@ import { onMounted, ref } from 'vue'
 const locale = useI18n().locale
 const quotesStore = useQuotesStore()
 const authStore = useAuthStore()
+let storageUrl = import.meta.env.VITE_API_STORAGE
+
 let page = ref(1)
 let noMoreQuotes = ref(false)
 let amountOfCommentsVisible = ref(2)
 let toggleVisibility = false
+let pageIsLoaded = ref(true)
 onMounted(() => {
   fetchQuotes(page.value)
   window.addEventListener('scroll', fetchMoreQuotesOnScroll)
@@ -127,8 +146,9 @@ onMounted(() => {
 
 function fetchQuotes(page) {
   getQuotes(page).then((response) => {
-    quotesStore.initQuotes(response.data.data)
-    if (response.data.data.length === 0) {
+    pageIsLoaded.value = false
+    quotesStore.initQuotes(response.data)
+    if (response.data.length === 0) {
       noMoreQuotes.value = true
     }
   })
@@ -183,3 +203,14 @@ function changeCommentsVisibility(quoteId) {
   }
 }
 </script>
+
+<style scoped>
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>

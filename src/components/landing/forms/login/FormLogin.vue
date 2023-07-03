@@ -43,7 +43,7 @@
             />
             <div class="flex items-center flex-row-reverse justify-evenly w-80">
               <RouterLink
-                to="/password-reset"
+                :to="{ name: 'password-reset' }"
                 class="font-normal text-xs text-[#0D6EFD] ml-24 underline"
                 >{{ $t('landing.log_in.forget_password') }}</RouterLink
               >

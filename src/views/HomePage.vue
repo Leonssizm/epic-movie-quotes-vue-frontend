@@ -18,11 +18,10 @@ import HomeSearchPanel from '@/components/home/HomeSearchPanel.vue'
 import HomeSidebarNavigation from '@/components/home/HomeSidebarNavigation.vue'
 import NewsFeedQuotesCard from '@/components/home/newsFeed/NewsFeedQuoteCard.vue'
 import instantiatePusher from '@/helpers/instantiatePusher.js'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useNotificationsStore } from '@/stores/useNotificationsStore'
 
 const notificationsStore = useNotificationsStore()
-
-import { onMounted, onUnmounted, ref } from 'vue'
 
 let displaySidebar = ref(true)
 function handleSidebarVisibility() {

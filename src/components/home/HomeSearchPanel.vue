@@ -2,6 +2,7 @@
   <div class="pt-6">
     <div class="text-[#FFFFFF] flex lg:justify-center ml-10 lg:ml-0">
       <div
+        @click="addQuote"
         :class="{ 'lg:w-1/5': isExpanded, 'lg:w-2/5': !isExpanded }"
         class="flex h-12 lg:bg-[#24222F] items-center rounded-md"
       >
@@ -18,13 +19,20 @@
         />
       </div>
     </div>
+    <RouterView />
   </div>
 </template>
 <script setup>
 import IconPencil from '@/components/icons/IconPencil.vue'
 import IconQuestionMark from '@/components/icons/IconQuestionMark.vue'
+import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
 
+const router = useRouter()
+
+function addQuote() {
+  router.push({ name: 'add-quote' })
+}
 let isExpanded = ref(false)
 let placeholder = computed(() => {
   if (isExpanded.value) {

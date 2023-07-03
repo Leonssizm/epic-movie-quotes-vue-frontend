@@ -4,31 +4,47 @@
   >
     <div class="text-[#FFFFFF] font-helvetica-neue flex">
       <img
+        v-if="photoIsLoaded"
         :src="
           profilePicture.includes('base64')
             ? profilePicture
             : profilePicture.includes('http')
             ? profilePicture
-            : 'http://127.0.0.1:8000/storage/' + profilePicture
+            : storageUrl + profilePicture
         "
         class="rounded-full h-14 w-14 object-cover"
         alt="profile-picture"
+        :class="{
+          'border border-red-500': router.currentRoute.value.path === '/edit-profile'
+        }"
       />
       <div class="flex flex-col justify-center">
         <h2 class="ml-6">{{ username }}</h2>
-        <RouterLink to="/edit-profile" class="text-[#CED4DA] ml-6">edit your profile</RouterLink>
+        <RouterLink :to="{ name: 'profile' }" class="text-[#CED4DA] ml-6"
+          >edit your profile</RouterLink
+        >
       </div>
     </div>
     <div class="flex mt-10 ml-2 justify-between text-[#FFFFFF]">
-      <RouterLink to="/home">
+      <RouterLink :to="{ name: 'home' }">
         <div class="flex items-center">
-          <IconHome class="mr-12 items-center" /> News feed
+          <IconHome
+            class="mr-12 items-center"
+            :fill="router.currentRoute.value.path === '/home' ? 'red' : 'white'"
+          />
+          News feed
         </div></RouterLink
       >
     </div>
     <div class="flex mt-10 justify-between items-center text-[#FFFFFF]">
-      <RouterLink to="/home"
-        ><div class="flex items-center"><IconCamera class="ml-2 mr-12" /> List of Movies</div>
+      <RouterLink :to="{ name: 'movies-list' }"
+        ><div class="flex items-center">
+          <IconCamera
+            class="ml-2 mr-12"
+            :fill="router.currentRoute.value.path === '/movies/list' ? 'red' : 'white'"
+          />
+          List of Movies
+        </div>
       </RouterLink>
     </div>
   </nav>
@@ -38,13 +54,16 @@ import IconHome from '@/components/icons/IconHome.vue'
 import IconCamera from '@/components/icons/IconCamera.vue'
 import { getAuthenticatedUser } from '@/services/api.js'
 import { useAuthStore } from '@/stores/useAuthStore'
-
+import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
+const router = useRouter()
 let username = ref('')
 let profilePicture = ref('')
 let isGoogleUser = ref(false)
 const store = useAuthStore()
+const storageUrl = import.meta.env.VITE_API_STORAGE
+let photoIsLoaded = ref(false)
 
 getAuthenticatedUser().then((response) => {
   if (response.data.google_id) {
@@ -53,5 +72,8 @@ getAuthenticatedUser().then((response) => {
   username.value = response.data.username
   profilePicture.value = response.data.profile_picture
   store.initAuthUser(response.data)
+  if (profilePicture.value) {
+    photoIsLoaded.value = true
+  }
 })
 </script>

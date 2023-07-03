@@ -1,8 +1,9 @@
 <template>
-  <div class="mt-4 pb-4 lg:w-[49rem] h-full mb-36">
+  <EditSuccess v-if="editWasSuccessful" @closeSuccessModal="editWasSuccessful = false" />
+  <div class="mt-4 pb-4 lg:w-[49rem] w-full h-full mb-36">
     <div class="flex text-[#FFFFFF] text-2xl">
       <h1 class="mt-10 hidden lg:block">My Profile</h1>
-      <RouterLink to="/home" class="block lg:hidden"
+      <RouterLink :to="{ name: 'home' }" class="block lg:hidden"
         ><IconArrowBack class="ml-4 w-5 h-5"
       /></RouterLink>
     </div>
@@ -11,12 +12,13 @@
         class="flex items-center justify-center flex-col mt-6 lg:mt-36 bg-[#24222F] lg:bg-[#11101A]"
       >
         <img
+          v-if="photoIsLoaded"
           :src="
             profilePicture.includes('base64')
               ? profilePicture
               : profilePicture.includes('http')
               ? profilePicture
-              : 'http://127.0.0.1:8000/storage/' + profilePicture
+              : storageUrl + profilePicture
           "
           alt="profile-picture"
           class="rounded-full h-52 w-52 object-cover lg:absolute lg:top-1/3 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 lg:z-0"
@@ -42,11 +44,25 @@
             </div>
           </div>
           <NewUsernameInput v-if="displayNewUsernameInput" v-model="newUsername" />
-          <EmailInput v-model="email" />
+          <div class="flex flex-col">
+            <label class="pb-2 font-helvetica-neue lg:ml-44">Email</label>
+            <div class="flex justify-center">
+              <EmailInput v-model="email" />
+              <button
+                @click="displayNewEmailInput = !displayNewEmailInput"
+                class="font-helvetica-neue font-normal text-base leading-6 text-gray-400 mb-4 border-b-2 bg-[#24222F] lg:border-0 lg:bg-[#11101A]"
+                type="button"
+                :disabled="isGoogleUser"
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+          <NewEmailInput v-if="displayNewEmailInput" v-model="newEmail" :disabled="isGoogleUser" />
           <div class="flex flex-col">
             <label class="pb-2 font-helvetica-neue lg:ml-44">Password</label>
             <div class="flex justify-center">
-              <PasswordInput v-model="password" :disabled="isGoogleUser" />
+              <PasswordInput v-model="password" />
               <button
                 class="font-helvetica-neue font-normal text-base leading-6 text-gray-400 mb-4 lg:ml-4 border-b-2 bg-[#24222F] lg:border-0 lg:bg-[#11101A]"
                 :disabled="isGoogleUser"
@@ -60,14 +76,14 @@
           </div>
           <NewPasswordInput class="lg:mr-10" v-if="displayNewPasswordInput" v-model="newPassword" />
           <NewPasswordConfirmationInput
-            class="mr-10"
+            class="lg:mr-10"
             v-if="displayNewPasswordInput"
             v-model="newPasswordConfirmation"
           />
         </div>
       </div>
       <div class="flex items-center justify-end mt-10">
-        <RouterLink to="/home" class="mr-3">Cancel</RouterLink>
+        <RouterLink :to="{ name: 'home' }" class="mr-3">Cancel</RouterLink>
         <button
           class="ml-2 w-28 h-8 lg:w-28 lg:h-10 bg-red-600 border border-red-500 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221]"
           type="submit"
@@ -85,12 +101,18 @@ import EmailInput from '@/components/home/userProfile/inputs/UserProfileEmailInp
 import PasswordInput from '@/components/home/userProfile/inputs/UserProfilePasswordInput.vue'
 import NewUsernameInput from '@/components/home/userProfile/inputs/UserProfileNewUsernameInput.vue'
 import NewPasswordInput from '@/components/home/userProfile/inputs/UserProfileNewPasswordInput.vue'
+import NewEmailInput from '@/components/home/userProfile/inputs/UserProfileNewEmailInput.vue'
 import PasswordRulesBanner from '@/components/home/userProfile/inputs/UserProfilePasswordRules.vue'
 import NewPasswordConfirmationInput from '@/components/home/userProfile/inputs/UserProfileNewPasswordConfirmationInput.vue'
+import EditSuccess from '@/components/home/userProfile/UserProfileUpdateSuccess.vue'
+
 import { ref, provide } from 'vue'
 import { Form } from 'vee-validate'
-import { getAuthenticatedUser } from '@/services/api.js'
-import axios from '@/plugins/axios/index.js'
+import { getAuthenticatedUser, changeUserPersonalInfo } from '@/services/api.js'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+let storageUrl = import.meta.env.VITE_API_STORAGE
 
 let username = ref('')
 let profilePicture = ref('')
@@ -98,18 +120,24 @@ let email = ref('')
 let password = ref('password')
 
 let newUsername = ref('')
+let newEmail = ref('')
 let newPassword = ref('')
 let newPasswordConfirmation = ref('')
 
 let isGoogleUser = ref(false)
 let displayNewUsernameInput = ref(false)
 let displayNewPasswordInput = ref(false)
+let displayNewEmailInput = ref(false)
+
+let photoIsLoaded = ref(false)
+let editWasSuccessful = ref(false)
 
 provide('newUsername', newUsername)
 provide('newPassword', newPassword)
 provide('newPasswordConfirmation', newPasswordConfirmation)
 provide('username', username)
 provide('email', email)
+provide('newEmail', newEmail)
 provide('password', password)
 
 getAuthenticatedUser().then((response) => {
@@ -118,6 +146,9 @@ getAuthenticatedUser().then((response) => {
   email.value = response.data.email
   if (response.data.google_id) {
     isGoogleUser.value = true
+  }
+  if (profilePicture.value) {
+    photoIsLoaded.value = true
   }
 })
 
@@ -155,10 +186,14 @@ function editUserInformation() {
     })
     formData.append('profile_picture', file)
   }
+  if (newEmail.value) {
+    formData.append('new_email', newEmail.value)
+    router.push({ name: 'change-email' })
+  }
 
-  axios.post('edit/user/' + localStorage.getItem('authUserId'), formData, {
-    headers: {
-      'Content-type': 'multipart/form-data'
+  changeUserPersonalInfo(formData).then((data) => {
+    if (data.status === 200) {
+      editWasSuccessful.value = true
     }
   })
 }

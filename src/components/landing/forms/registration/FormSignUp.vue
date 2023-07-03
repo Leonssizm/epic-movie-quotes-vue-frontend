@@ -124,9 +124,11 @@
               <span class="font-normal text-xs text-[#6C757D]">{{
                 $t('landing.sign_up.already_have_an_account')
               }}</span>
-              <RouterLink to="/login" class="font-normal text-xs text-[#0D6EFD] underline">{{
-                $t('landing.log_in.button')
-              }}</RouterLink>
+              <RouterLink
+                :to="{ name: 'login' }"
+                class="font-normal text-xs text-[#0D6EFD] underline"
+                >{{ $t('landing.log_in.button') }}</RouterLink
+              >
             </div>
           </div>
         </div>

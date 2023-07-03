@@ -2,11 +2,15 @@ import { defineStore } from 'pinia'
 
 export const useQuotesStore = defineStore('quotes', {
   state: () => ({
-    quotes: []
+    quotes: [],
+    quote: []
   }),
   actions: {
     initQuotes(quotes) {
       this.quotes = [...this.quotes, ...quotes]
+    },
+    initQuote(quote) {
+      this.quote = quote
     }
   },
   getters: {
