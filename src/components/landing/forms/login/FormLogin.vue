@@ -57,6 +57,9 @@
                 v-model="rememberMe"
               />
             </div>
+            <div class="text-red-500 mb-2 text-xl text-center mt-4" v-if="errorMessage !== ''">
+              {{ errorMessage }}
+            </div>
             <button
               class="mb-4 w-[21rem] h-10 bg-[#E31221] text-white rounded mt-6"
               :class="{
@@ -108,29 +111,45 @@ import { useRouter } from 'vue-router'
 import axios from '@/plugins/axios/index.js'
 import { login, googleAuth } from '@/services/api.js'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { useI18n } from 'vue-i18n'
 
 const store = useAuthStore()
 const isPopupOpen = ref(false)
 const router = useRouter()
+const locale = useI18n().locale
 
 let email = ref('')
 let password = ref('')
 let rememberMe = ref(false)
-
+let errorMessage = ref('')
 let loginButtonIsClicked = ref(false)
 let loginWithGoogleIsClicked = ref(false)
+let sanctumAuthUrl = import.meta.env.VITE_SANCTUM
 
 function submitLoginForm() {
   loginButtonIsClicked.value = true
-  axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
-    login(email.value, password.value, rememberMe.value).then((response) => {
-      if (response.data === 401) {
-        alert('invalid credentials')
-      } else {
+  axios.get(sanctumAuthUrl + 'sanctum/csrf-cookie').then(() => {
+    login(email.value, password.value, rememberMe.value)
+      .then(() => {
         store.authenticateOrLogoutUser(true)
         router.push({ name: 'home' })
-      }
-    })
+      })
+      .catch((error) => {
+        if (error.response.data.message.includes('Password')) {
+          if (locale.value === 'en') {
+            errorMessage.value = 'password is incorrect'
+          } else {
+            errorMessage.value = 'პაროლი არასწორია'
+          }
+        } else if (error.response.data.message.includes('email')) {
+          if (locale.value === 'en') {
+            errorMessage.value = 'Email is invalid'
+          } else {
+            errorMessage.value = 'ელ-ფოსტა არასწორია'
+          }
+        }
+        loginButtonIsClicked.value = false
+      })
   })
 }
 onMounted(() => {
@@ -152,7 +171,7 @@ function handleClickOutside(event) {
 function handleSignInWithGoogle() {
   loginWithGoogleIsClicked.value = true
   googleAuth().then((response) => {
-    axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
+    axios.get(sanctumAuthUrl + 'sanctum/csrf-cookie').then(() => {
       store.authenticateOrLogoutUser(true)
       window.location.href = response.data.redirectUrl
     })

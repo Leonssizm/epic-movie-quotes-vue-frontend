@@ -15,6 +15,9 @@ export const useMoviesStore = defineStore('movies', {
     },
     initAllUserMovies(movies) {
       this.allUserMovies = movies
+    },
+    initSearchedMovies(movies) {
+      this.movies = movies
     }
   },
   getters: {

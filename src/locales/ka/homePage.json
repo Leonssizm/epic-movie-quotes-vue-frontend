@@ -1,0 +1,27 @@
+{
+    "sidebar":{
+        "edit_profile":"რედაქტირება",
+        "news_feed":"ნიუსფიდი",
+        "movies_list":"ფილმები"
+    },
+    "news_feed":{
+        "add_quote":"შექმენი ახალი ციტატა",
+        "search_by":"ძებნა", 
+        "search_movie_desc":"შეიყვანეთ @ ფილმების მოსაძებნად",
+        "search_quote_desc":"შეიყვანეთ # ციტატების მოსაძებნად",
+        "write_comment":"დაწერე კომენტარი",
+        "log_out":"გასვლა"
+    },
+    "movie_page":{
+        "title":"ჩემი ფილმები",
+        "total":"({total} სულ)",
+        "description":"ფილმის აღწერა",
+        "nothing_found":"არაფერი მოიძებნა",
+        "total_quotes":"სულ  {total} ციტატა",
+        "add_quote":"დაამატე ციტატა"
+
+
+
+
+    }
+}

@@ -27,14 +27,16 @@
                 class="h-12 bg-[#181624] text-white px-2 lg:hidden"
                 type="search"
                 placeholder="Search"
+                v-model="search"
+                @keyup.enter="searchQuotes"
               />
             </div>
             <div class="border border-solid border-gray-700 w-screen mt-4 lg:hidden"></div>
             <p class="text-[#CED4DA] flex justify-center mt-6 lg:hidden">
-              Enter @ to search movies
+              {{ $t('homePage.news_feed.search_movie_desc') }}
             </p>
             <p class="text-[#CED4DA] flex justify-center mt-6 lg:hidden">
-              Enter # to search quotes
+              {{ $t('homePage.news_feed.search_quote_desc') }}
             </p>
           </div>
         </div>
@@ -56,7 +58,7 @@
           @click="handleLogout"
           class="lg:ml-4 lg:px-3 lg:py-2 mr-4 w-20 h-8 lg:w-24 lg:h-10 hidden lg:block border border-white rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6"
         >
-          Log out
+          {{ $t('homePage.news_feed.log_out') }}
         </button>
       </div>
     </div>
@@ -69,13 +71,14 @@ import IconNotificationBell from '@/components/icons/IconNotificationBell.vue'
 import IconQuestionMark from '@/components/icons/IconQuestionMark.vue'
 import IconArrowBack from '@/components/icons/IconArrowBack.vue'
 import IconList from '@/components/icons/IconList.vue'
-import axios from '@/plugins/axios/index.js'
 import IconRedCircle from '@/components/icons/IconRedCircle.vue'
 import { useRouter } from 'vue-router'
-import { logout } from '@/services/api.js'
+import { logout, searchQuotesAndMovies } from '@/services/api.js'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { ref, defineEmits, watch } from 'vue'
 import { useNotificationsStore } from '@/stores/useNotificationsStore'
+import { useQuotesStore } from '@/stores/useQuotesStore'
+import { getNotifications } from '@/services/api.js'
 
 const notificationsStore = useNotificationsStore()
 
@@ -84,10 +87,12 @@ defineEmits(['changeSidebarVisibility'])
 const router = useRouter()
 
 const store = useAuthStore()
-
+const quotesStore = useQuotesStore()
 let showNotifications = ref(false)
 let newNotifications = ref(true)
 let isExpanded = ref(false)
+let search = ref('')
+let nothingIsFound = ref(false)
 
 watch(
   () => notificationsStore.notifications.length,
@@ -98,7 +103,22 @@ watch(
   }
 )
 
-axios.get('notifications').then((response) => {
+function searchQuotes() {
+  searchQuotesAndMovies(search.value)
+    .then((response) => {
+      quotesStore.initSearchedQuotes(response.data)
+      nothingIsFound.value = false
+
+      if (response.data.length === 0) {
+        nothingIsFound.value = true
+      }
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+}
+
+getNotifications().then((response) => {
   if (response.data !== '') {
     notificationsStore.initNotifications(response.data)
   }

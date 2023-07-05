@@ -1,7 +1,14 @@
 <template>
   <MovieListHeader />
   <div class="flex flex-wrap">
-    <div v-for="movie in store.movies" :key="movie.id" class="w-full sm:w-1/2 md:w-1/3 px-10 py-8">
+    <div
+      v-for="movie in store.movies"
+      :key="movie.id"
+      class="w-full sm:w-1/2 md:w-1/3 px-10 py-8"
+      :class="{
+        'h-screen': store.movies.length < 4 && store.movies.length !== 0
+      }"
+    >
       <RouterLink :to="{ name: 'movie', params: { id: movie.id } }">
         <div class="bg-transparent rounded-lg shadow-md">
           <div class="overflow-hidden rounded-lg">
@@ -37,11 +44,10 @@
 import IconCitation from '@/components/icons/IconCitation.vue'
 import MovieListHeader from '@/components/home/movieList/MovieListHeader.vue'
 
-import axios from '@/plugins/axios/index.js'
 import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useGenresStore } from '@/stores/useGenresStore'
-import { getMovies } from '@/services/api.js'
-import { onMounted, ref } from 'vue'
+import { getMovies, getGenres } from '@/services/api.js'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const storageUrl = import.meta.env.VITE_API_STORAGE
@@ -55,6 +61,10 @@ onMounted(() => {
   fetchMovies(page.value)
   window.addEventListener('scroll', fetchMoreMoviesOnScroll)
   localStorage.getItem('locale') === 'en' ? (locale.value = 'en') : (locale.value = 'ka')
+})
+
+onBeforeUnmount(() => {
+  store.movies.length = 0
 })
 
 function fetchMovies(page) {
@@ -74,7 +84,7 @@ function fetchMoreMoviesOnScroll() {
   }
 }
 
-axios.get('genres').then((response) => {
+getGenres().then((response) => {
   genresStore.initGenres(response.data)
 })
 </script>

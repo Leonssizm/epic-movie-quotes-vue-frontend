@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col">
-    <label class="pb-2 font-helvetica-neue lg:ml-44">Password Confirmation</label>
+    <label class="pb-2 font-helvetica-neue lg:ml-44">
+      {{ $t('userProfile.password_confirmation') }}
+    </label>
     <div class="flex justify-center flex-col items-center">
       <div class="relative">
         <Field

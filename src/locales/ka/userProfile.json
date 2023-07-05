@@ -1,0 +1,18 @@
+{
+    "profile":"ჩემი პროფილი",
+    "upload_new_photo":"ატვირთე ფოტო",
+    "username":"სახელი",
+    "new_username":"ახალი სახელი",
+    "email":"ელ-ფოსტა",
+    "new_email":"ახალი ელ-ფოსტა",
+    "password":"პაროლი",
+    "new_password":"ახალი პაროლი",
+    "password_confirmation":"გაიმეორე პაროლი",
+    "password_contain":{
+        "header":"პაროლი უნდა შეიცავდეს",
+        "eight_characters":"8 ან მეტ სიმბოლოს",
+        "fifteen_characters":"არაუმეტეს 15 სიმბოლოს"
+    },
+    "save_changes":"შენახვა",
+    "cancel":"გაუქმება"
+}

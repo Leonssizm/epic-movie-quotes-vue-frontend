@@ -77,7 +77,6 @@ function selectGenre(genre) {
 }
 
 function removeChoice(choice) {
-  console.log(choice)
   genres.value = genres.value.filter((genre) => genre.id !== choice.id)
 }
 

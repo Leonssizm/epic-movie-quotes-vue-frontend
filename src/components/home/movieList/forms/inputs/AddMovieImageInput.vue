@@ -3,7 +3,7 @@
     <label
       class="flex items-center border border-gray-500 bg-[#000000] lg:w-[56rem] h-[4rem] w-[22rem] rounded"
       :class="{
-        'h-1/2': uploadedPhoto
+        'h-full': uploadedPhoto
       }"
     >
       <div v-if="uploadedPhoto" class="flex items-center justify-center h-full">

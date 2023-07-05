@@ -20,9 +20,9 @@
       />
       <div class="flex flex-col justify-center">
         <h2 class="ml-6">{{ username }}</h2>
-        <RouterLink :to="{ name: 'profile' }" class="text-[#CED4DA] ml-6"
-          >edit your profile</RouterLink
-        >
+        <RouterLink :to="{ name: 'profile' }" class="text-[#CED4DA] ml-6">{{
+          $t('homePage.sidebar.edit_profile')
+        }}</RouterLink>
       </div>
     </div>
     <div class="flex mt-10 ml-2 justify-between text-[#FFFFFF]">
@@ -32,7 +32,7 @@
             class="mr-12 items-center"
             :fill="router.currentRoute.value.path === '/home' ? 'red' : 'white'"
           />
-          News feed
+          {{ $t('homePage.sidebar.news_feed') }}
         </div></RouterLink
       >
     </div>
@@ -43,7 +43,7 @@
             class="ml-2 mr-12"
             :fill="router.currentRoute.value.path === '/movies/list' ? 'red' : 'white'"
           />
-          List of Movies
+          {{ $t('homePage.sidebar.movies_list') }}
         </div>
       </RouterLink>
     </div>

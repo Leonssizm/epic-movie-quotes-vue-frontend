@@ -123,6 +123,29 @@ export async function changeUserPersonalInfo(personalInfoFormData) {
   })
 }
 
+export async function changeLocaleInTheBackend(locale) {
+  if (locale === 'en') {
+    return await axios.get('/change-locale/en')
+  } else {
+    return await axios.get('/change-locale/ka')
+  }
+}
+
+export async function getNotifications() {
+  return await axios.get('notifications')
+}
+
+export async function readNotifications(notificationId) {
+  return await axios.get('notifications/' + notificationId)
+}
+export async function readAllNotifications() {
+  return await axios.get('notifications/read/all')
+}
+
+export async function getGenres() {
+  return await axios.get('genres')
+}
+
 // Movie & Quote CRUD
 
 export async function getMovies(pageParams) {
@@ -166,7 +189,6 @@ export async function addQuote(quoteInfoForm) {
     }
   })
 }
-
 export async function deleteQuote(quoteId) {
   return await axios.delete('quotes/' + quoteId)
 }
@@ -179,4 +201,11 @@ export async function editQuoteRequest(quoteId, quoteEditedInfoForm) {
       'Content-type': 'multipart/form-data'
     }
   })
+}
+
+export async function searchQuotesAndMovies(searchParams) {
+  return await axios.get('/quotes', { params: { search: searchParams } })
+}
+export async function searchAllMovies(searchParams) {
+  return await axios.get('/movies', { params: { search: searchParams } })
 }

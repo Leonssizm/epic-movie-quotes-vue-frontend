@@ -1,0 +1,15 @@
+{
+    "add_movie":{
+        "header":"Add Movie",
+        "button":"Add Movie"
+    }, 
+    "edit_movie":{
+        "header":"Edit Movie",
+        "button":"save changes"
+    }, 
+    "add Quote":{
+        "header":"Write New Quote",
+        "button":"Add Quote",
+        "movie_select":"Choose Movie"
+    }
+}

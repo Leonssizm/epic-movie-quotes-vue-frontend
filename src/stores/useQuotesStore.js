@@ -11,6 +11,9 @@ export const useQuotesStore = defineStore('quotes', {
     },
     initQuote(quote) {
       this.quote = quote
+    },
+    initSearchedQuotes(quote) {
+      this.quotes = quote
     }
   },
   getters: {

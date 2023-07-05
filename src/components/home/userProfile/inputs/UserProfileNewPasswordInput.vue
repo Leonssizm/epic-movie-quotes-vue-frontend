@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <label class="pb-2 font-helvetica-neue lg:ml-44">New Password</label>
+    <label class="pb-2 font-helvetica-neue lg:ml-44"> {{ $t('userProfile.new_password') }} </label>
     <div class="flex justify-center flex-col items-center">
       <div class="relative">
         <Field

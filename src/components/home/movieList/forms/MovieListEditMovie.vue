@@ -8,7 +8,9 @@
     >
       <div class="lg:w-1/2 bg-[#000000] lg:mt-24 pb-36 h-full overflow-y-scroll">
         <div class="flex items-start justify-between py-8 border-b-2 border-gray-800">
-          <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">Add Movie</h1>
+          <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">
+            {{ $t('forms.edit_movie.header') }}
+          </h1>
           <button class="text-2xl text-white mr-10" type="button" @click="closePopup">x</button>
         </div>
         <AddMovieFormUserHeader />
@@ -97,7 +99,7 @@
           <label
             class="flex items-center border border-gray-500 bg-[#000000] lg:w-[56rem] h-[4rem] w-[22rem] rounded"
             :class="{
-              'h-1/2': uploadedPhoto
+              'h-full': uploadedPhoto
             }"
           >
             <div v-if="uploadedPhoto" class="flex items-center justify-center h-full">
@@ -160,7 +162,7 @@
           <button
             class="ml-2 mt-5 w-[22.5rem] h-8 lg:w-[56rem] lg:h-10 bg-red-600 border border-red-500 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221]"
           >
-            Edit Movie
+            {{ $t('forms.edit_movie.button') }}
           </button>
         </div>
       </div>
@@ -175,13 +177,12 @@ import MovieDirectorInput from '@/components/home/movieList/forms/inputs/MovieDi
 import MovieDescriptionInput from '@/components/home/movieList/forms/inputs/MovieDescriptionInput.vue'
 import IconPhotoCamera from '@/components/icons/IconPhotoCamera.vue'
 
-import axios from '@/plugins/axios/index.js'
 import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useGenresStore } from '@/stores/useGenresStore'
 import { onMounted, ref, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { editMovieRequest } from '@/services/api.js'
+import { editMovieRequest, getGenres } from '@/services/api.js'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 
 const router = useRouter()
@@ -242,7 +243,7 @@ function selectGenre(genre) {
     genres.value.push(genre)
   }
 }
-axios.get('genres').then((response) => {
+getGenres().then((response) => {
   genresStore.initGenres(response.data)
 })
 
