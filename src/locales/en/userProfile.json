@@ -1,0 +1,19 @@
+{
+    "profile":"My Profile",
+    "upload_new_photo":"Upload new photo",
+    "username":"username",
+    "new_username":"New username",
+    "email":"Email",
+    "new_email":"New Email",
+    "password":"Password",
+    "new_password":"New password",
+    "password_confirmation":"Password Confirmation",
+    "password_contain":{
+        "header":"Password Should Contain:",
+        "eight_characters":"8 or more characters",
+        "fifteen_characters":"15 lowercase letters"
+    },
+    "save_changes":"save changes",
+    "cancel":"Cancel"
+    
+}

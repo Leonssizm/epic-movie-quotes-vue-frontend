@@ -1,7 +1,7 @@
 <template>
   <div class="flex font-helvetica-neue font-white text-xl font-bold my-10 lg:mr-[50rem]">
     <p class="flex items-center justify-center text-2xl">
-      Quotes (total {{ moviesStore.movie.quotes.length }})
+      {{ $t('homePage.movie_page.total_quotes', { total: moviesStore.movie.quotes.length }) }}
     </p>
     <div class="text-gray-600 mx-4 h-10 text-3xl">|</div>
     <button
@@ -10,7 +10,7 @@
       class="ml-2 mt-2 lg:mt-0 w-24 h-8 lg:w-28 lg:h-10 bg-red-700 border border-red-700 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221] flex justify-around items-center"
     >
       <IconPlus />
-      Add Quote
+      {{ $t('homePage.movie_page.add_quote') }}
     </button>
   </div>
   <div

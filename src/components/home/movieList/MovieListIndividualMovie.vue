@@ -2,7 +2,7 @@
   <div class="pt-6">
     <div class="text-[#FFFFFF] flex justify-start ml-3 lg:ml-0">
       <h1 class="text-[#FFFFFF] font-bold font-helvetica-neue text-xl lg:ml-[9rem] hidden lg:block">
-        Movie Description
+        {{ $t('homePage.movie_page.description') }}
       </h1>
     </div>
     <div class="flex flex-col lg:flex-row mt-2 lg:mt-10">

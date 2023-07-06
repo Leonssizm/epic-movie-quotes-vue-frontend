@@ -7,7 +7,9 @@
     >
       <div class="lg:w-1/2 bg-[#000000] lg:mt-24 pb-36 h-full overflow-y-scroll">
         <div class="flex items-start justify-between py-8 border-b-2 border-gray-800">
-          <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">Add Movie</h1>
+          <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">
+            {{ $t('forms.add_movie.header') }}
+          </h1>
           <button class="text-2xl text-white mr-10" type="button" @click="closePopup">x</button>
         </div>
         <AddMovieFormUserHeader />
@@ -24,7 +26,7 @@
           <button
             class="ml-2 mt-5 w-[22.5rem] h-8 lg:w-[56rem] lg:h-10 bg-red-600 border border-red-500 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221]"
           >
-            Add Movie
+            {{ $t('forms.add_movie.button') }}
           </button>
         </div>
       </div>

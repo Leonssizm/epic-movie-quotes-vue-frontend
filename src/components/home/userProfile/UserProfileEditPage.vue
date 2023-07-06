@@ -18,6 +18,7 @@ import UserProfileEditModal from '@/components/home/userProfile/UserProfileEditM
 import { onMounted, onUnmounted, ref } from 'vue'
 
 let displaySidebar = ref(false)
+document.title = 'Edit User'
 
 onMounted(() => {
   document.body.addEventListener('click', handleSidebarVisibility)

@@ -2,7 +2,7 @@
   <EditSuccess v-if="editWasSuccessful" @closeSuccessModal="editWasSuccessful = false" />
   <div class="mt-4 pb-4 lg:w-[49rem] w-full h-full mb-36">
     <div class="flex text-[#FFFFFF] text-2xl">
-      <h1 class="mt-10 hidden lg:block">My Profile</h1>
+      <h1 class="mt-10 hidden lg:block">{{ $t('userProfile.profile') }}</h1>
       <RouterLink :to="{ name: 'home' }" class="block lg:hidden"
         ><IconArrowBack class="ml-4 w-5 h-5"
       /></RouterLink>
@@ -27,11 +27,13 @@
           <label
             class="flex lg:mt-40 ml-4 mt-4 lg:ml-0 justify-center mr-[2.2rem] text-[#FFFFFF] font-helvetica-neue"
           >
-            Upload new photo
+            {{ $t('userProfile.upload_new_photo') }}
             <input type="file" class="hidden" @change="handleProfilePictureChange" />
           </label>
           <div class="flex flex-col">
-            <label class="pb-2 font-helvetica-neue lg:ml-44 mt-16">Username</label>
+            <label class="pb-2 font-helvetica-neue lg:ml-44 mt-16">{{
+              $t('userProfile.username')
+            }}</label>
             <div class="flex justify-center">
               <UsernameInput v-model="username" />
               <button
@@ -45,7 +47,7 @@
           </div>
           <NewUsernameInput v-if="displayNewUsernameInput" v-model="newUsername" />
           <div class="flex flex-col">
-            <label class="pb-2 font-helvetica-neue lg:ml-44">Email</label>
+            <label class="pb-2 font-helvetica-neue lg:ml-44">{{ $t('userProfile.email') }}</label>
             <div class="flex justify-center">
               <EmailInput v-model="email" />
               <button
@@ -60,7 +62,9 @@
           </div>
           <NewEmailInput v-if="displayNewEmailInput" v-model="newEmail" :disabled="isGoogleUser" />
           <div class="flex flex-col">
-            <label class="pb-2 font-helvetica-neue lg:ml-44">Password</label>
+            <label class="pb-2 font-helvetica-neue lg:ml-44">{{
+              $t('userProfile.password')
+            }}</label>
             <div class="flex justify-center">
               <PasswordInput v-model="password" />
               <button
@@ -83,12 +87,12 @@
         </div>
       </div>
       <div class="flex items-center justify-end mt-10">
-        <RouterLink :to="{ name: 'home' }" class="mr-3">Cancel</RouterLink>
+        <RouterLink :to="{ name: 'home' }" class="mr-3">{{ $t('userProfile.cancel') }}</RouterLink>
         <button
           class="ml-2 w-28 h-8 lg:w-28 lg:h-10 bg-red-600 border border-red-500 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221]"
           type="submit"
         >
-          Save Changes
+          {{ $t('userProfile.save_changes') }}
         </button>
       </div>
     </Form>

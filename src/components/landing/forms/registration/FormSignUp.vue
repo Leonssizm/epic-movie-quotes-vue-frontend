@@ -104,6 +104,9 @@
               {{ $t('landing.sign_up.button') }}
             </button>
           </div>
+          <div class="text-red-500 text-xl text-center" v-if="errorMessage !== ''">
+            {{ errorMessage }}
+          </div>
         </Form>
         <div class="flex flex-col bg-[#222030]" v-if="!emailIsSent">
           <div class="ml-16 w-[21rem] mr-36 pb-12">
@@ -146,17 +149,21 @@ import VerificationEmailIsSend from '@/components/verification/VerificationEmail
 
 import { onMounted, ref } from 'vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
-import { register } from '@/services/api.js'
+import { register, googleAuth } from '@/services/api.js'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { useI18n } from 'vue-i18n'
 import axios from '@/plugins/axios/index.js'
 
 const isPopupOpen = ref(false)
 const router = useRouter()
 const store = useAuthStore()
+const locale = useI18n().locale
+
 let name = ref('')
 let email = ref('')
 let password = ref('')
+let errorMessage = ref('')
 
 let passwordConfirmation = ref('')
 let signUpButtonIsClicked = ref(false)
@@ -166,6 +173,7 @@ let emailIsSent = ref(false)
 
 let passwordVisible = ref('')
 let repeatPasswordVisible = ref('')
+let sanctumAuthUrl = import.meta.env.VITE_SANCTUM
 
 onMounted(() => {
   isPopupOpen.value = true
@@ -177,23 +185,30 @@ onMounted(() => {
 
 function submitRegistrationForm() {
   signUpButtonIsClicked.value = true
-  register(name.value, email.value, password.value, passwordConfirmation.value).then(() => {
-    emailIsSent.value = true
-  })
+  register(name.value, email.value, password.value, passwordConfirmation.value)
+    .then(() => {
+      emailIsSent.value = true
+    })
+    .catch((error) => {
+      signUpButtonIsClicked.value = false
+      if (error.response.data.message.includes('email')) {
+        if (locale.value === 'en') {
+          errorMessage.value = 'Email is already Registered'
+        } else {
+          errorMessage.value = 'აღნიშნული ელ-ფოსტა უკვე რეგისტრირეულია'
+        }
+      }
+    })
 }
 
 function handleGoogleRegistration() {
   googleSignUpButtonIsClicked.value = true
-  axios
-    .get('/google/auth', {
-      timeout: 8000
+  googleAuth().then((response) => {
+    axios.get(sanctumAuthUrl + 'sanctum/csrf-cookie').then(() => {
+      store.authenticateOrLogoutUser(true)
+      window.location.href = response.data.redirectUrl
     })
-    .then((response) => {
-      axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
-        store.authenticateOrLogoutUser(true)
-        window.location.href = response.data.redirectUrl
-      })
-    })
+  })
 }
 
 function handleClickOutside(event) {

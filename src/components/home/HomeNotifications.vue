@@ -8,9 +8,13 @@
         >
           Notifications
         </h1>
-        <p class="text-white mt-10 font-helvetica-neue text-base leading-6 underline text-white">
+        <button
+          type="button"
+          class="text-white mt-10 font-helvetica-neue text-base leading-6 underline text-white"
+          @click="makeAllNotificationRead"
+        >
           Mark all as read
-        </p>
+        </button>
       </div>
       <div
         class="px-4 py-2 border-2 rounded border-gray-800 mt-4 overflow-scroll"
@@ -20,6 +24,7 @@
         <RouterLink
           :to="{ name: 'individual-quote', params: { id: notification.quote.id } }"
           @click="makeNotificationRead(notification)"
+          class="z-50"
         >
           <div class="flex justify-between">
             <div class="flex py-5">
@@ -81,12 +86,18 @@ import IconTriangle from '@/components/icons/IconTriangle.vue'
 import IconCitation from '@/components/icons/IconCitation.vue'
 import IconRedHeart from '@/components/icons/IconRedHeart.vue'
 import { useNotificationsStore } from '@/stores/useNotificationsStore'
-import axios from '@/plugins/axios/index.js'
+import { readNotifications, readAllNotifications } from '@/services/api.js'
 
 const notificationsStore = useNotificationsStore()
 
 function makeNotificationRead(notification) {
-  axios.get('notifications/' + notification.notification.id)
+  readNotifications(notification.notification.id)
+}
+
+function makeAllNotificationRead() {
+  readAllNotifications().then((response) => {
+    notificationsStore.initNotifications(response.data)
+  })
 }
 const formatTime = (createdAt) => {
   const currentTime = new Date()

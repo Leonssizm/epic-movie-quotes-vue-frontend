@@ -103,7 +103,7 @@
         <input
           type="text"
           class="ml-6 bg-[#24222F] w-3/4 h-10 pl-4 placeholder:font-helvetica-neue rounded-lg"
-          placeholder="Write a comment"
+          :placeholder="$t('homePage.news_feed.write_comment')"
           @keyup.enter="createComment(authStore.authenticatedUser.id, quote.id, $event.target)"
         />
       </div>
@@ -127,7 +127,7 @@ import { useAuthStore } from '@/stores/useAuthStore'
 import { useI18n } from 'vue-i18n'
 import { getAuthenticatedUser, getQuotes, likeQuote, writeComment } from '@/services/api.js'
 
-import { onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 const locale = useI18n().locale
 const quotesStore = useQuotesStore()
 const authStore = useAuthStore()
@@ -138,10 +138,15 @@ let noMoreQuotes = ref(false)
 let amountOfCommentsVisible = ref(2)
 let toggleVisibility = false
 let pageIsLoaded = ref(true)
+
 onMounted(() => {
   fetchQuotes(page.value)
   window.addEventListener('scroll', fetchMoreQuotesOnScroll)
   localStorage.getItem('locale') === 'en' ? (locale.value = 'en') : (locale.value = 'ka')
+})
+
+onBeforeUnmount(() => {
+  quotesStore.quotes.length = 0
 })
 
 function fetchQuotes(page) {

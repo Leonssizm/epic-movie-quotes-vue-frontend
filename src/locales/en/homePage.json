@@ -1,0 +1,24 @@
+{
+    "sidebar":{
+        "edit_profile":"Edit your profile",
+        "news_feed":"News Feed",
+        "movies_list":"List of Movies"
+    },
+    "news_feed":{
+        "add_quote":"Write new Quote",
+        "search_by":"Search By", 
+        "search_movie_desc":"for searching movies",
+        "search_quote_desc":"for searching quotes",
+        "write_comment":"Write a comment",
+        "log_out":"Log out"
+    },
+    "movie_page":{
+        "title":"My Movies",
+        "total":"(total {total})",
+        "description":"Movie Description",
+        "nothing_found":"Nothing Found",
+        "total_quotes":"Quotes (total {total})",
+        "add_quote":"Add Quote"
+
+    }
+}

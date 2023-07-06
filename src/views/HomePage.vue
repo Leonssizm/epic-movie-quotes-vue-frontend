@@ -20,7 +20,7 @@ import NewsFeedQuotesCard from '@/components/home/newsFeed/NewsFeedQuoteCard.vue
 import instantiatePusher from '@/helpers/instantiatePusher.js'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useNotificationsStore } from '@/stores/useNotificationsStore'
-
+document.title = 'Home'
 const notificationsStore = useNotificationsStore()
 
 let displaySidebar = ref(true)

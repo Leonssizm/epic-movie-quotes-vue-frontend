@@ -16,6 +16,7 @@ import HomeHeader from '@/components/home/HomeHeader.vue'
 import HomeSidebarNavigation from '@/components/home/HomeSidebarNavigation.vue'
 
 import { ref, onMounted, onUnmounted } from 'vue'
+document.title = 'Movies'
 
 let displaySidebar = ref(true)
 function handleSidebarVisibility() {

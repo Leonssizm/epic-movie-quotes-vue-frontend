@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col">
-    <label class="pb-2 font-helvetica-neue lg:ml-44">New Email</label>
+    <label class="pb-2 font-helvetica-neue lg:ml-44">
+      {{ $t('userProfile.new_email') }}
+    </label>
     <div class="flex justify-center flex-col items-center">
       <Field
         type="text"

@@ -58,7 +58,7 @@
       <p class="text-white text-xl" v-if="locale === 'en'">
         Director: {{ moviesStore.movie.director.en }}
       </p>
-      <p class="text-white text-xl" v-else>Director: {{ moviesStore.movie.director.en }}</p>
+      <p class="text-white text-xl" v-else>რეჟისორი: {{ moviesStore.movie.director.ka }}</p>
     </div>
     <div class="mt-3">
       <p class="text-white font-helvetica-neue max-w-lg px-1" v-if="locale === 'en'">
