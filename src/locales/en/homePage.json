@@ -7,8 +7,8 @@
     "news_feed":{
         "add_quote":"Write new Quote",
         "search_by":"Search By", 
-        "search_movie_desc":"@ for searching movies",
-        "search_quote_desc":"# for searching quotes",
+        "search_movie_desc":"for searching movies",
+        "search_quote_desc":"for searching quotes",
         "write_comment":"Write a comment",
         "log_out":"Log out"
     },

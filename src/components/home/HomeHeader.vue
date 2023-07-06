@@ -33,10 +33,10 @@
             </div>
             <div class="border border-solid border-gray-700 w-screen mt-4 lg:hidden"></div>
             <p class="text-[#CED4DA] flex justify-center mt-6 lg:hidden">
-              {{ $t('homePage.news_feed.search_movie_desc') }}
+              @ {{ $t('homePage.news_feed.search_movie_desc') }}
             </p>
             <p class="text-[#CED4DA] flex justify-center mt-6 lg:hidden">
-              {{ $t('homePage.news_feed.search_quote_desc') }}
+              # {{ $t('homePage.news_feed.search_quote_desc') }}
             </p>
           </div>
         </div>

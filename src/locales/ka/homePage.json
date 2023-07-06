@@ -7,8 +7,8 @@
     "news_feed":{
         "add_quote":"შექმენი ახალი ციტატა",
         "search_by":"ძებნა", 
-        "search_movie_desc":"შეიყვანეთ @ ფილმების მოსაძებნად",
-        "search_quote_desc":"შეიყვანეთ # ციტატების მოსაძებნად",
+        "search_movie_desc":" ფილმების მოსაძებნად",
+        "search_quote_desc":" ციტატების მოსაძებნად",
         "write_comment":"დაწერე კომენტარი",
         "log_out":"გასვლა"
     },
