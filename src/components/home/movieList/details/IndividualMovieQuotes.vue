@@ -122,7 +122,7 @@ const storageUrl = import.meta.env.VITE_API_STORAGE
 
 function toggleMenu(quoteId) {
   currentChosenQuoteId.value = quoteId
-  const quote = this.moviesStore.movie.quotes.find((q) => q.id === quoteId)
+  const quote = moviesStore.movie.quotes.find((q) => q.id === quoteId)
   if (quote) {
     quote.displayMenu = !quote.displayMenu
   }
