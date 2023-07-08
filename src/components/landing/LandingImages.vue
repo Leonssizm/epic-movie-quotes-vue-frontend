@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <div class="fade-overlay"></div>
-    <section>
+    <section class="lg:w-screen lg:h-screen lg:sticky lg:top-0">
       <div class="relative">
         <img src="/images/interstellar-banner.png" alt="Interstellar Banner" />
         <p
@@ -17,7 +17,7 @@
         </p>
       </div>
     </section>
-    <section>
+    <section class="lg:w-screen lg:h-screen lg:sticky lg:top-0">
       <div class="relative">
         <img src="/images/royal-tenebaums-banner.png" alt="Royal Tenenbaums Banner" />
         <p
@@ -36,7 +36,7 @@
         </p>
       </div>
     </section>
-    <section>
+    <section class="lg:w-screen lg:h-screen lg:sticky lg:top-0">
       <div class="relative">
         <img src="/images/lord-of-the-rings-banner.png" alt="Lord of the Rings Banner" />
         <p

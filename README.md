@@ -1,16 +1,12 @@
-# epic-movie-quotes-front
+# Epic Movie Quotes
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Welcome to the realm of "Epic Movie Quotes"! Immerse yourself in a captivating app that takes movie appreciation to the next level. With its social-media-like structure, you can not only build your personal collection of cherished movies and their iconic quotes but also share it with other users. (App was developed during Redberry bootcamp 2023).
 
 ## Project Setup
+
+```sh
+git clone https://github.com/RedberryInternship/levan-kereselidze-epic-movie-quotes-front
+```
 
 ```sh
 npm install
@@ -22,36 +18,10 @@ npm install
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Additional guidelines
 
-```sh
-npm run build
-```
+The "Epic Movie Quotes" application leverages Laravel backend framework.
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+To enhance real-time user engagement, "Epic Movie Quotes" utilizes Pusher. With Pusher, users receive instant updates and notifications as they interact with the application, creating immersive environment.
 
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+To ensure the application's functionality, it is important to configure the necessary environment variables in the .env file.
