@@ -1,12 +1,17 @@
 <template>
   <MovieListHeader />
-  <div class="flex flex-wrap">
+  <div
+    class="flex flex-wrap"
+    :class="{
+      'h-screen': store.movies.length === 0
+    }"
+  >
     <div
       v-for="movie in store.movies"
       :key="movie.id"
       class="w-full sm:w-1/2 md:w-1/3 px-10 py-8"
       :class="{
-        'h-screen': store.movies.length < 4 && store.movies.length !== 0
+        'h-screen': store.movies.length < 4
       }"
     >
       <RouterLink :to="{ name: 'movie', params: { id: movie.id } }">
@@ -65,11 +70,16 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   store.movies.length = 0
+  window.removeEventListener('scroll', fetchMoreMoviesOnScroll)
 })
 
 function fetchMovies(page) {
   getMovies(page).then((response) => {
-    store.initMovies(response.data)
+    response.data.forEach((movie) => {
+      // if (movie.user_id == localStorage.getItem('authUserId')) {
+      store.initMovies([movie])
+      // }
+    })
   })
 }
 

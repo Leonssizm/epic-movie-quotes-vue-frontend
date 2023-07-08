@@ -4,7 +4,12 @@
       <div class="w-36 h-36 rounded-full border-8 border-dotted border-red-500 animate-spin"></div>
     </div>
   </div>
-  <div v-else>
+  <div
+    :class="{
+      'h-screen overflow-hidden': quotesStore.quotes.length === 0 || quotesStore.quotes.length === 1
+    }"
+    v-else
+  >
     <div
       v-for="quote in quotesStore.quotes"
       :key="quote.id"
@@ -30,29 +35,37 @@
         </div>
       </div>
       <div class="text-[#FFFFFF] mt-6 pl-6 lg:pr-80">
-        <div v-if="locale === 'en'" class="flex">
-          <h1 class="w-[21rem] lg:w-64">{{ quote.body.en }}</h1>
+        <div v-if="locale === 'en'" class="lg:flex">
+          <h1 class="w-full">
+            {{ quote.body.en }} <span class="text-[#DDCCAA]">{{ quote.movie.title.en }}</span> ({{
+              quote.movie.release_year.slice(0, 4)
+            }})
+          </h1>
         </div>
         <div v-else>
-          <h1 class="w-[21rem] lg:w-64">{{ quote.body.ka }}</h1>
+          <h1 class="w-full">
+            {{ quote.body.ka }} <span class="text-[#DDCCAA]">{{ quote.movie.title.ka }}</span> ({{
+              quote.movie.release_year.slice(0, 4)
+            }})
+          </h1>
         </div>
       </div>
       <div class="flex items-center justify-center mt-6">
         <img
           :src="quote.thumbnail ? storageUrl + quote.thumbnail : 'https://picsum.photos/300'"
-          class="lg:w-2/3"
+          class="w-[21rem] lg:w-2/3"
           alt="quote-picture"
         />
       </div>
       <div class="flex ml-6 mt-6">
         <div class="flex mr-6">
-          <p class="mr-3">{{ quote.amountOfComments }}</p>
+          <p class="mr-3">{{ quote.comments.length }}</p>
           <button @click="changeCommentsVisibility(quote.id)">
             <IconChat />
           </button>
         </div>
         <div class="flex">
-          <p class="mr-3">{{ quote.amountOfLikes }}</p>
+          <p class="mr-3">{{ quote.likes.length }}</p>
           <button @click="handleLikingQuote(quote.id)">
             <IconHeart :fill="quote.liked ? 'red' : 'white'" />
           </button>
@@ -147,6 +160,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   quotesStore.quotes.length = 0
+  window.removeEventListener('scroll', fetchMoreQuotesOnScroll)
 })
 
 function fetchQuotes(page) {
@@ -174,10 +188,10 @@ function handleLikingQuote(quoteId) {
     likeQuote(quoteId, response.data.id).then((response) => {
       const likedQuote = quotesStore.quotes.find((quote) => quote.id === quoteId)
       if (response.data === 'liked') {
-        likedQuote.amountOfLikes += 1
+        likedQuote.likes.length += 1
         likedQuote.liked = true
       } else {
-        likedQuote.amountOfLikes -= 1
+        likedQuote.likes.length -= 1
         likedQuote.liked = false
       }
     })

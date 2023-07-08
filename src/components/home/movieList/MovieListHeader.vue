@@ -30,7 +30,7 @@
     v-if="nothingIsFound"
     class="h-screen w-screen bg-[#181624] text-4xl font-bold text-white font-helvetica-neue flex justify-center"
   >
-    {{ $t('homePage.movie_page.total') }}
+    {{ $t('homePage.movie_page.nothing_found') }}
   </div>
 </template>
 <script setup>
@@ -50,7 +50,11 @@ let nothingIsFound = ref(false)
 
 function searchMovies() {
   searchAllMovies(search.value).then((response) => {
-    store.initSearchedMovies(response.data)
+    response.data.forEach((searchResult) => {
+      if (searchResult.user_id == localStorage.getItem('authUserId')) {
+        store.initSearchedMovies([searchResult])
+      }
+    })
     nothingIsFound.value = false
     if (response.data.length === 0) {
       nothingIsFound.value = true
