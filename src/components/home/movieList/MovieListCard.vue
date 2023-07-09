@@ -76,9 +76,9 @@ onBeforeUnmount(() => {
 function fetchMovies(page) {
   getMovies(page).then((response) => {
     response.data.forEach((movie) => {
-      // if (movie.user_id == localStorage.getItem('authUserId')) {
-      store.initMovies([movie])
-      // }
+      if (movie.user_id == localStorage.getItem('authUserId')) {
+        store.initMovies([movie])
+      }
     })
   })
 }
