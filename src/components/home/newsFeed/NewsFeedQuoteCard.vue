@@ -13,7 +13,7 @@
     <div
       v-for="quote in quotesStore.quotes"
       :key="quote.id"
-      class="mt-4 bg-[#000000] pb-4 lg:w-[49rem]"
+      class="mt-4 bg-[#11101A] pb-4 lg:w-[49rem]"
     >
       <div class="flex items-center pl-6 pt-2 mt-2">
         <img
@@ -90,7 +90,7 @@
           alt="profile-picture"
         />
         <div
-          class="ml-6 flex flex-col font-helvetica-neue font-normal text-[#FFFFFF] border-b border-solid border-gray-700 w-3/4 py-5"
+          class="ml-6 flex flex-col font-helvetica-neue font-normal text-[#FFFFFF] border-b border-solid border-gray-700 w-3/4 py-2"
         >
           <p class="flex items-center mt-8">
             {{ comment.user.username }}

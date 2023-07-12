@@ -5,7 +5,7 @@
       v-if="isPopupOpen"
       class="form fixed inset-0 flex justify-center bg-opacity-85 lg:bg-black font-helvetica-neue"
     >
-      <div class="lg:w-1/2 bg-[#000000] lg:mt-24 pb-36 h-full overflow-y-scroll">
+      <div class="lg:w-1/2 bg-[#11101A] lg:mt-24 h-2/3 overflow-y-scroll">
         <div class="flex items-start justify-between py-8 border-b-2 border-gray-800">
           <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">Write New Quote</h1>
           <button class="text-2xl text-white mr-10" @click="router.back()">x</button>
@@ -18,7 +18,7 @@
           <div class="flex flex-col">
             <div class="relative">
               <Field
-                class="border border-gray-500 bg-[#000000] lg:w-[56rem] h-[4rem] w-[22rem] rounded placeholder:italic"
+                class="border border-gray-500 bg-[#11101A] lg:w-[56rem] h-[4rem] w-[22rem] rounded placeholder:italic"
                 placeholder="Create New Quote"
                 as="textarea"
                 name="quoteEn"
@@ -32,7 +32,7 @@
           <div class="flex flex-col">
             <div class="relative mt-8">
               <Field
-                class="border border-gray-500 bg-[#000000] lg:w-[56rem] h-[4rem] w-[22rem] rounded placeholder:italic"
+                class="border border-gray-500 bg-[#11101A] lg:w-[56rem] h-[4rem] w-[22rem] rounded placeholder:italic"
                 placeholder="ახალი ციტატა"
                 as="textarea"
                 name="quoteKa"
@@ -45,7 +45,7 @@
           </div>
           <div class="relative flex justify-center">
             <label
-              class="flex items-center border border-gray-500 bg-[#000000] lg:w-[56rem] h-[4rem] w-[22rem] rounded"
+              class="flex items-center border border-gray-500 bg-[#11101A] lg:w-[56rem] h-[4rem] w-[22rem] rounded"
               :class="{
                 'h-full': uploadedPhoto
               }"
@@ -107,7 +107,7 @@
           <ErrorMessage name="image" class="text-red-500 mb-2 ml-8" />
         </div>
 
-        <div class="flex flex-wrap items-center ml-6 mt-3" v-if="!userIsRedirectedFromMoviesPage">
+        <div class="flex flex-wrap items-center ml-8 mt-3" v-if="!userIsRedirectedFromMoviesPage">
           <div v-for="movie in movies" :key="movie.id" class="flex float-left relative">
             <span v-if="locale === 'en'" class="p-1 bg-gray-600 text-white mb-2">
               {{ movie.title.en }}

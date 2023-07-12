@@ -56,11 +56,15 @@ export async function resetPassword(token, password, password_confirmation) {
 }
 
 export async function login(email, password, rememberMe) {
-  return await axios.post('users/login', {
-    email: email,
-    password: password,
-    rememberMe: rememberMe
-  })
+  return await axios.post(
+    'users/login',
+    {
+      email: email,
+      password: password,
+      rememberMe: rememberMe
+    },
+    { timeout: 6000 }
+  )
 }
 
 export async function logout(action) {
@@ -139,7 +143,7 @@ export async function readNotifications(notificationId) {
   return await axios.get('notifications/' + notificationId)
 }
 export async function readAllNotifications() {
-  return await axios.get('notifications/read/all')
+  return await axios.get('notifications-read-all')
 }
 
 export async function getGenres() {

@@ -14,7 +14,7 @@
         </p>
         <Field
           :type="getInputType"
-          class="border border-gray-500 bg-[#000000] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-24 rounded text-white"
+          class="border border-gray-500 bg-[#11101A] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-24 rounded text-white"
           @focus=";(yearTitleInputFocused = true), (getInputType = 'date')"
           @blur=";(yearTitleInputFocused = false), (getInputType = 'text')"
           @input="$emit('update:modelValue', $event.target.value)"

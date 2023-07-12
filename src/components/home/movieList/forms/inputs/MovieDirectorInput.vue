@@ -14,7 +14,7 @@
         </p>
         <Field
           type="text"
-          class="border border-gray-500 bg-[#000000] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-24 rounded"
+          class="border border-gray-500 bg-[#11101A] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-24 rounded"
           @focus="engDirectorInputFocused = true"
           @blur="engDirectorInputFocused = false"
           @input="$emit('update:engDirector', $event.target.value)"
@@ -40,7 +40,7 @@
         </p>
         <Field
           type="text"
-          class="border border-gray-500 bg-[#000000] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-24 rounded"
+          class="border border-gray-500 bg-[#11101A] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-24 rounded"
           @focus="geoDirectorInputFocused = true"
           @blur="geoDirectorInputFocused = false"
           @input="$emit('update:geoDirector', $event.target.value)"

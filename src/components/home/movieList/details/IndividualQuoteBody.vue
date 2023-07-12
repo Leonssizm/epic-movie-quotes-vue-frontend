@@ -2,7 +2,7 @@
   <UserHeader />
   <div class="relative flex justify-center mt-5">
     <input
-      class="border border-gray-300 bg-[#000000] lg:w-[50rem] h-[2.5rem] w-[22rem] pl-5 italic"
+      class="border border-gray-300 bg-[#11101A] lg:w-[50rem] h-[2.5rem] w-[22rem] pl-5 italic"
       disabled
       :value="quotesStore.quote.body.en"
     />
@@ -10,7 +10,7 @@
   </div>
   <div class="relative flex justify-center mt-5">
     <input
-      class="border border-gray-300 bg-[#000000] lg:w-[50rem] h-[2.5rem] w-[22rem] pl-5 italic"
+      class="border border-gray-300 bg-[#11101A] lg:w-[50rem] h-[2.5rem] w-[22rem] pl-5 italic"
       disabled
       :value="quotesStore.quote.body.ka"
     />

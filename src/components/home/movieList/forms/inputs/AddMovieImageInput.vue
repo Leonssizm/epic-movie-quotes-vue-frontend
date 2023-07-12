@@ -1,7 +1,7 @@
 <template>
   <div class="relative flex justify-center">
     <label
-      class="flex items-center border border-gray-500 bg-[#000000] lg:w-[56rem] h-[4rem] w-[22rem] rounded"
+      class="flex items-center border border-gray-500 lg:w-[56rem] h-[4rem] w-[22rem] rounded"
       :class="{
         'h-full': uploadedPhoto
       }"
