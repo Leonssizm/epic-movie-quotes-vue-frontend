@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black">
+  <div class="bg-[#11101A]">
     <div class="flex justify-between pt-9 px-6 lg:pt-9 lg:px-16">
       <h1
         class="uppercase text-[#DDCCAA] font-helvetica-neue font-normal font-medium text-base leading-6"

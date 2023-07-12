@@ -21,6 +21,7 @@ import MovieListIndividualQuote from '@/components/home/movieList/MovieListIndiv
 import MovieListEditQuote from '@/components/home/movieList/forms/MovieListEditQuote.vue'
 import NewsFeedAddQuoteModal from '@/components/home/newsFeed/NewsFeedAddQuoteModal.vue'
 import MovieListEditMovie from '@/components/home/movieList/forms/MovieListEditMovie.vue'
+import { loggedIn } from './guards'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,10 @@ const router = createRouter({
       path: '/',
       name: 'landing',
       component: LandingView,
+      beforeEnter: [loggedIn],
+      meta: {
+        requiresAuth: false
+      },
       children: [
         {
           path: '/login',

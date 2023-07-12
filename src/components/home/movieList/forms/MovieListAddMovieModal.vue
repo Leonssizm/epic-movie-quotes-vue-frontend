@@ -5,7 +5,7 @@
       v-if="isPopupOpen"
       class="form fixed inset-0 flex justify-center bg-opacity-85 lg:bg-black font-helvetica-neue"
     >
-      <div class="lg:w-1/2 bg-[#000000] lg:mt-24 pb-36 h-full overflow-y-scroll">
+      <div class="lg:w-1/2 bg-[#11101A] lg:mt-24 pb-36 h-full overflow-y-scroll">
         <div class="flex items-start justify-between py-8 border-b-2 border-gray-800">
           <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">
             {{ $t('forms.add_movie.header') }}

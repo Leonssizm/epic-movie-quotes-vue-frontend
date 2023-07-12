@@ -5,7 +5,7 @@
     </div>
   </div>
   <div v-else class="h-screen bg-[#181623] flex justify-center">
-    <div class="bg-[#000000] overflow-y-scroll lg:w-1/2 w-full lg:mt-10">
+    <div class="bg-[#11101A] overflow-y-scroll lg:w-1/2 w-full lg:mt-10">
       <div class="flex items-start py-8 border-b-2 border-gray-800">
         <div
           class="flex justify-around w-36 items-center"

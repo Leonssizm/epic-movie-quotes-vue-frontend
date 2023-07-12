@@ -5,7 +5,7 @@
     </div>
   </div>
   <div v-else class="h-screen bg-[#181623] flex justify-center">
-    <div class="bg-[#000000] overflow-y-scroll lg:w-1/2 w-full lg:mt-10 mb-36">
+    <div class="bg-[#11101A] overflow-y-scroll lg:w-1/2 w-full lg:mt-10 mb-36">
       <Form @submit="editQuote">
         <div class="flex items-start py-8 border-b-2 border-gray-800">
           <div class="flex justify-around w-36 items-center">
@@ -30,7 +30,7 @@
         <div class="flex flex-col">
           <div class="relative flex justify-center mt-5">
             <Field
-              class="border border-gray-300 bg-[#000000] lg:w-[50rem] h-[2.5rem] w-[22rem] pl-5 italic"
+              class="border border-gray-300 bg-[#11101A] lg:w-[50rem] h-[2.5rem] w-[22rem] pl-5 italic"
               name="quoteEn"
               rules="min:3|engLetters"
               v-model="englishQuote"
@@ -42,7 +42,7 @@
         <div class="flex flex-col">
           <div class="relative flex justify-center mt-5">
             <Field
-              class="border border-gray-300 bg-[#000000] lg:w-[50rem] h-[2.5rem] w-[22rem] pl-5 italic"
+              class="border border-gray-300 bg-[#11101A] lg:w-[50rem] h-[2.5rem] w-[22rem] pl-5 italic"
               name="quoteKa"
               rules="min:3|geoLetters"
               v-model="georgianQuote"

@@ -95,6 +95,8 @@ function fetchMoreMoviesOnScroll() {
 }
 
 getGenres().then((response) => {
-  genresStore.initGenres(response.data)
+  if (genresStore.genres.length === 0) {
+    genresStore.initGenres(response.data)
+  }
 })
 </script>

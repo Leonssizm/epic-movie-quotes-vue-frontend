@@ -16,7 +16,7 @@
   <div
     v-for="quote in moviesStore.movie.quotes"
     :key="quote.id"
-    class="lg:w-[50rem] lg:h-[20rem] bg-[#000000] flex items-center lg:mr-[25rem] mb-16"
+    class="lg:w-[50rem] lg:h-[20rem] bg-[#000000] flex items-center lg:mr-[25rem] mb-16 bg-[#11101A]"
   >
     <div class="flex flex-col">
       <div class="flex lg:flex-row flex-col">

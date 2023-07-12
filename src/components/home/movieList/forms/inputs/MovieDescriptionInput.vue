@@ -13,7 +13,7 @@
           Movie Description
         </p>
         <Field
-          class="border border-gray-500 bg-[#000000] lg:w-[56rem] h-[4rem] w-[22rem] pl-36 rounded"
+          class="border border-gray-500 bg-[#11101A] lg:w-[56rem] h-[4rem] w-[22rem] pl-36 rounded"
           @focus="engMovieDescriptionInputFocused = true"
           @blur="engMovieDescriptionInputFocused = false"
           v-model="initialEngDescriptionValue"
@@ -38,7 +38,7 @@
           ფილმის აღწერა
         </p>
         <Field
-          class="border border-gray-500 bg-[#000000] lg:w-[56rem] h-[4rem] w-[22rem] pl-36 rounded"
+          class="border border-gray-500 bg-[#11101A] lg:w-[56rem] h-[4rem] w-[22rem] pl-36 rounded"
           @focus="geoMovieDescriptionInputFocused = true"
           @blur="geoMovieDescriptionInputFocused = false"
           v-model="initialGeoDescriptionValue"

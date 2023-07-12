@@ -6,7 +6,7 @@
       v-if="isPopupOpen"
       class="form fixed inset-0 flex justify-center bg-opacity-85 lg:bg-black font-helvetica-neue"
     >
-      <div class="lg:w-1/2 bg-[#000000] lg:mt-24 pb-36 h-full overflow-y-scroll">
+      <div class="lg:w-1/2 bg-[#11101A] lg:mt-24 pb-36 h-full overflow-y-scroll">
         <div class="flex items-start justify-between py-8 border-b-2 border-gray-800">
           <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">
             {{ $t('forms.edit_movie.header') }}
@@ -59,7 +59,7 @@
             <Field
               as="select"
               v-model="selectedGenre"
-              class="h-7 w-full h-full bg-transparent text-black"
+              class="h-7 w-full h-full bg-transparent text-black bg-[#11101A]"
               @change="selectGenre(selectedGenre)"
               v-if="locale === 'en'"
               name="select"
@@ -97,7 +97,7 @@
         <!-- Movie image -->
         <div class="relative flex justify-center">
           <label
-            class="flex items-center border border-gray-500 bg-[#000000] lg:w-[56rem] h-[4rem] w-[22rem] rounded"
+            class="flex items-center border border-gray-500 bg-[#11101A] lg:w-[56rem] h-[4rem] w-[22rem] rounded"
             :class="{
               'h-full': uploadedPhoto
             }"
@@ -150,7 +150,7 @@
           </label>
           <Field
             type="file"
-            class="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+            class="absolute inset-0 opacity-0 w-full h-full cursor-pointer bg-[#11101A]"
             @change="handleFileInputChange"
             name="image"
             :rules="uploadedPhoto.value === '' ? 'required' : ''"
@@ -244,7 +244,9 @@ function selectGenre(genre) {
   }
 }
 getGenres().then((response) => {
-  genresStore.initGenres(response.data)
+  if (genresStore.genres.length === 0) {
+    genresStore.initGenres(response.data)
+  }
 })
 
 function removeChoice(choice) {
