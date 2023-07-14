@@ -26,7 +26,8 @@ configure({
         geoDirector: 'Movie Director in Georgian',
         engDirector: 'Movie Director in English',
         quoteEn: 'Quote in English',
-        quoteKa: 'Quote in Georgian'
+        quoteKa: 'Quote in Georgian',
+        dateInput: 'Release year'
       }
     },
     ka: {
@@ -54,7 +55,8 @@ configure({
         geoDirector: 'რეჟისორი ქართულად',
         engDirector: 'რეჟისორი ინგლისურად',
         quoteEn: 'ციტატა ინგლისურად',
-        quoteKa: 'ციტატა ქართულად'
+        quoteKa: 'ციტატა ქართულად',
+        dateInput: 'წელი'
       }
     }
   })

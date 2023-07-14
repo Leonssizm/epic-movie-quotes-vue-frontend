@@ -49,12 +49,17 @@
           <div class="flex flex-col">
             <label class="pb-2 font-helvetica-neue lg:ml-44">{{ $t('userProfile.email') }}</label>
             <div class="flex justify-center">
-              <EmailInput v-model="email" />
+              <EmailInput
+                v-model="email"
+                :class="{
+                  'lg:mr-[1.5rem]': isGoogleUser
+                }"
+              />
               <button
                 @click="displayNewEmailInput = !displayNewEmailInput"
                 class="font-helvetica-neue font-normal text-base leading-6 text-gray-400 mb-4 border-b-2 bg-[#24222F] lg:border-0 lg:bg-[#11101A]"
                 type="button"
-                :disabled="isGoogleUser"
+                v-if="!isGoogleUser"
               >
                 Edit
               </button>
@@ -66,10 +71,15 @@
               $t('userProfile.password')
             }}</label>
             <div class="flex justify-center">
-              <PasswordInput v-model="password" />
+              <PasswordInput
+                v-model="password"
+                :class="{
+                  'lg:mr-[2.5rem]': isGoogleUser
+                }"
+              />
               <button
                 class="font-helvetica-neue font-normal text-base leading-6 text-gray-400 mb-4 lg:ml-4 border-b-2 bg-[#24222F] lg:border-0 lg:bg-[#11101A]"
-                :disabled="isGoogleUser"
+                v-if="!isGoogleUser"
                 @click="displayNewPasswordInput = !displayNewPasswordInput"
                 type="button"
               >
@@ -148,6 +158,7 @@ getAuthenticatedUser().then((response) => {
   username.value = response.data.username
   profilePicture.value = response.data.profile_picture
   email.value = response.data.email
+
   if (response.data.google_id) {
     isGoogleUser.value = true
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="text-[#FFFFFF] font-helvetica-neue flex pt-8 pl-8">
+  <div class="text-[#FFFFFF] font-helvetica-neue flex pt-4 pl-8">
     <img
       v-if="photoIsLoaded"
       :src="

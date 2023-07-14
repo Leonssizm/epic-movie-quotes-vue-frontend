@@ -15,7 +15,7 @@
               <Field
                 name="email"
                 type="email"
-                rules="required|email"
+                rules="required"
                 class="mb-4 pl-1 w-[21rem] h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
                 :placeholder="$t('landing.email_placeholder')"
                 v-model="email"
@@ -141,11 +141,17 @@ function submitLoginForm() {
           } else {
             errorMessage.value = 'პაროლი არასწორია'
           }
-        } else if (error.response.data.message.includes('email')) {
+        } else if (error.response.data.message.includes('Email')) {
           if (locale.value === 'en') {
             errorMessage.value = 'Email is invalid'
           } else {
             errorMessage.value = 'ელ-ფოსტა არასწორია'
+          }
+        } else if (error.response.data.message.includes('Username')) {
+          if (locale.value === 'en') {
+            errorMessage.value = 'username is invalid'
+          } else {
+            errorMessage.value = 'მომხმარებლის სახელი არასწორია'
           }
         }
         loginButtonIsClicked.value = false

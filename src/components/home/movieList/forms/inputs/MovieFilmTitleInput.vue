@@ -14,7 +14,7 @@
         </p>
         <Field
           type="text"
-          class="border border-gray-500 bg-[#11101A] lg:w-[56rem] h-[2rem] w-[22rem] pl-24 rounded"
+          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] h-[2rem] w-[22rem] pl-24 rounded"
           @focus="engTitleInputFocused = true"
           @blur="engTitleInputFocused = false"
           @input="$emit('update:engTitle', $event.target.value)"
@@ -40,7 +40,7 @@
         </p>
         <Field
           type="text"
-          class="border border-gray-500 bg-[#11101A] lg:w-[56rem] h-[2rem] w-[22rem] pl-36 rounded"
+          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] h-[2rem] w-[22rem] pl-36 rounded"
           @focus="geoTitleInputFocused = true"
           @blur="geoTitleInputFocused = false"
           @input="$emit('update:geoTitle', $event.target.value)"

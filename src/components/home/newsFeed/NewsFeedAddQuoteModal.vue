@@ -5,7 +5,7 @@
       v-if="isPopupOpen"
       class="form fixed inset-0 flex justify-center bg-opacity-85 lg:bg-black font-helvetica-neue"
     >
-      <div class="lg:w-1/2 bg-[#11101A] lg:mt-24 h-2/3 overflow-y-scroll">
+      <div class="lg:w-1/2 bg-[#11101A] lg:mt-24 h-fit">
         <div class="flex items-start justify-between py-8 border-b-2 border-gray-800">
           <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">Write New Quote</h1>
           <button class="text-2xl text-white mr-10" @click="router.back()">x</button>
@@ -45,9 +45,11 @@
           </div>
           <div class="relative flex justify-center">
             <label
-              class="flex items-center border border-gray-500 bg-[#11101A] lg:w-[56rem] h-[4rem] w-[22rem] rounded"
+              class="flex items-center justify-center border border-gray-500 bg-[#11101A] lg:w-[56rem] w-[22rem] rounded"
               :class="{
-                'h-full': uploadedPhoto
+                'lg:h-[20rem]': uploadedPhoto,
+                'h-[10rem]': uploadedPhoto,
+                'h-[4rem]': !uploadedPhoto
               }"
             >
               <div v-if="uploadedPhoto" class="flex items-center justify-center h-full">
@@ -61,7 +63,7 @@
                 />
               </div>
               <div
-                class="flex"
+                class="flex mx-3"
                 :class="{
                   'flex-col': uploadedPhoto,
                   'lg:ml-16': uploadedPhoto
@@ -185,7 +187,7 @@ import UserHeader from '@/components/home/movieList/forms/headers/addMovieFormUs
 import HeaderModifications from '@/components/home/newsFeed/modifications/MoviePageRedirectionHeaderModifications.vue'
 import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useRouter } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { getAllUserMovies } from '@/services/api.js'
 import { addQuote } from '@/services/api.js'
 import { useI18n } from 'vue-i18n'
@@ -263,6 +265,24 @@ function removeChoice(choice) {
 
 onMounted(() => {
   localStorage.getItem('locale') === 'en' ? (locale.value = 'en') : (locale.value = 'ka')
+  isPopupOpen.value = true
+  document.body.classList.add('overflow-hidden')
+  setTimeout(() => {
+    document.body.addEventListener('click', handleClickOutside)
+  }, 100)
+})
+
+function handleClickOutside(event) {
+  if (event.target.classList.contains('form')) {
+    isPopupOpen.value = false
+    document.body.classList.remove('overflow-hidden')
+    document.body.removeEventListener('click', handleClickOutside)
+    router.push({ name: 'home' })
+  }
+}
+
+onUnmounted(() => {
+  document.body.removeEventListener('click', handleClickOutside)
 })
 </script>
 <style scoped>

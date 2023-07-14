@@ -36,14 +36,14 @@
       </div>
       <div class="text-[#FFFFFF] mt-6 pl-6 lg:pr-80">
         <div v-if="locale === 'en'" class="lg:flex">
-          <h1 class="w-full">
+          <h1 class="w-full break-words overflow-hidden">
             {{ quote.body.en }} <span class="text-[#DDCCAA]">{{ quote.movie.title.en }}</span> ({{
               quote.movie.release_year.slice(0, 4)
             }})
           </h1>
         </div>
         <div v-else>
-          <h1 class="w-full">
+          <h1 class="w-full break-words overflow-hidden">
             {{ quote.body.ka }} <span class="text-[#DDCCAA]">{{ quote.movie.title.ka }}</span> ({{
               quote.movie.release_year.slice(0, 4)
             }})
@@ -71,31 +71,32 @@
           </button>
         </div>
       </div>
-      <div class="border border-solid border-gray-700 mx-6 my-6"></div>
+      <div class="border border-solid border-gray-700 mx-6 my-3"></div>
       <!-- Write comment -->
       <div
         class="flex items-center pl-6"
         v-for="comment in quote.comments.slice(0, amountOfCommentsVisible)"
         :key="comment.id"
       >
-        <img
-          :src="
-            comment.user.profile_picture
-              ? comment.user.profile_picture.includes('http')
-                ? comment.user.profile_picture
-                : storageUrl + comment.user.profile_picture
-              : 'https://picsum.photos/200'
-          "
-          class="rounded-full h-14 w-14 object-cover"
-          alt="profile-picture"
-        />
-        <div
-          class="ml-6 flex flex-col font-helvetica-neue font-normal text-[#FFFFFF] border-b border-solid border-gray-700 w-3/4 py-2"
-        >
-          <p class="flex items-center mt-8">
-            {{ comment.user.username }}
-          </p>
-          <p class="mt-4">
+        <div class="flex flex-col">
+          <div class="flex items-center mt-5">
+            <img
+              :src="
+                comment.user.profile_picture
+                  ? comment.user.profile_picture.includes('http')
+                    ? comment.user.profile_picture
+                    : storageUrl + comment.user.profile_picture
+                  : 'https://picsum.photos/200'
+              "
+              class="rounded-full h-14 w-14 object-cover"
+              alt="profile-picture"
+            />
+            <p class="ml-5">
+              {{ comment.user.username }}
+            </p>
+          </div>
+
+          <p class="mt-1 ml-[4.8rem] w-[15rem] lg:w-[40rem] border-gray-700 border-b-2">
             {{ comment.body }}
           </p>
         </div>

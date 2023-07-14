@@ -15,14 +15,14 @@
   </div>
   <div v-else class="grow lg:ml-24 lg:p-0 p-6">
     <div class="font-helvetica-neue text-2xl font-bold flex justify-between">
-      <h1 class="text-[#DDCCAA]" v-if="locale == 'en'">
+      <h1 class="text-[#DDCCAA] w-96 break-words overflow-hidden" v-if="locale == 'en'">
         {{ moviesStore.movie.title.en }} ({{ moviesStore.movie.release_year.slice(0, 4) }})
       </h1>
-      <h1 class="text-[#DDCCAA]" v-else>
+      <h1 class="text-[#DDCCAA] w-96 break-words overflow-hidden" v-else>
         {{ moviesStore.movie.title.ka }} ({{ moviesStore.movie.release_year.slice(0, 4) }})
       </h1>
       <div
-        class="hidden lg:flex justify-around bg-[#24222F] w-36 items-center mr-24"
+        class="hidden lg:flex justify-around bg-[#24222F] w-36 h-10 items-center mr-24"
         v-if="authStore.authenticatedUser.id === moviesStore.movie.user_id"
       >
         <button type="button" @click="openEditMovieModal"><IconEdit /></button>

@@ -17,8 +17,9 @@ import HomeSidebarNavigation from '@/components/home/HomeSidebarNavigation.vue'
 
 import { ref, onMounted, onUnmounted } from 'vue'
 document.title = 'Movies'
+let resolution = ref(window.innerWidth)
 
-let displaySidebar = ref(true)
+let displaySidebar = resolution.value <= 768 ? ref(false) : ref(true)
 function handleSidebarVisibility() {
   let resolution = ref(window.innerWidth)
   if (document.body.classList.contains('overflow-hidden') && resolution.value <= 768) {
