@@ -1,5 +1,5 @@
 <template>
-  <div class="flex ml-6 mt-6">
+  <div class="flex ml-6 mt-3">
     <div class="flex mr-6">
       <p class="mr-3">{{ quotesStore.quote.comments.length }}</p>
       <button @click="changeCommentsVisibility">
@@ -13,30 +13,31 @@
       </button>
     </div>
   </div>
-  <div class="border border-solid border-gray-700 mx-6 my-6"></div>
+  <div class="border border-solid border-gray-700 mx-6 my-3"></div>
   <div
     class="flex items-center pl-6"
     v-for="comment in quotesStore.quote.comments.slice(0, amountOfCommentsVisible)"
     :key="comment.id"
   >
-    <img
-      :src="
-        comment.user.profile_picture
-          ? comment.user.profile_picture.includes('http')
-            ? comment.user.profile_picture
-            : storageUrl + comment.user.profile_picture
-          : 'https://picsum.photos/200'
-      "
-      class="rounded-full h-14 w-14 object-cover"
-      alt="profile-picture"
-    />
-    <div
-      class="ml-6 flex flex-col font-helvetica-neue font-normal text-[#FFFFFF] border-b border-solid border-gray-700 w-3/4 py-5"
-    >
-      <p class="flex items-center mt-8">
-        {{ comment.user.username }}
-      </p>
-      <p class="mt-4">
+    <div class="flex flex-col">
+      <div class="flex items-center">
+        <img
+          :src="
+            comment.user.profile_picture
+              ? comment.user.profile_picture.includes('http')
+                ? comment.user.profile_picture
+                : storageUrl + comment.user.profile_picture
+              : 'https://picsum.photos/200'
+          "
+          class="rounded-full h-14 w-14 object-cover"
+          alt="profile-picture"
+        />
+        <p class="ml-5">
+          {{ comment.user.username }}
+        </p>
+      </div>
+
+      <p class="ml-[4.8rem] w-[15rem] lg:w-[40rem] border-gray-700 border-b-2">
         {{ comment.body }}
       </p>
     </div>

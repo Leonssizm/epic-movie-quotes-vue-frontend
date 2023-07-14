@@ -24,12 +24,12 @@
             />
           </div>
           <div v-if="locale === 'en'" class="flex uppercase">
-            <h1 class="text-lg font-bold mt-2">
+            <h1 class="text-lg font-bold mt-2 w-[40rem] break-words overflow-hidden">
               {{ movie.title.en }} {{ movie.release_year.slice(0, 4) }}
             </h1>
           </div>
           <div v-else>
-            <h1 class="text-lg font-bold mt-2">
+            <h1 class="text-lg font-bold mt-2 w-[40rem] break-words overflow-hidden">
               {{ movie.title.ka }} {{ movie.release_year.slice(0, 4) }}
             </h1>
           </div>

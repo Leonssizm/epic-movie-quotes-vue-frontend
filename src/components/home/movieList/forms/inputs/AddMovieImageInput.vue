@@ -17,21 +17,24 @@
         />
       </div>
       <div
-        class="flex"
+        class="flex justify-center"
         :class="{
           'flex-col': uploadedPhoto,
-          'lg:ml-16': uploadedPhoto
+          'lg:ml-16': uploadedPhoto,
+          'mr-6': uploadedPhoto
         }"
       >
         <div
-          class="flex items-center ml-4"
+          class="flex items-center justify-center"
           :class="{
             'flex-col': uploadedPhoto
           }"
         >
-          <p class="uppercase text-yellow-500 font-bold mr-4" v-if="uploadedPhoto">Replace Photo</p>
-          <IconPhotoCamera class="mr-2 text-white" :class="{ hidden: uploadedPhoto }" />
-          <span class="mr-2 text-white" v-if="resolution >= 768"
+          <p class="uppercase text-yellow-500 font-bold text-center" v-if="uploadedPhoto">
+            Replace Photo
+          </p>
+          <IconPhotoCamera class="mx-2 text-white text-center" :class="{ hidden: uploadedPhoto }" />
+          <span class="mr-2 text-white text-center" v-if="resolution >= 768"
             >Drag &amp; drop your image here</span
           >
           <span

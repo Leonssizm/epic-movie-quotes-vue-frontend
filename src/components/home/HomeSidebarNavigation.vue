@@ -47,6 +47,15 @@
         </div>
       </RouterLink>
     </div>
+
+    <div class="mt-10 ml-1 block lg:hidden flex flex-col">
+      <button
+        @click="handleLogout"
+        class="mr-4 w-20 h-8 block lg:hidden border border-white rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6"
+      >
+        {{ $t('homePage.news_feed.log_out') }}
+      </button>
+    </div>
   </nav>
 </template>
 <script setup>
@@ -54,6 +63,7 @@ import IconHome from '@/components/icons/IconHome.vue'
 import IconCamera from '@/components/icons/IconCamera.vue'
 import { getAuthenticatedUser } from '@/services/api.js'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { logout } from '@/services/api.js'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
@@ -76,4 +86,11 @@ getAuthenticatedUser().then((response) => {
     photoIsLoaded.value = true
   }
 })
+
+function handleLogout() {
+  logout('log-out').then(() => {
+    store.authenticateOrLogoutUser(false)
+    router.push({ name: 'landing' })
+  })
+}
 </script>

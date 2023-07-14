@@ -17,7 +17,7 @@
           v-model="search"
           @keyup.enter="searchQuotes"
           :placeholder="placeholder"
-          class="h-12 bg-[#181624] ml-2"
+          class="h-12 bg-[#181624] ml-2 outline-none"
           :class="{ 'w-full': isExpanded, 'w-1/2': !isExpanded }"
           type="search"
         />

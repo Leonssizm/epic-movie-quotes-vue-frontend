@@ -4,9 +4,9 @@
       <div class="w-36 h-36 rounded-full border-8 border-dotted border-red-500 animate-spin"></div>
     </div>
   </div>
-  <div v-else class="h-screen bg-[#181623] flex justify-center">
-    <div class="bg-[#11101A] overflow-y-scroll lg:w-1/2 w-full lg:mt-10">
-      <div class="flex items-start py-8 border-b-2 border-gray-800">
+  <div v-else class="bg-[#181623] flex justify-center">
+    <div class="bg-[#11101A] lg:w-1/2 w-full lg:mt-5">
+      <div class="flex items-start py-4 border-b-2 border-gray-800">
         <div
           class="flex justify-around w-36 items-center"
           v-if="authStore.authenticatedUser.id === quotesStore.quote.user_id"

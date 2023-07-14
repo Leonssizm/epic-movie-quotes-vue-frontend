@@ -13,14 +13,12 @@
           წელი/Year
         </p>
         <Field
-          :type="getInputType"
-          class="border border-gray-500 bg-[#11101A] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-24 rounded text-white"
-          @focus=";(yearTitleInputFocused = true), (getInputType = 'date')"
-          @blur=";(yearTitleInputFocused = false), (getInputType = 'text')"
+          type="number"
+          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-24 rounded text-white"
           @input="$emit('update:modelValue', $event.target.value)"
           v-model="initialValue"
           name="dateInput"
-          rules="required"
+          rules="required|min:4|max:4"
         />
       </div>
       <ErrorMessage name="dateInput" class="text-red-500" />
@@ -33,7 +31,6 @@ import { ref, inject, defineProps, defineEmits } from 'vue'
 import { Field, ErrorMessage } from 'vee-validate'
 
 let yearTitleInputFocused = ref(false)
-let getInputType = ref('')
 
 const initialValue = inject('releaseDate')
 

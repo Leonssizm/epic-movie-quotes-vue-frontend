@@ -3,7 +3,6 @@ import { isAuthenticated } from '@/router/guards.js'
 import LandingView from '@/views/LandingView.vue'
 import HomePage from '@/views/HomePage.vue'
 import MoviePage from '@/views/MoviePage.vue'
-import GoogleAuthComponent from '@/components/GoogleAuthComponent.vue'
 import LoginForm from '@/components/landing/forms/login/FormLogin.vue'
 import SignUpForm from '@/components/landing/forms/registration/FormSignUp.vue'
 import GuardUnauthorized from '@/components/navigationGuards/GuardUnauthorized.vue'
@@ -68,7 +67,7 @@ const router = createRouter({
     {
       path: '/auth/google/call-back/:id',
       name: 'google-auth-callback',
-      component: GoogleAuthComponent
+      component: HomePage
     },
     // Homepage
     {

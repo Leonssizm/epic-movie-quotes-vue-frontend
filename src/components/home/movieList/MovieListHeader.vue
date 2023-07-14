@@ -10,18 +10,18 @@
         <input
           @click="isExpanded = !isExpanded"
           placeholder="search"
-          class="h-12 bg-[#181624] ml-2 hidden lg:flex"
-          :class="{ 'w-full': isExpanded, 'w-[5rem]': !isExpanded }"
+          class="h-12 bg-[#181624] ml-2 hidden lg:flex outline-none"
+          :class="{ 'w-[15rem]': isExpanded, 'w-[5rem]': !isExpanded }"
           type="search"
           v-model="search"
           @keyup.enter="searchMovies"
         />
         <button
-          class="ml-2 mt-2 lg:mt-0 w-24 h-8 lg:w-28 lg:h-10 bg-red-700 border border-red-700 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221] flex justify-around items-center"
+          class="mt-2 pr-2 whitespace-nowrap h-10 lg:h-12 lg:mt-0 bg-red-700 border border-red-700 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221] flex items-center"
           @click="openAddMovieModal"
         >
-          <IconPlus />
-          {{ $t('forms.add_movie.button') }}
+          <IconPlus class="mx-2" />
+          <span class="inline">{{ $t('forms.add_movie.button') }}</span>
         </button>
       </div>
     </div>

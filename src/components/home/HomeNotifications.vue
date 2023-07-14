@@ -1,7 +1,7 @@
 <template>
-  <div class="absolute z-50 top-0 right-0 bottom-0 lg:mr-11 mt-14 flex flex-col items-end">
+  <div class="absolute z-50 top-0 right-0 bottom-0 lg:mr-7 mt-14 flex flex-col items-end">
     <IconTriangle class="mr-3 lg:mr-[12.45rem]" />
-    <div class="px-4 bg-[#000000] h-2/3 lg:w-[60rem] w-[25rem] overflow-scroll">
+    <div class="px-4 bg-[#000000] pb-10 lg:w-[60rem] w-[25rem]">
       <div class="flex items-top justify-between">
         <h1
           class="text-white mt-10 font-helvetica-neue font-normal font-medium text-2xl leading-6 capitalize text-white"
@@ -17,13 +17,13 @@
         </button>
       </div>
       <div
-        class="px-4 py-2 border-2 rounded border-gray-800 mt-4 overflow-scroll"
+        class="px-4 py-2 border-2 rounded border-gray-800 mt-4"
         v-for="(notification, index) in notificationsStore.notifications"
         :key="index"
       >
         <RouterLink
-          :to="{ name: 'individual-quote', params: { id: notification.quote.id } }"
-          @click="makeNotificationRead(notification)"
+          :to="{ name: 'individual-quote', params: { id: notification.notifiable.id } }"
+          @click="readNotifications(notification.id)"
           class="z-50"
         >
           <div class="flex justify-between">
@@ -41,7 +41,7 @@
               />
               <div class="flex flex-col ml-4">
                 <p class="text-white">{{ notification.sender.username }}</p>
-                <div v-if="notification.notification.is_like" class="flex mt-2">
+                <div v-if="notification.is_like" class="flex mt-2">
                   <IconRedHeart />
                   <p class="text-[#CED4DA] font-helvetica-neue ml-2">reacted to your quote</p>
                 </div>
@@ -53,12 +53,9 @@
                 </div>
                 <div class="text-white lg:hidden">
                   <p class="mt-2 text-[#D9D9D9] font-helvetica-neue">
-                    {{ formatTime(notification.notification.created_at) }} ago
+                    {{ formatTime(notification.created_at) }} ago
                   </p>
-                  <p
-                    class="mt-2 text-green-700 font-helvetica-neue"
-                    v-if="notification.notification.is_new"
-                  >
+                  <p class="mt-2 text-green-700 font-helvetica-neue" v-if="notification.is_new">
                     New
                   </p>
                 </div>
@@ -66,14 +63,9 @@
             </div>
             <div class="text-white hidden lg:block">
               <p class="mt-2 text-[#D9D9D9] font-helvetica-neue">
-                {{ formatTime(notification.notification.created_at) }} ago
+                {{ formatTime(notification.created_at) }} ago
               </p>
-              <p
-                class="mt-2 text-green-700 font-helvetica-neue"
-                v-if="notification.notification.is_new"
-              >
-                New
-              </p>
+              <p class="mt-2 text-green-700 font-helvetica-neue" v-if="notification.is_new">New</p>
             </div>
           </div>
         </RouterLink>
@@ -89,10 +81,6 @@ import { useNotificationsStore } from '@/stores/useNotificationsStore'
 import { readNotifications, readAllNotifications } from '@/services/api.js'
 
 const notificationsStore = useNotificationsStore()
-
-function makeNotificationRead(notification) {
-  readNotifications(notification.notification.id)
-}
 
 function makeAllNotificationRead() {
   readAllNotifications().then((response) => {

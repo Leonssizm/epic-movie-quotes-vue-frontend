@@ -23,9 +23,11 @@ import { useNotificationsStore } from '@/stores/useNotificationsStore'
 document.title = 'Home'
 const notificationsStore = useNotificationsStore()
 
-let displaySidebar = ref(true)
+let resolution = ref(window.innerWidth)
+
+let displaySidebar = resolution.value <= 768 ? ref(false) : ref(true)
+
 function handleSidebarVisibility() {
-  let resolution = ref(window.innerWidth)
   if (document.body.classList.contains('overflow-hidden') && resolution.value <= 768) {
     displaySidebar.value = true
     document.body.classList.remove('overflow-hidden')
@@ -41,10 +43,10 @@ let authUserId = localStorage.getItem('authUserId')
 
 onMounted(() => {
   instantiatePusher()
-  document.body.addEventListener('click', handleSidebarVisibility)
   window.Echo.private(`movie-quotes.${authUserId}`).listen('NotificationSent', (data) => {
     notificationsStore.updateNotifications(data)
   })
+  document.body.addEventListener('click', handleSidebarVisibility)
 })
 
 onUnmounted(() => {

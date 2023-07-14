@@ -42,9 +42,10 @@ import MovieDirectorInput from '@/components/home/movieList/forms/inputs/MovieDi
 import MovieDescriptionInput from '@/components/home/movieList/forms/inputs/MovieDescriptionInput.vue'
 import AddMovieImageInput from '@/components/home/movieList/forms/inputs/AddMovieImageInput.vue'
 import { onMounted, ref, provide } from 'vue'
-import { addMovie } from '@/services/api.js'
+import { addMovie, getMovies } from '@/services/api.js'
 import { useRouter } from 'vue-router'
 import { Form } from 'vee-validate'
+import { useMoviesStore } from '@/stores/useMoviesStore'
 
 const router = useRouter()
 const engTitle = ref('')
@@ -56,6 +57,7 @@ const geoDescription = ref('')
 const genres = ref([])
 let movieImage = ref(null)
 let releaseDate = ref('')
+let moviesStore = useMoviesStore()
 
 provide('engTitle', engTitle)
 provide('geoTitle', geoTitle)
@@ -117,6 +119,9 @@ function createMovie() {
   }
 
   addMovie(formData).then(() => {
+    getMovies(1).then((response) => {
+      moviesStore.movies.unshift(response.data[0])
+    })
     router.back()
   })
 }
