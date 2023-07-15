@@ -1,7 +1,7 @@
 <template>
   <div class="pt-6">
     <div class="text-[#FFFFFF] flex lg:items-center justify-around lg:justify-between ml-3 lg:ml-0">
-      <h1 class="text-[#FFFFFF] font-bold font-helvetica-neue text-xl lg:ml-[9rem]">
+      <h1 class="text-[#FFFFFF] font-bold font-helvetica-neue text-xl lg:ml-[7.2rem]">
         {{ $t('homePage.movie_page.title') }} <br class="lg:hidden" />
         {{ $t('homePage.movie_page.total', { total: store.getMoviesAmount }) }}
       </h1>

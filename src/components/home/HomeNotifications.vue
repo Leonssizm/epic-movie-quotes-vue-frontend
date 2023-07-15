@@ -22,6 +22,7 @@
         :key="index"
       >
         <RouterLink
+          v-if="notification.hasOwnProperty('notifiable')"
           :to="{ name: 'individual-quote', params: { id: notification.notifiable.id } }"
           @click="readNotifications(notification.id)"
           class="z-50"
@@ -33,7 +34,7 @@
                   notification.sender.profile_picture
                     ? notification.sender.google_id
                       ? notification.sender.profile_picture
-                      : 'http://127.0.0.1:8000/storage/' + notification.sender.profile_picture
+                      : storageUrl + notification.sender.profile_picture
                     : 'https://picsum.photos/300'
                 "
                 alt="profile-picture"
@@ -69,6 +70,63 @@
             </div>
           </div>
         </RouterLink>
+        <RouterLink
+          v-else
+          :to="{ name: 'individual-quote', params: { id: notification.quote.id } }"
+          @click="readNotifications(notification.notification.id)"
+          class="z-50"
+        >
+          <div class="flex justify-between">
+            <div class="flex py-5">
+              <img
+                :src="
+                  notification.sender.profile_picture
+                    ? notification.sender.google_id
+                      ? notification.sender.profile_picture
+                      : storageUrl + notification.sender.profile_picture
+                    : 'https://picsum.photos/300'
+                "
+                alt="profile-picture"
+                class="rounded-full h-14 w-14 object-cover"
+              />
+              <div class="flex flex-col ml-4">
+                <p class="text-white">{{ notification.sender.username }}</p>
+                <div v-if="notification.notification.is_like" class="flex mt-2">
+                  <IconRedHeart />
+                  <p class="text-[#CED4DA] font-helvetica-neue ml-2">reacted to your quote</p>
+                </div>
+                <div v-else class="flex mt-2">
+                  <IconCitation />
+                  <p class="text-[#CED4DA] font-helvetica-neue ml-2">
+                    commented to your movie quote
+                  </p>
+                </div>
+                <div class="text-white lg:hidden">
+                  <p class="mt-2 text-[#D9D9D9] font-helvetica-neue">
+                    {{ formatTime(notification.notification.created_at) }} ago
+                  </p>
+                  <p
+                    class="mt-2 text-green-700 font-helvetica-neue"
+                    v-if="notification.notification.is_new"
+                  >
+                    New
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="text-white hidden lg:block">
+              <p class="mt-2 text-[#D9D9D9] font-helvetica-neue">
+                {{ formatTime(notification.notification.created_at) }} ago
+              </p>
+              <p
+                class="mt-2 text-green-700 font-helvetica-neue"
+                v-if="notification.notification.is_new"
+              >
+                New
+              </p>
+            </div>
+          </div>
+        </RouterLink>
       </div>
     </div>
   </div>
@@ -81,6 +139,7 @@ import { useNotificationsStore } from '@/stores/useNotificationsStore'
 import { readNotifications, readAllNotifications } from '@/services/api.js'
 
 const notificationsStore = useNotificationsStore()
+const storageUrl = import.meta.env.VITE_API_STORAGE
 
 function makeAllNotificationRead() {
   readAllNotifications().then((response) => {

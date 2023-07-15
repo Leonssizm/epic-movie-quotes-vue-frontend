@@ -20,8 +20,12 @@ import NewsFeedQuotesCard from '@/components/home/newsFeed/NewsFeedQuoteCard.vue
 import instantiatePusher from '@/helpers/instantiatePusher.js'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useNotificationsStore } from '@/stores/useNotificationsStore'
+import { useQuotesStore } from '@/stores/useQuotesStore'
+import { getQuoteComments } from '@/services/api.js'
+
 document.title = 'Home'
 const notificationsStore = useNotificationsStore()
+const quotesStore = useQuotesStore()
 
 let resolution = ref(window.innerWidth)
 
@@ -45,6 +49,12 @@ onMounted(() => {
   instantiatePusher()
   window.Echo.private(`movie-quotes.${authUserId}`).listen('NotificationSent', (data) => {
     notificationsStore.updateNotifications(data)
+    let quote = quotesStore.quotes.filter((quote) => quote.id === data.notification.quote.id)[0]
+    if (data.notification.notification.is_like) {
+      quote.likes.length += 1
+    } else {
+      getQuoteComments(quote.id).then((response) => (quote.comments = response.data))
+    }
   })
   document.body.addEventListener('click', handleSidebarVisibility)
 })
