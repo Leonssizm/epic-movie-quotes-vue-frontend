@@ -13,8 +13,8 @@
           <p class="font-normal text-xs text-[#6C757D] font-helvetica-neue mt-2">
             {{ $t('landing.change_password.instruction') }}
           </p>
-          <Form class="mt-4" @submit="setNewPassword">
-            <label class="pb-2 mr-64">{{ $t('landing.password') }}</label>
+          <Form class="mt-4 flex flex-col items-start" @submit="setNewPassword">
+            <label class="pb-2">{{ $t('landing.password') }}</label>
             <div class="relative">
               <Field
                 name="password"
@@ -30,7 +30,7 @@
               />
               <ErrorMessage name="password" class="text-red-500 mb-2"></ErrorMessage>
             </div>
-            <label class="pb-2 mr-48">{{ $t('landing.confirm_password') }}</label>
+            <label class="pb-2">{{ $t('landing.confirm_password') }}</label>
             <div class="relative">
               <Field
                 name="password_confirmation"

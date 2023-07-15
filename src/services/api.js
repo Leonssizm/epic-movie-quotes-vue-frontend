@@ -100,6 +100,12 @@ export async function likeQuote(quote_id, user_id) {
   )
 }
 
+export async function getQuoteComments(quoteId) {
+  return await axios.get('comments', {
+    params: { quote_id: quoteId }
+  })
+}
+
 export async function writeComment(quote_id, user_id, comment) {
   return await axios.post(
     '/comment',

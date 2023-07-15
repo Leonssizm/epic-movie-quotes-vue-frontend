@@ -44,7 +44,10 @@
             <div class="flex items-center flex-row-reverse justify-evenly w-80">
               <RouterLink
                 :to="{ name: 'password-reset' }"
-                class="font-normal text-xs text-[#0D6EFD] ml-24 underline"
+                class="font-normal text-base text-[#0D6EFD] ml-10 underline"
+                :class="{
+                  'ml-[5rem]': locale === 'en'
+                }"
                 >{{ $t('landing.log_in.forget_password') }}</RouterLink
               >
               <label for="checkbox" class="font-helvetica-neue font-bold text-sm">{{

@@ -13,8 +13,8 @@
           <p class="font-normal text-xs text-[#6C757D] font-helvetica-neue mt-2">
             {{ $t('landing.forgot_password.instructions_info') }}
           </p>
-          <Form class="mt-4" @submit="handleForgotPasswordEmail">
-            <label class="pb-2 text-[#FFFFFF] mr-72">{{ $t('landing.email') }}</label>
+          <Form class="mt-4 flex flex-col items-start" @submit="handleForgotPasswordEmail">
+            <label class="pb-2 text-[#FFFFFF]">{{ $t('landing.email') }}</label>
             <Field
               name="email"
               rules="required|email"
@@ -58,9 +58,13 @@ const locale = useI18n().locale
 let email = ref('')
 let verificationEmailIsSent = ref(false)
 function handleForgotPasswordEmail() {
-  forgotPassword(email.value).then(() => {
-    verificationEmailIsSent.value = true
-  })
+  forgotPassword(email.value)
+    .then(() => {
+      verificationEmailIsSent.value = true
+    })
+    .catch((error) => {
+      alert(error.response.data)
+    })
 }
 
 onMounted(() => (locale.value = localStorage.getItem('locale')))

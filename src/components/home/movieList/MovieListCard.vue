@@ -1,7 +1,7 @@
 <template>
   <MovieListHeader />
   <div
-    class="flex flex-wrap"
+    class="flex flex-wrap lg:px-14 lg:pl-16"
     :class="{
       'h-screen': store.movies.length === 0
     }"
