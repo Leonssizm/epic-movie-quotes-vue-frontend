@@ -7,9 +7,9 @@
     <button
       :disabled="authStore.authenticatedUser.id !== moviesStore.movie.user_id"
       @click="addQuote"
-      class="ml-2 mt-2 lg:mt-0 w-24 h-8 lg:w-28 lg:h-10 bg-red-700 border border-red-700 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221] flex justify-around items-center"
+      class="ml-2 mt-2 pr-1 lg:mt-0 h-8 lg:h-10 bg-red-700 border border-red-700 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221] flex justify-around items-center"
     >
-      <IconPlus />
+      <IconPlus class="mx-1" />
       {{ $t('homePage.movie_page.add_quote') }}
     </button>
   </div>

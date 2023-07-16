@@ -1,6 +1,11 @@
 <template>
   <div class="pt-6">
-    <div class="text-[#FFFFFF] flex lg:items-center justify-around lg:justify-between ml-3 lg:ml-0">
+    <div
+      class="text-[#FFFFFF] flex lg:items-center lg:justify-between ml-3 lg:ml-0"
+      :class="{
+        'justify-around': locale === 'en'
+      }"
+    >
       <h1 class="text-[#FFFFFF] font-bold font-helvetica-neue text-xl lg:ml-[7.2rem]">
         {{ $t('homePage.movie_page.title') }} <br class="lg:hidden" />
         {{ $t('homePage.movie_page.total', { total: store.getMoviesAmount }) }}
@@ -18,6 +23,9 @@
         />
         <button
           class="mt-2 pr-2 whitespace-nowrap h-10 lg:h-12 lg:mt-0 bg-red-700 border border-red-700 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221] flex items-center"
+          :class="{
+            'ml-4': locale === 'ka'
+          }"
           @click="openAddMovieModal"
         >
           <IconPlus class="mx-2" />
@@ -40,9 +48,11 @@ import { useMoviesStore } from '@/stores/useMoviesStore'
 import { searchAllMovies } from '@/services/api.js'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 const store = useMoviesStore()
 const router = useRouter()
+const locale = useI18n().locale
 
 let isExpanded = ref(false)
 let search = ref('')

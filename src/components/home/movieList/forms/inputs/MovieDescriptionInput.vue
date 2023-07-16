@@ -13,9 +13,15 @@
           Movie Description
         </p>
         <Field
-          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] h-[4rem] w-[22rem] pl-36 rounded"
+          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] h-[4rem] w-[22rem] pl-28 rounded"
           @focus="engMovieDescriptionInputFocused = true"
-          @blur="engMovieDescriptionInputFocused = false"
+          @blur="
+            () => {
+              if (!engDescription) {
+                engMovieDescriptionInputFocused = false
+              }
+            }
+          "
           v-model="initialEngDescriptionValue"
           as="textarea"
           name="engMovieDescription"
@@ -38,9 +44,15 @@
           ფილმის აღწერა
         </p>
         <Field
-          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] h-[4rem] w-[22rem] pl-36 rounded"
+          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] h-[4rem] w-[22rem] pl-28 rounded"
           @focus="geoMovieDescriptionInputFocused = true"
-          @blur="geoMovieDescriptionInputFocused = false"
+          @blur="
+            () => {
+              if (!geoDescription) {
+                geoMovieDescriptionInputFocused = false
+              }
+            }
+          "
           v-model="initialGeoDescriptionValue"
           as="textarea"
           name="geoMovieDescription"
@@ -53,7 +65,7 @@
   </div>
 </template>
 <script setup>
-import { ref, defineEmits, defineProps, inject } from 'vue'
+import { ref, defineEmits, defineProps, inject, onMounted } from 'vue'
 import { Field, ErrorMessage } from 'vee-validate'
 
 let engMovieDescriptionInputFocused = ref(false)
@@ -74,4 +86,13 @@ const initialEngDescriptionValue = inject('engDescription')
 const initialGeoDescriptionValue = inject('geoDescription')
 
 defineEmits(['update:engDescription', 'update:geoDescription'])
+
+onMounted(() => {
+  if (initialEngDescriptionValue.value) {
+    engMovieDescriptionInputFocused.value = true
+  }
+  if (initialGeoDescriptionValue.value) {
+    geoMovieDescriptionInputFocused.value = true
+  }
+})
 </script>

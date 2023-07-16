@@ -30,17 +30,23 @@
               />
             </div>
             <ErrorMessage name="email" class="text-red-500 mb-2" />
-            <label class="pb-2"
-              >{{ $t('landing.password') }}<span class="text-[#DC3545]">*</span></label
-            >
-            <Field
-              name="password"
-              type="password"
-              rules="required"
-              class="mb-4 pl-1 w-[21rem] h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
-              :placeholder="$t('landing.password_placeholder')"
-              v-model="password"
-            />
+            <div class="relative">
+              <label class="pb-2"
+                >{{ $t('landing.password') }}<span class="text-[#DC3545]">*</span></label
+              >
+              <Field
+                name="password"
+                :type="passwordVisible ? 'text' : 'password'"
+                rules="required"
+                class="mb-4 pl-1 w-[21rem] h-10 placeholder:pl-3 bg-[#CED4DA] text-black border border-gray-300 rounded"
+                :placeholder="$t('landing.password_placeholder')"
+                v-model="password"
+              />
+              <IconEye
+                class="absolute right-1 top-11 transform -translate-y-1/2"
+                @click="passwordVisible = !passwordVisible"
+              />
+            </div>
             <div class="flex items-center flex-row-reverse justify-evenly w-80">
               <RouterLink
                 :to="{ name: 'password-reset' }"
@@ -88,13 +94,13 @@
               <span class="pl-2">{{ $t('landing.log_in.sign_in_google') }}</span>
             </button>
             <div
-              class="flex justify-center align-center font-helvetica-neue text-lg ml-16 pt-4 font-normal"
+              class="flex justify-center align-center font-helvetica-neue text-lg ml-10 pt-4 font-normal"
             >
               <span class="font-normal text-xs text-[#6C757D] mr-1">{{
                 $t('landing.log_in.do_not_have_account')
               }}</span>
               <RouterLink to="/sign-up" class="font-normal text-xs text-[#0D6EFD] underline">{{
-                $t('landing.log_in.button')
+                $t('landing.sign_up.button')
               }}</RouterLink>
             </div>
           </div>
@@ -106,6 +112,7 @@
 <script setup>
 import IconGoogle from '@/components/icons/IconGoogle.vue'
 import IconValidInput from '@/components/icons/IconValidInput.vue'
+import IconEye from '@/components/icons/IconEye.vue'
 import IconInvalidInput from '@/components/icons/IconInvalidInput.vue'
 import FormLoginHeader from '@/components/landing/forms/login/FormLoginHeader.vue'
 import { Field, Form, ErrorMessage } from 'vee-validate'
@@ -127,6 +134,7 @@ let rememberMe = ref(false)
 let errorMessage = ref('')
 let loginButtonIsClicked = ref(false)
 let loginWithGoogleIsClicked = ref(false)
+let passwordVisible = ref(false)
 let sanctumAuthUrl = import.meta.env.VITE_SANCTUM
 
 function submitLoginForm() {

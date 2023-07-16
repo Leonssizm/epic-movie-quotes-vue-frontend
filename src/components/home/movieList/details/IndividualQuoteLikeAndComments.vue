@@ -9,7 +9,15 @@
     <div class="flex">
       <p class="mr-3">{{ quotesStore.quote.likes.length }}</p>
       <button @click="handleLikingQuote(quotesStore.quote.id)">
-        <IconHeart :fill="quotesStore.quote.liked ? 'red' : 'white'" />
+        <IconHeart
+          fill="red"
+          v-if="
+            quotesStore.quote.likes.some(
+              (like) => like.pivot.user_id === authStore.authenticatedUser.id
+            )
+          "
+        />
+        <IconHeart v-else :fill="quotesStore.quote.liked ? 'red' : 'white'" />
       </button>
     </div>
   </div>
@@ -112,8 +120,10 @@ function handleLikingQuote(quoteId) {
     likeQuote(quoteId, response.data.id).then((response) => {
       if (response.data === 'liked') {
         quotesStore.quote.likes.length += 1
+        quotesStore.quote.liked = true
       } else {
         quotesStore.quote.likes.length -= 1
+        quotesStore.quote.liked = false
       }
     })
   })

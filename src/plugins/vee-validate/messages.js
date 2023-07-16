@@ -25,6 +25,9 @@ configure({
         engMovieDescription: 'Movie description in English',
         geoDirector: 'Movie Director in Georgian',
         engDirector: 'Movie Director in English',
+        engTitle: 'Title in English',
+        geoTitle: 'Title in Georgian',
+
         quoteEn: 'Quote in English',
         quoteKa: 'Quote in Georgian',
         dateInput: 'Release year'
@@ -54,6 +57,9 @@ configure({
         engMovieDescription: 'ფილმის აღწერა ინგლისურად',
         geoDirector: 'რეჟისორი ქართულად',
         engDirector: 'რეჟისორი ინგლისურად',
+        engTitle: 'დასახელება ინგლისურად',
+        geoTitle: 'დასახელენა ქართულად',
+
         quoteEn: 'ციტატა ინგლისურად',
         quoteKa: 'ციტატა ქართულად',
         dateInput: 'წელი'

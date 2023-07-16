@@ -48,12 +48,17 @@ let authUserId = localStorage.getItem('authUserId')
 onMounted(() => {
   instantiatePusher()
   window.Echo.private(`movie-quotes.${authUserId}`).listen('NotificationSent', (data) => {
-    notificationsStore.updateNotifications(data)
-    let quote = quotesStore.quotes.filter((quote) => quote.id === data.notification.quote.id)[0]
-    if (data.notification.notification.is_like) {
-      quote.likes.length += 1
+    if (!data.notification.unlike) {
+      notificationsStore.updateNotifications(data)
+      let quote = quotesStore.quotes.filter((quote) => quote.id === data.notification.quote.id)[0]
+      if (data.notification.notification.is_like) {
+        quote.likes.length += 1
+      } else {
+        getQuoteComments(quote.id).then((response) => (quote.comments = response.data))
+      }
     } else {
-      getQuoteComments(quote.id).then((response) => (quote.comments = response.data))
+      let quote = quotesStore.quotes.filter((quote) => quote.id === data.notification.quote.id)[0]
+      quote.likes.length -= 1
     }
   })
   document.body.addEventListener('click', handleSidebarVisibility)

@@ -14,9 +14,15 @@
         </p>
         <Field
           type="text"
-          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] h-[2rem] w-[22rem] pl-24 rounded"
+          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] h-[2rem] w-[22rem] pl-16 rounded"
           @focus="engTitleInputFocused = true"
-          @blur="engTitleInputFocused = false"
+          @blur="
+            () => {
+              if (!engTitle) {
+                engTitleInputFocused = false
+              }
+            }
+          "
           @input="$emit('update:engTitle', $event.target.value)"
           v-model="initialEngTitleValue"
           rules="required|engLetters|min:3"
@@ -40,9 +46,15 @@
         </p>
         <Field
           type="text"
-          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] h-[2rem] w-[22rem] pl-36 rounded"
+          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] h-[2rem] w-[22rem] pl-28 rounded"
           @focus="geoTitleInputFocused = true"
-          @blur="geoTitleInputFocused = false"
+          @blur="
+            () => {
+              if (!geoTitle) {
+                geoTitleInputFocused = false
+              }
+            }
+          "
           @input="$emit('update:geoTitle', $event.target.value)"
           v-model="initialGeoTitleValue"
           name="geoTitle"
@@ -56,7 +68,7 @@
 </template>
 
 <script setup>
-import { ref, inject, defineProps, defineEmits } from 'vue'
+import { ref, inject, defineProps, defineEmits, onMounted } from 'vue'
 import { Field, ErrorMessage } from 'vee-validate'
 
 let engTitleInputFocused = ref(false)
@@ -77,4 +89,13 @@ const initialEngTitleValue = inject('engTitle')
 const initialGeoTitleValue = inject('geoTitle')
 
 defineEmits(['update:engTitle', 'update:geoTitle'])
+
+onMounted(() => {
+  if (initialEngTitleValue.value) {
+    engTitleInputFocused.value = true
+  }
+  if (initialGeoTitleValue.value) {
+    geoTitleInputFocused.value = true
+  }
+})
 </script>

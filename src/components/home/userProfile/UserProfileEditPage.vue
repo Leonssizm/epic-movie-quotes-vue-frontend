@@ -16,12 +16,15 @@ import HomeHeader from '@/components/home/HomeHeader.vue'
 import HomeSidebarNavigation from '@/components/home/HomeSidebarNavigation.vue'
 import UserProfileEditModal from '@/components/home/userProfile/UserProfileEditModal.vue'
 import { onMounted, onUnmounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+let locale = useI18n().locale
 let displaySidebar = ref(false)
-document.title = 'Edit User'
+document.title = 'Change User Info'
 
 onMounted(() => {
   document.body.addEventListener('click', handleSidebarVisibility)
+  localStorage.getItem('locale') === 'en' ? (locale.value = 'en') : (locale.value = 'ka')
 })
 onUnmounted(() => {
   document.body.removeEventListener('click', handleSidebarVisibility)

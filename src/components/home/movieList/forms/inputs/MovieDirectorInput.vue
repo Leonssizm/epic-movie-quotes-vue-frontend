@@ -14,9 +14,15 @@
         </p>
         <Field
           type="text"
-          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-24 rounded"
+          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-16 rounded"
           @focus="engDirectorInputFocused = true"
-          @blur="engDirectorInputFocused = false"
+          @blur="
+            () => {
+              if (!engDirector) {
+                engDirectorInputFocused = false
+              }
+            }
+          "
           @input="$emit('update:engDirector', $event.target.value)"
           v-model="initialEngDirectorValue"
           name="engDirector"
@@ -40,9 +46,15 @@
         </p>
         <Field
           type="text"
-          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-24 rounded"
+          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-20 rounded"
           @focus="geoDirectorInputFocused = true"
-          @blur="geoDirectorInputFocused = false"
+          @blur="
+            () => {
+              if (!geoDirector) {
+                geoDirectorInputFocused = false
+              }
+            }
+          "
           @input="$emit('update:geoDirector', $event.target.value)"
           v-model="initialGeoDirectorValue"
           name="geoDirector"
@@ -55,7 +67,7 @@
   </div>
 </template>
 <script setup>
-import { ref, defineEmits, defineProps, inject } from 'vue'
+import { ref, defineEmits, defineProps, inject, onMounted } from 'vue'
 import { Field, ErrorMessage } from 'vee-validate'
 
 let engDirectorInputFocused = ref(false)
@@ -75,4 +87,13 @@ const initialEngDirectorValue = inject('engDirector')
 const initialGeoDirectorValue = inject('geoDirector')
 
 defineEmits(['update:engDirector', 'update:geoDirector'])
+
+onMounted(() => {
+  if (initialEngDirectorValue.value) {
+    engDirectorInputFocused.value = true
+  }
+  if (initialGeoDirectorValue.value) {
+    geoDirectorInputFocused.value = true
+  }
+})
 </script>

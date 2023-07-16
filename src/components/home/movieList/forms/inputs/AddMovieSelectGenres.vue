@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative bg-transparent border rounded border-gray-500 lg:w-[56rem] h-[3rem] w-[22rem] mt-8 lg:ml-8 ml-1"
+    class="relative bg-transparent border rounded border-gray-500 lg:w-[56rem] h-[3rem] w-[22rem] mt-8 lg:ml-9 ml-2"
   >
     <div v-for="choice in genres" :key="choice.id" class="flex ml-2 mt-2 float-left relative z-10">
       <span v-if="locale === 'en'" class="p-1 bg-gray-600 text-white">
