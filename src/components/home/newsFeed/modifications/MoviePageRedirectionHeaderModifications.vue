@@ -7,10 +7,10 @@
     class="lg:w-[17rem] lg:h-[12rem] w-[10rem] h-[8rem] rounded-xl ml-10"
   />
   <div class="font-helvetica-neue text-2xl font-bold flex flex-col ml-4">
-    <h1 class="text-[#DDCCAA] lg:w-96" v-if="locale == 'en'">
+    <h1 class="text-[#DDCCAA] w-96 break-words overflow-hidden" v-if="locale == 'en'">
       {{ moviesStore.movie.title.en }} ({{ moviesStore.movie.release_year.slice(0, 4) }})
     </h1>
-    <h1 class="text-[#DDCCAA] lg:w-96" v-else>
+    <h1 class="text-[#DDCCAA] w-96 break-words overflow-hidden" v-else>
       {{ moviesStore.movie.title.ka }} ({{ moviesStore.movie.release_year.slice(0, 4) }})
     </h1>
 

@@ -14,7 +14,6 @@ import VerificationChangeEmail from '@/components/verification/VerificationChang
 import VerificationEmailIsChanged from '@/components/verification/VerificationEmailIsChanged.vue'
 import MovieListAddModal from '@/components/home/movieList/forms/MovieListAddMovieModal.vue'
 import MovieListCard from '@/components/home/movieList/MovieListCard.vue'
-
 import MovieListIndividualMovie from '@/components/home/movieList/MovieListIndividualMovie.vue'
 import MovieListIndividualQuote from '@/components/home/movieList/MovieListIndividualQuote.vue'
 import MovieListEditQuote from '@/components/home/movieList/forms/MovieListEditQuote.vue'

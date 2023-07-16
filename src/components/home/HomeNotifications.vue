@@ -1,7 +1,10 @@
 <template>
-  <div class="absolute z-50 top-0 right-0 bottom-0 lg:mr-7 mt-14 flex flex-col items-end">
+  <div
+    class="absolute z-50 top-0 right-0 bottom-0 lg:mr-7 mt-14 flex flex-col items-end"
+    v-if="isPopupOpen"
+  >
     <IconTriangle class="mr-3 lg:mr-[12.45rem]" />
-    <div class="px-4 bg-[#000000] pb-10 lg:w-[60rem] w-[25rem]">
+    <div class="px-4 bg-[#000000] pb-10 lg:w-[60rem] w-[25rem] notifications">
       <div class="flex items-top justify-between">
         <h1
           class="text-white mt-10 font-helvetica-neue font-normal font-medium text-2xl leading-6 capitalize text-white"
@@ -137,9 +140,12 @@ import IconCitation from '@/components/icons/IconCitation.vue'
 import IconRedHeart from '@/components/icons/IconRedHeart.vue'
 import { useNotificationsStore } from '@/stores/useNotificationsStore'
 import { readNotifications, readAllNotifications } from '@/services/api.js'
+import { onMounted, onUnmounted, ref, defineEmits } from 'vue'
 
 const notificationsStore = useNotificationsStore()
 const storageUrl = import.meta.env.VITE_API_STORAGE
+let isPopupOpen = ref(false)
+let emit = defineEmits(['popupIsOpen'])
 
 function makeAllNotificationRead() {
   readAllNotifications().then((response) => {
@@ -159,6 +165,27 @@ const formatTime = (createdAt) => {
   } else {
     const elapsedDays = Math.floor(elapsedMinutes / (24 * 60))
     return `${elapsedDays} ${elapsedDays === 1 ? 'day' : 'days'}`
+  }
+}
+onMounted(() => {
+  isPopupOpen.value = true
+  document.body.classList.add('openNotifications')
+  setTimeout(() => {
+    document.body.addEventListener('click', handleClickOutside)
+  }, 100)
+})
+
+onUnmounted(() => {
+  document.body.classList.remove('openNotifications')
+  document.body.removeEventListener('click', handleClickOutside)
+})
+
+function handleClickOutside(event) {
+  if (!event.target.classList.contains('openNotifications')) {
+    isPopupOpen.value = false
+    document.body.classList.remove('openNotifications')
+    document.body.removeEventListener('click', handleClickOutside)
+    emit('popupIsOpen')
   }
 }
 </script>

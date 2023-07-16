@@ -46,7 +46,10 @@ import { addMovie, getMovies } from '@/services/api.js'
 import { useRouter } from 'vue-router'
 import { Form } from 'vee-validate'
 import { useMoviesStore } from '@/stores/useMoviesStore'
+import { useI18n } from 'vue-i18n'
+import { localize } from '@vee-validate/i18n'
 
+let locale = useI18n().locale
 const router = useRouter()
 const engTitle = ref('')
 const geoTitle = ref('')
@@ -71,6 +74,13 @@ let isPopupOpen = ref(false)
 let photoIsLoaded = ref(false)
 
 onMounted(() => {
+  if (localStorage.getItem('locale') === 'en') {
+    locale.value = 'en'
+    localize('en')
+  } else {
+    localize('ka')
+    locale.value = 'ka'
+  }
   isPopupOpen.value = true
   document.body.classList.add('overflow-hidden')
   setTimeout(() => {

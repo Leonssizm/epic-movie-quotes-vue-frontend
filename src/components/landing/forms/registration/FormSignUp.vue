@@ -154,6 +154,7 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useI18n } from 'vue-i18n'
 import axios from '@/plugins/axios/index.js'
+import { localize } from '@vee-validate/i18n'
 
 const isPopupOpen = ref(false)
 const router = useRouter()
@@ -176,6 +177,13 @@ let repeatPasswordVisible = ref('')
 let sanctumAuthUrl = import.meta.env.VITE_SANCTUM
 
 onMounted(() => {
+  if (localStorage.getItem('locale') === 'en') {
+    locale.value = 'en'
+    localize('en')
+  } else {
+    localize('ka')
+    locale.value = 'ka'
+  }
   isPopupOpen.value = true
   document.body.classList.add('overflow-hidden')
   setTimeout(() => {

@@ -122,6 +122,7 @@ import axios from '@/plugins/axios/index.js'
 import { login, googleAuth } from '@/services/api.js'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useI18n } from 'vue-i18n'
+import { localize } from '@vee-validate/i18n'
 
 const store = useAuthStore()
 const isPopupOpen = ref(false)
@@ -170,6 +171,13 @@ function submitLoginForm() {
   })
 }
 onMounted(() => {
+  if (localStorage.getItem('locale') === 'en') {
+    locale.value = 'en'
+    localize('en')
+  } else {
+    localize('ka')
+    locale.value = 'ka'
+  }
   isPopupOpen.value = true
   document.body.classList.add('overflow-hidden')
   setTimeout(() => {

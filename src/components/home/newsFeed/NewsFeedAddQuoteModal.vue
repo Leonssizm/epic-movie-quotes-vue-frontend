@@ -3,7 +3,7 @@
     <Form
       @submit="createQuote"
       v-if="isPopupOpen"
-      class="form fixed inset-0 flex justify-center bg-opacity-85 lg:bg-black font-helvetica-neue"
+      class="form fixed inset-0 flex justify-center bg-opacity-85 lg:bg-black font-helvetica-neue overflow-scroll"
     >
       <div class="lg:w-1/2 bg-[#11101A] lg:mt-24 h-fit">
         <div class="flex items-start justify-between py-8 border-b-2 border-gray-800">
@@ -192,6 +192,7 @@ import { getAllUserMovies } from '@/services/api.js'
 import { addQuote } from '@/services/api.js'
 import { useI18n } from 'vue-i18n'
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import { localize } from '@vee-validate/i18n'
 
 const locale = useI18n().locale
 const router = useRouter()
@@ -264,7 +265,13 @@ function removeChoice(choice) {
 }
 
 onMounted(() => {
-  localStorage.getItem('locale') === 'en' ? (locale.value = 'en') : (locale.value = 'ka')
+  if (localStorage.getItem('locale') === 'en') {
+    locale.value = 'en'
+    localize('en')
+  } else {
+    localize('ka')
+    locale.value = 'ka'
+  }
   isPopupOpen.value = true
   document.body.classList.add('overflow-hidden')
   setTimeout(() => {
