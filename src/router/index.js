@@ -20,6 +20,7 @@ import MovieListIndividualQuote from '@/components/home/movieList/MovieListIndiv
 import MovieListEditQuote from '@/components/home/movieList/forms/MovieListEditQuote.vue'
 import NewsFeedAddQuoteModal from '@/components/home/newsFeed/NewsFeedAddQuoteModal.vue'
 import MovieListEditMovie from '@/components/home/movieList/forms/MovieListEditMovie.vue'
+import GuardNotFound from '@/components/navigationGuards/GuardNotFound.vue'
 import { loggedIn } from './guards'
 
 const router = createRouter({
@@ -155,6 +156,10 @@ const router = createRouter({
       path: '/forbidden',
       name: 'forbidden',
       component: GuardUnauthorized
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      component: GuardNotFound
     }
   ]
 })

@@ -5,7 +5,7 @@
     </div>
   </div>
   <div v-else class="bg-[#181623] flex justify-center">
-    <div class="bg-[#11101A] lg:w-1/2 w-full lg:mt-5">
+    <div class="bg-[#11101A] lg:w-1/2 w-full lg:mt-5 lg:mb-12">
       <div class="flex items-start py-4 border-b-2 border-gray-800">
         <div
           class="flex justify-around w-36 items-center"

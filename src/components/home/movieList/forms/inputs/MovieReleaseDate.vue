@@ -14,7 +14,15 @@
         </p>
         <Field
           type="number"
-          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-24 rounded text-white"
+          class="border border-gray-500 bg-[#0D0C14] lg:w-[56rem] lg:h-[2rem] w-[22rem] pl-20 rounded text-white"
+          @focus="yearTitleInputFocused = true"
+          @blur="
+            () => {
+              if (!initialValue) {
+                yearTitleInputFocused = false
+              }
+            }
+          "
           @input="$emit('update:modelValue', $event.target.value)"
           v-model="initialValue"
           name="dateInput"
@@ -27,7 +35,7 @@
 </template>
 
 <script setup>
-import { ref, inject, defineProps, defineEmits } from 'vue'
+import { ref, inject, defineProps, defineEmits, onMounted } from 'vue'
 import { Field, ErrorMessage } from 'vee-validate'
 
 let yearTitleInputFocused = ref(false)
@@ -41,4 +49,10 @@ defineProps({
   }
 })
 defineEmits(['update:modelValue'])
+
+onMounted(() => {
+  if (initialValue.value) {
+    yearTitleInputFocused.value = true
+  }
+})
 </script>

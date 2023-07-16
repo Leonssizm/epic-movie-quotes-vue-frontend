@@ -67,7 +67,13 @@
         <div class="flex">
           <p class="mr-3">{{ quote.likes.length }}</p>
           <button @click="handleLikingQuote(quote.id)">
-            <IconHeart :fill="quote.liked ? 'red' : 'white'" />
+            <IconHeart
+              fill="red"
+              v-if="
+                quote.likes.some((like) => like.pivot.user_id === authStore.authenticatedUser.id)
+              "
+            />
+            <IconHeart v-else :fill="quote.liked ? 'red' : 'white'" />
           </button>
         </div>
       </div>
@@ -96,7 +102,7 @@
             </p>
           </div>
 
-          <p class="mt-1 ml-[4.8rem] w-[15rem] lg:w-[40rem] border-gray-700 border-b-2">
+          <p class="pb-3 ml-[4.8rem] w-[15rem] lg:w-[40rem] border-gray-700 border-b-2">
             {{ comment.body }}
           </p>
         </div>

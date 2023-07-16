@@ -24,7 +24,6 @@
     </div>
     <LandingImages />
   </div>
-  <LandingFooter />
 </template>
 <script setup>
 import ButtonLogin from '@/components/landing/buttons/ButtonLogin.vue'
@@ -32,12 +31,11 @@ import SignUpButton from '@/components/landing/buttons/ButtonSignUp.vue'
 import GetStartedButton from '@/components/landing/buttons/ButtonGetStarted.vue'
 import LanguageDropDown from '@/components/LanguageDropdown.vue'
 import LandingImages from '@/components/landing/LandingImages.vue'
-import LandingFooter from '@/components/landing/LandingFooter.vue'
 import { useRouter } from 'vue-router'
 import { RouterView } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { onMounted } from 'vue'
-
+document.title = 'Epic Movie Quotes'
 const locale = useI18n().locale
 const router = useRouter()
 

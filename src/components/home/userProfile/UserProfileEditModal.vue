@@ -25,7 +25,7 @@
         />
         <div class="lg:bg-[#11101A] lg:w-11/12 flex flex-col lg:mb-10 mb-0">
           <label
-            class="flex lg:mt-40 ml-4 mt-4 lg:ml-0 justify-center mr-[2.2rem] text-[#FFFFFF] font-helvetica-neue"
+            class="flex text-xl lg:mt-40 mt-2 ml-6 justify-center mr-[2.2rem] text-[#FFFFFF] font-helvetica-neue"
           >
             {{ $t('userProfile.upload_new_photo') }}
             <input type="file" class="hidden" @change="handleProfilePictureChange" />
