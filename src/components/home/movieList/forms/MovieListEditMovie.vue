@@ -184,6 +184,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { editMovieRequest, getGenres } from '@/services/api.js'
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import { localize } from '@vee-validate/i18n'
 
 const router = useRouter()
 const storageUrl = import.meta.env.VITE_API_STORAGE
@@ -218,8 +219,13 @@ onMounted(() => {
   setTimeout(() => {
     document.body.addEventListener('click', handleClickOutside)
   }, 100)
-  localStorage.getItem('locale') === 'en' ? (locale.value = 'en') : (locale.value = 'ka')
-
+  if (localStorage.getItem('locale') === 'en') {
+    locale.value = 'en'
+    localize('en')
+  } else {
+    localize('ka')
+    locale.value = 'ka'
+  }
   genres.value = moviesStore.movie.genres
 })
 

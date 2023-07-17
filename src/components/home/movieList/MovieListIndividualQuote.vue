@@ -28,6 +28,23 @@
       <IndividualQuoteBody />
       <IndividualQuoteLikeAndCommentPanel />
     </div>
+    <transition name="fade">
+      <div
+        v-if="showQuoteDeleteModal"
+        class="fixed inset-0 flex items-center justify-center bg-opacity-85 lg:bg-black"
+      >
+        <div class="p-4 rounded-lg shadow-lg font-helvetica-neue bg-[#000000]">
+          <h2 class="text-xl mb-4">Confirm Delete</h2>
+          <p class="">Are you sure you want to delete?</p>
+          <div class="mt-4 flex justify-end">
+            <button @click="showQuoteDeleteModal = false" class="mr-2">Cancel</button>
+            <button @click="removeQuote" class="bg-red-500 text-white px-4 py-2 rounded">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 <script setup>
@@ -38,7 +55,7 @@ import IconDelete from '@/components/icons/IconDelete.vue'
 import { useRouter } from 'vue-router'
 import { useQuotesStore } from '@/stores/useQuotesStore'
 import { useAuthStore } from '@/stores/useAuthStore'
-import { getSingleQuote } from '@/services/api.js'
+import { getSingleQuote, deleteQuote } from '@/services/api.js'
 import { ref } from 'vue'
 
 const router = useRouter()
@@ -54,6 +71,13 @@ getSingleQuote(router.currentRoute.value.params.id).then((response) => {
 
 function editQuote() {
   router.push({ name: 'edit-quote' })
+}
+
+function removeQuote() {
+  deleteQuote(router.currentRoute.value.params.id).then(() => {
+    showQuoteDeleteModal.value = false
+    router.back()
+  })
 }
 </script>
 

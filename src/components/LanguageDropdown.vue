@@ -22,6 +22,7 @@ import IconArrowDown from '@/components/icons/IconArrowDown.vue'
 import { setLocale } from '@vee-validate/i18n'
 import { changeLocaleInTheBackend } from '@/services/api.js'
 import { useRouter } from 'vue-router'
+import { localize } from '@vee-validate/i18n'
 
 const router = useRouter()
 
@@ -29,10 +30,12 @@ function changeLocale(locale) {
   if (locale === 'en') {
     localStorage.setItem('locale', locale)
     changeLocaleInTheBackend('en')
+    localize('en')
   } else {
     changeLocaleInTheBackend('ka')
     localStorage.removeItem('locale')
     localStorage.setItem('locale', locale)
+    localize('ka')
   }
 
   locale === 'en' ? setLocale(locale) : setLocale(locale)

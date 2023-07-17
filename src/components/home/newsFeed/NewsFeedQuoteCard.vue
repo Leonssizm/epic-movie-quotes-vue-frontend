@@ -53,7 +53,7 @@
       <div class="flex items-center justify-center mt-6">
         <img
           :src="quote.thumbnail ? storageUrl + quote.thumbnail : 'https://picsum.photos/300'"
-          class="w-[21rem] lg:w-2/3"
+          class="w-[21rem] h-[21rem] lg:w-[40rem] lg:h-[40rem] object-contain"
           alt="quote-picture"
         />
       </div>
@@ -146,7 +146,6 @@ import { useQuotesStore } from '@/stores/useQuotesStore'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useI18n } from 'vue-i18n'
 import { getAuthenticatedUser, getQuotes, likeQuote, writeComment } from '@/services/api.js'
-
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 const locale = useI18n().locale
 const quotesStore = useQuotesStore()

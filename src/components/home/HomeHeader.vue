@@ -51,7 +51,11 @@
               {{ notificationsStore.notifications.length }}
             </p>
           </div>
-          <HomeNotifications v-if="showNotifications" class="absolute mt-10" />
+          <HomeNotifications
+            v-if="showNotifications"
+            @popupIsOpen="popupIsOpen"
+            class="absolute mt-10"
+          />
         </div>
         <LanguageDropdown class="ml-2" />
         <button
@@ -133,5 +137,9 @@ function handleLogout() {
     store.authenticateOrLogoutUser(false)
     router.push({ name: 'landing' })
   })
+}
+
+function popupIsOpen() {
+  showNotifications.value = !showNotifications.value
 }
 </script>

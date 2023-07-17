@@ -111,13 +111,16 @@ import IconDelete from '@/components/icons/IconDelete.vue'
 import IconPhotoCamera from '@/components/icons/IconPhotoCamera.vue'
 import UserHeader from '@/components/home/movieList/forms/headers/addMovieFormUserHeader.vue'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useQuotesStore } from '@/stores/useQuotesStore'
 import { getSingleQuote } from '@/services/api.js'
 import { deleteQuote } from '@/services/api.js'
 import { editQuoteRequest } from '@/services/api.js'
-
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
+import { localize } from '@vee-validate/i18n'
+
+let locale = useI18n().locale
 
 const router = useRouter()
 const quotesStore = useQuotesStore()
@@ -181,6 +184,15 @@ function removeQuote() {
     router.back()
   })
 }
+onMounted(() => {
+  if (localStorage.getItem('locale') === 'en') {
+    locale.value = 'en'
+    localize('en')
+  } else {
+    localize('ka')
+    locale.value = 'ka'
+  }
+})
 </script>
 <style scoped>
 .bg-opacity-85 {
