@@ -18,7 +18,17 @@
         "description":"Movie Description",
         "nothing_found":"Nothing Found",
         "total_quotes":"Quotes (total {total})",
-        "add_quote":"Add Quote"
-
+        "add_quote":"Add Quote",
+        "user_has_no_movies":"User has no movies, try adding a movie first"
+    },
+    "quotes":{
+        "view":"View",
+        "view_quote":"View Quote",
+        
+        "edit":"Edit",
+        "edit_quote":"Edit Quote",
+        "write_new_quote":"Write New Quote",
+        "delete":"Delete"
+        
     }
 }

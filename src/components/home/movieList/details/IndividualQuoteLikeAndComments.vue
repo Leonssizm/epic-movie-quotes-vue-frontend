@@ -66,7 +66,7 @@
     <input
       type="text"
       class="ml-6 bg-[#24222F] w-3/4 h-10 pl-4 placeholder:font-helvetica-neue rounded-lg"
-      placeholder="Write a comment"
+      :placeholder="$t('homePage.news_feed.write_comment')"
       @keyup.enter="
         createComment(authStore.authenticatedUser.id, quotesStore.quote.id, $event.target)
       "

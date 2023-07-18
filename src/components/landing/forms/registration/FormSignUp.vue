@@ -12,6 +12,13 @@
           v-slot="{ errors }"
           v-if="!emailIsSent"
         >
+          <button
+            class="text-2xl text-white float-right mr-9 lg:mr-3 mt-2"
+            @click="closeSignUpForm"
+            type="button"
+          >
+            <IconX fill="white" />
+          </button>
           <FormSignUpHeader />
           <div class="flex flex-col ml-16 w-[21rem] mr-36 pb-2 font-helvetica-neue text-[#FFFFFF]">
             <label class="pb-2"
@@ -142,6 +149,7 @@
 <script setup>
 import IconGoogle from '@/components/icons/IconGoogle.vue'
 import IconEye from '@/components/icons/IconEye.vue'
+import IconX from '@/components/icons/IconX.vue'
 import IconValidInput from '@/components/icons/IconValidInput.vue'
 import IconInvalidInput from '@/components/icons/IconInvalidInput.vue'
 import FormSignUpHeader from '@/components/landing/forms/registration/FormSignUpHeader.vue'
@@ -227,6 +235,13 @@ function handleClickOutside(event) {
     router.push({ name: 'landing' })
   }
 }
+
+function closeSignUpForm() {
+  router.back()
+  isPopupOpen.value = false
+  document.body.removeEventListener('click', handleClickOutside)
+  document.body.classList.remove('overflow-hidden')
+}
 </script>
 
 <style scoped>
@@ -246,7 +261,7 @@ function handleClickOutside(event) {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.7s;
 }
 
 .fade-enter-from,

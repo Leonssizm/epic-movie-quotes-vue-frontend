@@ -52,7 +52,7 @@
           The Lord of the Rings, 2003
         </p>
         <div class="relative">
-          <footer class="text-[#DDCCAA] h-8 lg:h-28 w-full uppercase bg-black bottom-0">
+          <footer class="text-[#DDCCAA] h-28 w-full uppercase bg-black bottom-0">
             <p class="lg:ml-40 lg:font-medium font-helvetica-neue py-10">
               © 2023 movie quotes. All rights reserved.
             </p>

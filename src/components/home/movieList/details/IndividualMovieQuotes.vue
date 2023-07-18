@@ -59,7 +59,7 @@
       >
         <RouterLink class="flex items-center ml-6 mt-5" :to="'/quotes/' + quote.id">
           <IconDetails class="mx-2" />
-          <span class="mx-2">View Quote</span>
+          <span class="mx-2">{{ $t('homePage.quotes.view') }}</span>
         </RouterLink>
         <RouterLink
           :to="{ name: 'edit-quote', params: { id: quote.id } }"
@@ -67,7 +67,7 @@
           v-if="authStore.authenticatedUser.id === quote.user_id"
         >
           <IconEdit class="mx-2" />
-          <span class="mx-2">Edit</span>
+          <span class="mx-2">{{ $t('homePage.quotes.edit') }}</span>
         </RouterLink>
         <button
           @click="showQuoteDeleteModal = true"
@@ -75,7 +75,7 @@
           v-if="authStore.authenticatedUser.id === quote.user_id"
         >
           <IconDelete class="mx-2" />
-          <span class="mx-2">Delete</span>
+          <span class="mx-2">{{ $t('homePage.quotes.delete') }}</span>
         </button>
       </div>
     </div>

@@ -8,7 +8,7 @@
         "button":"რედაქტირება"
     }, 
 
-    "add Quote":{
+    "add_quote":{
         "header":"დაწერე ახალი ციტატა",
         "button":"ციტატის დამატება",
         "movie_select":"აირჩიე ფილმი"

@@ -11,7 +11,9 @@
           <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">
             {{ $t('forms.edit_movie.header') }}
           </h1>
-          <button class="text-2xl text-white mr-10" type="button" @click="closePopup">x</button>
+          <button class="text-2xl text-white mr-10" type="button" @click="closePopup">
+            <IconX />
+          </button>
         </div>
         <AddMovieFormUserHeader />
         <MovieFilmTitleInput v-model:engTitle="engTitle" v-model:geoTitle="geoTitle" />
@@ -176,6 +178,7 @@ import MovieReleaseDate from '@/components/home/movieList/forms/inputs/MovieRele
 import MovieDirectorInput from '@/components/home/movieList/forms/inputs/MovieDirectorInput.vue'
 import MovieDescriptionInput from '@/components/home/movieList/forms/inputs/MovieDescriptionInput.vue'
 import IconPhotoCamera from '@/components/icons/IconPhotoCamera.vue'
+import IconX from '@/components/icons/IconX.vue'
 
 import { useMoviesStore } from '@/stores/useMoviesStore'
 import { useGenresStore } from '@/stores/useGenresStore'
