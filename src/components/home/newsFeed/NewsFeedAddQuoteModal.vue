@@ -7,8 +7,10 @@
     >
       <div class="lg:w-1/2 bg-[#11101A] lg:mt-24 h-fit">
         <div class="flex items-start justify-between py-8 border-b-2 border-gray-800">
-          <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">Write New Quote</h1>
-          <button class="text-2xl text-white mr-10" @click="router.back()">x</button>
+          <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">
+            {{ $t('homePage.quotes.write_new_quote') }}
+          </h1>
+          <button class="text-2xl text-white mr-10" @click="router.back()"><IconX /></button>
         </div>
         <UserHeader />
         <div v-if="userIsRedirectedFromMoviesPage" class="flex mt-4">
@@ -166,14 +168,14 @@
         </div>
         <div class="flex items-center justify-center mt-4">
           <h1 v-if="userHasNoMovies" class="text-red-500 text-2xl font-helvetica-neue">
-            User has no movies, try adding a movie first
+            {{ $t('homePage.movie_page.user_has_no_movies') }}
           </h1>
         </div>
         <div class="flex items-center justify-center">
           <button
             class="ml-2 mt-5 w-[22.5rem] h-8 lg:w-[56rem] lg:h-10 bg-red-600 border border-red-500 rounded-md font-helvetica-neue font-normal text-[#FFFFFF] text-base leading-6 bg-[#E31221]"
           >
-            Add Quote
+            {{ $t('forms.add_quote.button') }}
           </button>
         </div>
       </div>
@@ -183,6 +185,7 @@
 <script setup>
 import IconPhotoCamera from '@/components/icons/IconPhotoCamera.vue'
 import IconCamera from '@/components/icons/IconCamera.vue'
+import IconX from '@/components/icons/IconX.vue'
 import UserHeader from '@/components/home/movieList/forms/headers/addMovieFormUserHeader.vue'
 import HeaderModifications from '@/components/home/newsFeed/modifications/MoviePageRedirectionHeaderModifications.vue'
 import { useMoviesStore } from '@/stores/useMoviesStore'

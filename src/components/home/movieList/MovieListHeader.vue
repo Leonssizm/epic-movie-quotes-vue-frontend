@@ -14,7 +14,7 @@
         <IconQuestionMark class="mt-3 hidden lg:flex" />
         <input
           @click="isExpanded = !isExpanded"
-          placeholder="search"
+          :placeholder="$t('homePage.news_feed.search_by')"
           class="h-12 bg-[#181624] ml-2 hidden lg:flex outline-none"
           :class="{ 'w-[15rem]': isExpanded, 'w-[5rem]': !isExpanded }"
           type="search"

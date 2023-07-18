@@ -6,6 +6,13 @@
     >
       <div class="rounded-md shadow-lg max-w-md">
         <Form @submit="submitLoginForm" class="bg-[#222030]" v-slot="{ errors }">
+          <button
+            class="text-2xl text-white float-right mr-9 lg:mr-3 mt-2"
+            @click="closeLoginForm"
+            type="button"
+          >
+            <IconX fill="white" />
+          </button>
           <FormLoginHeader />
           <div class="flex flex-col w-[21rem] ml-16 mr-36 font-helvetica-neue text-[#FFFFFF]">
             <label class="pb-2"
@@ -111,6 +118,7 @@
 </template>
 <script setup>
 import IconGoogle from '@/components/icons/IconGoogle.vue'
+import IconX from '@/components/icons/IconX.vue'
 import IconValidInput from '@/components/icons/IconValidInput.vue'
 import IconEye from '@/components/icons/IconEye.vue'
 import IconInvalidInput from '@/components/icons/IconInvalidInput.vue'
@@ -202,6 +210,12 @@ function handleSignInWithGoogle() {
     })
   })
 }
+function closeLoginForm() {
+  router.back()
+  isPopupOpen.value = false
+  document.body.removeEventListener('click', handleClickOutside)
+  document.body.classList.remove('overflow-hidden')
+}
 </script>
 
 <style scoped>
@@ -218,7 +232,7 @@ function handleSignInWithGoogle() {
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.7s;
 }
 .fade-enter-from,
 .fade-leave-to {

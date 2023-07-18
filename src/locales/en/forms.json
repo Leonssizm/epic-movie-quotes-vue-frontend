@@ -7,7 +7,7 @@
         "header":"Edit Movie",
         "button":"save changes"
     }, 
-    "add Quote":{
+    "add_quote":{
         "header":"Write New Quote",
         "button":"Add Quote",
         "movie_select":"Choose Movie"
