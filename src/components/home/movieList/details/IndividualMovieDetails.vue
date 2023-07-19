@@ -21,15 +21,13 @@
       <h1 class="text-[#DDCCAA] w-96 break-words overflow-hidden" v-else>
         {{ moviesStore.movie.title.ka }} ({{ moviesStore.movie.release_year.slice(0, 4) }})
       </h1>
-      <div
-        class="hidden lg:flex justify-around bg-[#24222F] w-36 h-10 items-center mr-24"
-        v-if="authStore.authenticatedUser.id === moviesStore.movie.user_id"
-      >
+      <div class="flex justify-around bg-[#24222F] w-36 h-10 items-center ml-2 lg:mr-24 lg:ml-0">
         <button type="button" @click="openEditMovieModal"><IconEdit /></button>
         <div class="text-gray-600">|</div>
         <button type="button" @click="showMovieDeleteModal = true"><IconDelete /></button>
       </div>
     </div>
+
     <span v-if="locale === 'en'" class="flex flex-wrap mt-3">
       <p
         v-for="(genre, index) in moviesStore.movie.genres"
@@ -92,7 +90,6 @@ import IconEdit from '@/components/icons/IconEdit.vue'
 import IconDelete from '@/components/icons/IconDelete.vue'
 import { useRouter } from 'vue-router'
 import { useMoviesStore } from '@/stores/useMoviesStore'
-import { useAuthStore } from '@/stores/useAuthStore'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { getSingleMovie } from '@/services/api.js'
@@ -100,7 +97,6 @@ import { deleteMovie } from '@/services/api.js'
 
 const router = useRouter()
 const moviesStore = useMoviesStore()
-const authStore = useAuthStore()
 let photoIsLoaded = ref(false)
 let isLoading = ref(true)
 let quotesAreLoaded = ref(true)

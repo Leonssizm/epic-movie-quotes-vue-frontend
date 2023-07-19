@@ -11,7 +11,7 @@
       :key="movie.id"
       class="w-full sm:w-1/2 md:w-1/3 px-10 py-8"
       :class="{
-        'h-screen': store.movies.length < 4
+        'lg:h-screen': store.movies.length < 4
       }"
     >
       <RouterLink :to="{ name: 'movie', params: { id: movie.id } }">

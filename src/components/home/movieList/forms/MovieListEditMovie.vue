@@ -20,31 +20,26 @@
 
         <!-- Select -->
         <div
-          class="relative bg-transparent border rounded border-gray-500 lg:w-[56rem] h-[3rem] w-[22rem] mt-8 lg:ml-8"
+          class="relative bg-transparent border rounded border-gray-500 lg:w-[56rem] h-[3rem] w-[22rem] mt-8 ml-2 lg:ml-8"
+          :class="{
+            'overflow-y-auto': genres.length > 4 || resolution <= 768
+          }"
         >
           <div
             v-for="choice in genres"
             :key="choice.id"
             class="flex ml-2 mt-2 float-left relative z-10"
           >
-            <span v-if="locale === 'en'" class="p-1 bg-gray-600 text-white">
+            <span v-if="locale === 'en'" class="p-1 bg-gray-600 text-white flex mb-2">
               {{ choice.name.en }}
-              <button
-                class="bg-gray-600 text-white pr-1"
-                type="button"
-                @click="removeChoice(choice)"
-              >
-                X
+              <button class="bg-gray-600 text-white" type="button" @click="removeChoice(choice)">
+                <IconX class="h-5" />
               </button>
             </span>
-            <span v-if="locale === 'ka'" class="px-2 py-1 bg-gray-600 text-white">
+            <span v-if="locale === 'ka'" class="px-2 py-1 bg-gray-600 text-white flex">
               {{ choice.name.ka }}
-              <button
-                class="bg-gray-600 text-white pr-1"
-                type="button"
-                @click="removeChoice(choice)"
-              >
-                X
+              <button class="bg-gray-600 text-white" type="button" @click="removeChoice(choice)">
+                <IconX class="h-5" />
               </button>
             </span>
           </div>
