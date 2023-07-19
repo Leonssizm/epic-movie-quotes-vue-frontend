@@ -14,11 +14,11 @@
       {{ moviesStore.movie.title.ka }} ({{ moviesStore.movie.release_year.slice(0, 4) }})
     </h1>
 
-    <span v-if="locale === 'en'" class="flex flex-wrap mt-3">
+    <span v-if="locale === 'en'" class="flex flex-wrap mt-3 w-10 lg:w-full">
       <p
         v-for="(genre, index) in moviesStore.movie.genres"
         :key="genre.id"
-        class="text-white bg-gray-500 p-2 rounded mt-2"
+        class="text-white bg-gray-500 lg:p-2 rounded mt-2"
         :class="{
           'ml-2': index !== 0
         }"
@@ -26,13 +26,13 @@
         {{ genre.name.en }}
       </p>
     </span>
-    <span v-else class="flex flex-wrap mt-3">
+    <span v-else class="flex flex-wrap mt-3 w-10 lg:w-full">
       <p
-        class="text-white bg-gray-500 p-2 rounded mt-2"
+        class="text-white bg-gray-500 lg:p-2 rounded mt-2"
         v-for="(genre, index) in moviesStore.movie.genres"
         :key="genre.id"
         :class="{
-          'ml-2': index !== 0
+          'lg:ml-2': index !== 0
         }"
       >
         {{ genre.name.ka }}

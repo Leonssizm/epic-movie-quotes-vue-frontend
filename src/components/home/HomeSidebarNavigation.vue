@@ -1,6 +1,11 @@
 <template>
   <nav
     class="lg:ml-4 lg:pl-10 px-16 pt-16 lg:px-0 lg: pt-10 absolute bg-[#11101A] lg:bg-[#181624] fixed inset-0 w-80 h-3/4 lg:static lg:h-auto lg:w-auto"
+    :class="{
+      'z-10':
+        router.currentRoute.value.path.match(/^\/quotes\/(\d+)$/) ||
+        router.currentRoute.value.path.match(/^\/quotes\/(\d+)\/edit$/)
+    }"
   >
     <div class="text-[#FFFFFF] font-helvetica-neue flex">
       <img

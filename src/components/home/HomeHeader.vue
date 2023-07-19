@@ -18,7 +18,7 @@
         />
         <div
           v-if="isExpanded"
-          class="bg-[#12101A] fixed top-0 left-0 w-screen h-3/4 flex items-start justify-center lg:hidden"
+          class="bg-[#12101A] fixed top-0 left-0 w-screen h-3/4 flex items-start justify-center lg:hidden z-10"
         >
           <div class="h-3/4 flex flex-col lg:hidden">
             <div class="flex items-center mt-4 lg:hidden">

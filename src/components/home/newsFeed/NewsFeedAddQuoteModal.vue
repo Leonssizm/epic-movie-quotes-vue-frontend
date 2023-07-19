@@ -7,10 +7,12 @@
     >
       <div class="lg:w-1/2 bg-[#11101A] lg:mt-24 h-fit">
         <div class="flex items-start justify-between py-8 border-b-2 border-gray-800">
-          <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto">
+          <h1 class="text-white font-helvetica-neue text-2xl font-bold mx-auto hidden lg:block">
             {{ $t('homePage.quotes.write_new_quote') }}
           </h1>
-          <button class="text-2xl text-white mr-10" @click="router.back()"><IconX /></button>
+          <button class="text-2xl text-white ml-10 lg:ml-0 lg:mr-0" @click="router.back()">
+            <IconX />
+          </button>
         </div>
         <UserHeader />
         <div v-if="userIsRedirectedFromMoviesPage" class="flex mt-4">
@@ -265,6 +267,7 @@ function selectMovie(movie) {
 
 function removeChoice(choice) {
   movies.value = movies.value.filter((genre) => genre.id !== choice.id)
+  selectedMovie.value = ''
 }
 
 onMounted(() => {
